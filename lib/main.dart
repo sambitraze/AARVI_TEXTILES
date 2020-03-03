@@ -45,29 +45,37 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/PoMang');
+              },
               child: Text('Po Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
               onPressed: () {
-                Navigator.pushReplacement(context, '/PoMang');
+                Navigator.pushNamed(context, '/MerchandisingMang');
               },
               child: Text('Merchandising Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/ProductionMang');
+              },
               child: Text('Production Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/QualityMang');
+              },
               child: Text('Quality Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/DocumentationMang');
+              },
               child: Text('Documentation Mangement'),
             ),
           ],
