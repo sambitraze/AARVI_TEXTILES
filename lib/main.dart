@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'Screens/PoMang/PoMang.dart';
+import 'Screens/ProductionMang/ProductionMang.dart';
+import 'Screens/QualityMang/QualityMang.dart';
+import 'Screens/MerchandisingMang/MerchandisingMang.dart';
+import 'Screens/DocumentationMang/DocumentationMang.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,12 +17,12 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
-      '/HomePage': (BuildContext context) => new MyHomePage(),   
-      '/PoMang': (BuildContext context) => new MyHomePage(),         
-      '/MerchandisingMang': (BuildContext context) => new MyHomePage(),     
-      '/ProductionMang': (BuildContext context) => new MyHomePage(),
-      '/QualityMang': (BuildContext context) => new MyHomePage(),      
-      '/DocumentationMang': (BuildContext context) => new MyHomePage(),  
+      '/HomePage': (BuildContext context) => MyHomePage(),   
+      '/PoMang': (BuildContext context) => PoMang(),         
+      '/MerchandisingMang': (BuildContext context) => MerchandisingMang(),     
+      '/ProductionMang': (BuildContext context) => ProductionMnag(),
+      '/QualityMang': (BuildContext context) => QualityMang(),      
+      '/DocumentationMang': (BuildContext context) => DocumentationMang(),  
     },
     );
   }
@@ -40,23 +45,30 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              onPressed: () {}, child: Text('Po Mangement'),
+              onPressed: () {},
+              child: Text('Po Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {}, child: Text('Merchandising Mangement'),
+              onPressed: () {
+                Navigator.pushReplacement(context, '/PoMang');
+              },
+              child: Text('Merchandising Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {}, child: Text('Production Mangement'),
+              onPressed: () {},
+              child: Text('Production Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {}, child: Text('Quality Mangement'),
+              onPressed: () {},
+              child: Text('Quality Mangement'),
             ),
             SizedBox(height: 30),
             RaisedButton(
-              onPressed: () {}, child: Text('Documentation Mangement'),
+              onPressed: () {},
+              child: Text('Documentation Mangement'),
             ),
           ],
         ),
