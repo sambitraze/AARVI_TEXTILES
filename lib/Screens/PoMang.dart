@@ -9,7 +9,7 @@ class _PoMangState extends State<PoMang> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
+      child: Text("HI"),
     );
   }
 }
