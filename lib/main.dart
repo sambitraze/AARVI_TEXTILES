@@ -1,3 +1,5 @@
+import 'package:aarvi_textiles/Screens/HomePage.dart';
+import 'package:aarvi_textiles/Screens/login.dart';
 import 'package:flutter/material.dart';
 import 'Screens/PoMang/PoMang.dart';
 import 'Screens/ProductionMang/ProductionMang.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
+        '/AdminHomePage': (BuildContext context) => HomePage(),
       '/HomePage': (BuildContext context) => MyHomePage(),   
       '/PoMang': (BuildContext context) => PoMang(),         
       '/MerchandisingMang': (BuildContext context) => MerchandisingMang(),     
@@ -32,57 +35,19 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isLoggedIn = false;
+  bool _isAdmin = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/PoMang');
-              },
-              child: Text('Po Mangement'),
-            ),
-            SizedBox(height: 30),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/MerchandisingMang');
-              },
-              child: Text('Merchandising Mangement'),
-            ),
-            SizedBox(height: 30),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/ProductionMang');
-              },
-              child: Text('Production Mangement'),
-            ),
-            SizedBox(height: 30),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/QualityMang');
-              },
-              child: Text('Quality Mangement'),
-            ),
-            SizedBox(height: 30),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/DocumentationMang');
-              },
-              child: Text('Documentation Mangement'),
-            ),
-          ],
-        ),
-      ),
+      body:Loginscreen()
     );
   }
 }
