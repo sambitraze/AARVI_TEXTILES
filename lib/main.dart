@@ -6,7 +6,7 @@ import 'Screens/ProductionMang/ProductionMang.dart';
 import 'Screens/QualityMang/QualityMang.dart';
 import 'Screens/MerchandisingMang/MerchandisingMang.dart';
 import 'Screens/DocumentationMang/DocumentationMang.dart';
-import 'package:aarvi_textiles/Screens/PoMang/BuyersPage.dart';
+import 'package:aarvi_textiles/Screens/PoMang/AddBuyersPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       '/ProductionMang': (BuildContext context) => ProductionMnag(),
       '/QualityMang': (BuildContext context) => QualityMang(),      
       '/DocumentationMang': (BuildContext context) => DocumentationMang(),       
-      '/BuyersPage': (BuildContext context) => BuyersPage(), 
-    },
+      '/AddBuyersPage': (BuildContext context) => AddBuyersPage(), 
+      },
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:aarvi_textiles/Screens/PoMang/Buyer.dart';
-import 'package:aarvi_textiles/Screens/PoMang/BuyersPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'AddBuyersPage.dart';
 
 class PoMang extends StatefulWidget {
   @override
@@ -17,6 +17,44 @@ Widget BuyersList(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
         leading: Icon(Icons.person),
         title: Text(b.name),
         subtitle: Text(b.desc),
+        onTap: () {
+           showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: new Text("Buyer's Details"),
+                content: new Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text('NAME: ' + b.name),
+                      Text('Address: ' + b.address),
+                      Text('Desg: ' + b.desc),
+                      Text('Facbric: ' + b.fabricDetails),
+                      Text('Lable: ' + b.labelDetails),
+                      Text('Packing: ' + b.packingDetails),
+                      Text('Price: ' + b.price.toString()),
+                      Text('Print: ' + b.printDetails),
+                      Text('Quantity: ' + b.quantity.toString()),
+                      Text('Size: ' + b.sizeBreakup),
+                      Text('Style: ' + b.style),
+                      Text('Washing: ' + b.washingDetails),       
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
       );
     },
     itemCount: snapshot.data.documents.length,
@@ -49,43 +87,16 @@ class _PoMangState extends State<PoMang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),      
-//      body: ListView(
-//        children: <Widget>[
-//          ListTile(
-//            leading: Icon(Icons.person),
-//            title: Text('Buyer 1'),
-//            onTap: (){
-//              Navigator.pushNamed(context, '/BuyersPage');
-//            },
-//          ),
-//          ListTile(
-//            leading: Icon(Icons.person),
-//            title: Text('Buyer 2'),
-//          ),
-//          ListTile(
-//            leading: Icon(Icons.person),
-//            title: Text('Buyer 3'),
-//          ),
-//          ListTile(
-//            leading: Icon(Icons.person),
-//            title: Text('Buyer 4'),
-//          ),
-//          ListTile(
-//            leading: Icon(Icons.person),
-//            title: Text('Buyer 5'),
-//          ),
-//        ],
-//      ),
+      appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
       body: StreamBuilder(
         stream: Firestore.instance.collection("Buyer").snapshots(),
         builder: BuyersList,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed:() { Navigator.push(context, MaterialPageRoute(builder: (context) => BuyersPage()));},
+        onPressed:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddBuyersPage()));},
       ),
-    );
+    );    
   }
 }
 

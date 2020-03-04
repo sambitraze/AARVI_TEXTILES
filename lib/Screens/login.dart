@@ -17,74 +17,76 @@ class _LoginscreenState extends State<Loginscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 50,horizontal: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: "Enter Email",
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 50,horizontal: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: "Enter Email",
+                  ),
+                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  },
                 ),
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                autocorrect: true,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Enter Password",
+                SizedBox(
+                  height: 30,
                 ),
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                onChanged: (val) {
-                  setState(() => password = val);
-                },
-              ),
-              SizedBox(
-                height: 35,
-              ),
-              RaisedButton(
-                child: Text("Sign-In"),
-                onPressed: () async {
-                  setState(() {
-                    _loggingIn = true;
-                  });
-                  FirebaseUser user = await _auth.signIn(email, password);
-                  setState(() {
-                    _loggingIn = false;
-                    error = 'Invalid Username and Password!';
-                  });
-                  if(user.uid == null){
-                    user = null;
+                TextFormField(
+                  autocorrect: true,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Enter Password",
+                  ),
+                  validator: (val) => val.isEmpty ? 'Enter password' : null,
+                  onChanged: (val) {
+                    setState(() => password = val);
+                  },
+                ),
+                SizedBox(
+                  height: 35,
+                ),
+                RaisedButton(
+                  child: Text("Sign-In"),
+                  onPressed: () async {
                     setState(() {
-                      error = "Could not log in";
+                      _loggingIn = true;
                     });
-                  }
-                  else{
-                    print(user.uid);
-                    print(user.email);
+                    FirebaseUser user = await _auth.signIn(email, password);
                     setState(() {
-                      error = "";
+                      _loggingIn = false;
+                      error = 'Invalid Username and Password!';
                     });
-                    Navigator.pushNamed(context, '/AdminHomePage');
-                  }
-                },
-              ),
-              Container(
-                child: !_loggingIn? Text(error,
-                style: TextStyle(
-                  color: Colors.red
-                ),): CircularProgressIndicator(),
-              )
-            ],
+                    if(user.uid == null){
+                      user = null;
+                      setState(() {
+                        error = "Could not log in";
+                      });
+                    }
+                    else{
+                      print(user.uid);
+                      print(user.email);
+                      setState(() {
+                        error = "";
+                      });
+                      Navigator.pushNamed(context, '/AdminHomePage');
+                    }
+                  },
+                ),
+                Container(
+                  child: !_loggingIn? Text(error,
+                  style: TextStyle(
+                    color: Colors.red
+                  ),): CircularProgressIndicator(),
+                )
+              ],
+            ),
           ),
         ),
       ),
