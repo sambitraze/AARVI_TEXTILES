@@ -8,8 +8,15 @@ class PoMang extends StatefulWidget {
 class _PoMangState extends State<PoMang> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("HI"),
+    return Scaffold(
+      appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            
+          ],
+        ),
+      ),
     );
   }
 }

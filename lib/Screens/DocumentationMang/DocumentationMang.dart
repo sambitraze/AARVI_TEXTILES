@@ -8,8 +8,6 @@ class DocumentationMang extends StatefulWidget {
 class _DocumentationMangState extends State<DocumentationMang> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child : Text('doc'),
-    );
+    return Scaffold();
   }
 }

@@ -8,8 +8,6 @@ class ProductionMnag extends StatefulWidget {
 class _ProductionMnagState extends State<ProductionMnag> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('pro')
-    );
+    return Scaffold();
   }
 }

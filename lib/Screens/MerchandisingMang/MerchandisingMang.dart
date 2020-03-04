@@ -8,8 +8,6 @@ class MerchandisingMang extends StatefulWidget {
 class _MerchandisingMangState extends State<MerchandisingMang> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Merchandising')
-    );
+    return Scaffold();
   }
 }
