@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
               onPressed: () {
@@ -23,28 +23,24 @@ class _HomePageState extends State<HomePage> {
               child: Text('Po Mangement'),
 
             ),
-            SizedBox(height: 30),
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/MerchandisingMang');
               },
               child: Text('Merchandising Mangement'),
             ),
-            SizedBox(height: 30),
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/ProductionMang');
               },
               child: Text('Production Mangement'),
             ),
-            SizedBox(height: 30),
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/QualityMang');
               },
               child: Text('Quality Mangement'),
             ),
-            SizedBox(height: 30),
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/DocumentationMang');

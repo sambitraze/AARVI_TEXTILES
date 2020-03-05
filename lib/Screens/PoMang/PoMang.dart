@@ -28,7 +28,7 @@ Widget BuyersList(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text('NAME: ' + b.name),
+                      Text('Name: ' + b.name),
                       Text('Address: ' + b.address),
                       Text('Desg: ' + b.desc),
                       Text('Facbric: ' + b.fabricDetails),

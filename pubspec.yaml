@@ -24,6 +24,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   firebase_auth: ^0.15.5+2
   cloud_firestore:
+  image_picker:
 
 
 dev_dependencies:
