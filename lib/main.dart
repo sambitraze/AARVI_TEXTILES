@@ -1,4 +1,8 @@
 import 'package:aarvi_textiles/Screens/HomePage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
 import 'package:flutter/material.dart';
 import 'Screens/PoMang/PoMang.dart';
@@ -27,7 +31,12 @@ class MyApp extends StatelessWidget {
       '/ProductionMang': (BuildContext context) => ProductionMnag(),
       '/QualityMang': (BuildContext context) => QualityMang(),      
       '/DocumentationMang': (BuildContext context) => DocumentationMang(),       
-      '/AddBuyersPage': (BuildContext context) => AddBuyersPage(), 
+      '/AddBuyersPage': (BuildContext context) => AddBuyersPage(),
+        //Production Page Routes
+        '/CuttingPage':(BuildContext context) => CuttingPage(),
+        '/SewingPage':(BuildContext context) => SewingPage(),
+        '/PackagingPage':(BuildContext context) => PackagingPage(),
+        '/FinishingPage':(BuildContext context) => FinishingPage(),
       },
     );
   }
