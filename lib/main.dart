@@ -7,6 +7,10 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTrack.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/StockMang.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMang.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/TnA.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
 import 'package:flutter/material.dart';
 import 'Screens/PoMang/PoMang.dart';
@@ -36,14 +40,10 @@ class MyApp extends StatelessWidget {
       '/QualityMang': (BuildContext context) => QualityMang(),      
       '/DocumentationMang': (BuildContext context) => DocumentationMang(),       
       '/AddBuyersPage': (BuildContext context) => AddBuyersPage(),
-      '/BoM': (BuildContext context) => BoM(),
-      '/TnA': (BuildContext context) => TnA(),
-      '/FabricEnquiry': (BuildContext context) => FabricEnquiry(),
-      '/StockMang': (BuildContext context) => StockMang(),
-      '/SampleTrack': (BuildContext context) => SampleTrack(),
-      '/OrderTrack': (BuildContext context) => OrderTrack(),
-      '/SuppliersMang': (BuildContext context) => SuppliersMang(),
-      '/BuyersMang': (BuildContext context) => BuyersMang(),
+      '/CuttingPage':(BuildContext context) => CuttingPage(),
+      '/SewingPage':(BuildContext context) => SewingPage(),
+      '/PackagingPage':(BuildContext context) => PackagingPage(),
+       '/FinishingPage':(BuildContext context) => FinishingPage(),
       },
     );
   }
