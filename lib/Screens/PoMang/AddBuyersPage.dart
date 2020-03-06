@@ -1,6 +1,7 @@
 import 'package:aarvi_textiles/Screens/PoMang/Buyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 InputDecoration inputDec(String labelText){
   return InputDecoration(
@@ -32,7 +33,15 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
   String description = '';
   String quantity = '';
   String sizeBreakup = '';
-  
+  String fabricDetails = '';
+  String printDetails = '';
+  String washingDetails = '';
+  String labelDetails = '';
+  String price = '';
+  String packingDetails = '';
+  String shippingDetails = '';
+  String other = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +49,9 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
         title: Text("Add Buyer"),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
         child: Form(
           child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
             child: Column(
               children: <Widget>[
                 TextFormField(
@@ -72,6 +81,32 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                 TextFormField(
                   decoration: inputDec("Size Breakup"),
                   onChanged: (val) => sizeBreakup = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec('Fabric Details'),
+                  onChanged: (val) => fabricDetails,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec("Print Details"),
+                  onChanged: (val) => printDetails = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec('Washing Details'),
+                  onChanged: (val) => washingDetails = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec("Label/Tag Details"),
+                  onChanged: (val) => packingDetails = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: inputDec("Price in ₹"),
+                  onChanged: (val) => price = val,
                 ),
                 leaveSpace(),
                 RaisedButton(

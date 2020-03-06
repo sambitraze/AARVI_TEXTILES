@@ -9,7 +9,7 @@ class SewingPage extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.fromLTRB(30, 30, 30, 100),
-              child: Text("Cutting",
+              child: Text("Sewing",
                 style: TextStyle(fontSize: 30,color: Colors.brown),),
             ),
             Column(

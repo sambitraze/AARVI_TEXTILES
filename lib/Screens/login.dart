@@ -75,10 +75,20 @@ class _LoginscreenState extends State<Loginscreen> {
                       setState(() {
                         error = "";
                       });
-                      Navigator.pushNamed(context, '/AdminHomePage');
                     }
                   },
                 ),
+                RaisedButton(
+                  child: Text("Sign in (ONLY FOR DEBUG)"),
+                  onPressed: () async {
+                    _loggingIn = true;
+                    AuthResult result = await FirebaseAuth.instance.signInAnonymously();
+                    print(result.user.uid);
+                    _loggingIn = false;
+                    Navigator.pushNamed(context, '/AdminHomePage');
+                  },
+                ),
+
                 Container(
                   child: !_loggingIn? Text(error,
                   style: TextStyle(
