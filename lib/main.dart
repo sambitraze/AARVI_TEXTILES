@@ -17,7 +17,6 @@ import 'Screens/PoMang/PoMang.dart';
 import 'Screens/ProductionMang/ProductionMang.dart';
 import 'Screens/QualityMang/QualityMang.dart';
 import 'Screens/MerchandisingMang/MerchandisingMang.dart';
-import 'Screens/DocumentationMang/DocumentationMang.dart';
 import 'package:aarvi_textiles/Screens/PoMang/AddBuyersPage.dart';
 
 void main() => runApp(MyApp());
@@ -37,8 +36,7 @@ class MyApp extends StatelessWidget {
       '/PoMang': (BuildContext context) => PoMang(),         
       '/MerchandisingMang': (BuildContext context) => MerchandisingMang(),     
       '/ProductionMang': (BuildContext context) => ProductionMnag(),
-      '/QualityMang': (BuildContext context) => QualityMang(),      
-      '/DocumentationMang': (BuildContext context) => DocumentationMang(),       
+      '/QualityMang': (BuildContext context) => QualityMang(),          
       '/AddBuyersPage': (BuildContext context) => AddBuyersPage(),
       '/CuttingPage': (BuildContext context) => CuttingPage(),
       '/SewingPage': (BuildContext context) => SewingPage(),
