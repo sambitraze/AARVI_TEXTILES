@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       '/SampleTrack': (BuildContext context) => SampleTrack(),
         //Sub Screens
        '/Pattern': (BuildContext context) => SampleTrackPattern(),
-        '/Cutting':(BuildContext context) => SampleTrackCutting(),
+       '/Cutting':(BuildContext context) => SampleTrackCutting(),
       '/StockMang': (BuildContext context) => StockMang(),
       '/SuppliersMang': (BuildContext context) => SuppliersMang(),
       '/TnA': (BuildContext context) => TnA(),

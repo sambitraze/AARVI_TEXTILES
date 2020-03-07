@@ -8,6 +8,15 @@ class SuppliersMang extends StatefulWidget {
 class _SuppliersMangState extends State<SuppliersMang> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(title: Text('Suppliers Mangaement')),
+      body: Container(
+        child: Column(
+          children: <Widget> [
+            
+          ],
+        ),
+      ),
+    );
   }
 }
