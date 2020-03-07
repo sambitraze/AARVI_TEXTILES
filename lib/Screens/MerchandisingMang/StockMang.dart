@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter/material.dart';
 
 class StockMang extends StatefulWidget {
@@ -7,10 +8,13 @@ class StockMang extends StatefulWidget {
 
 class _StockMangState extends State<StockMang> {
   final mycontroller = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  Styles s;
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(title: Text('Stock Management')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -31,9 +35,16 @@ class _StockMangState extends State<StockMang> {
             ),
           ),
           RaisedButton(
-              onPressed: () {
-                if(mycontroller.text == 'h')
-                  print('hi');
+              onPressed: () async {
+                s = Styles.getObjectFromStyleNo(styleNo: mycontroller.value.text);
+                _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Loading"),));
+                if(await s.getStock() == true){
+                  //TODO Preferably navigate to show data
+
+                }
+                else{
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Style does not exist"),));
+                }
               },
               child: Text('Search'),
             ),
