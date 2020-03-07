@@ -54,6 +54,14 @@ class Buyer{
       'address':address,
       'other':other
     });
+    await Firestore.instance.collection("Style").document(style).setData({
+      'buyer':name,
+      'styleNo':style,
+      'orderQuantitiy':quantity,
+      'fabricDetails':fabricDetails,
+      'packingDetails':packingDetails,
+      'printDetails':printDetails,
+    });
   }
   Future updateData() async {
     await Firestore.instance.collection("Buyer").document(name).updateData({
@@ -70,6 +78,14 @@ class Buyer{
       'packingDetails':packingDetails,
       'address':address,
       'other':other
+    });
+    await Firestore.instance.collection("Style").document(style).updateData({
+      'buyer':name,
+      'styleNo':style,
+      'orderQuantitiy':quantity,
+      'fabricDetails':fabricDetails,
+      'packingDetails':packingDetails,
+      'printDetails':printDetails,
     });
   }
 
