@@ -7,7 +7,7 @@ class SampleTrack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Sample Trackiing"),
       ),
       body: Center(
         child: Column(

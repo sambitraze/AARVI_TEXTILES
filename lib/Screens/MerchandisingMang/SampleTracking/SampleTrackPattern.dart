@@ -3,6 +3,7 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 class SampleTrackPattern extends StatefulWidget {
   @override
   _SampleTrackPatternState createState() => _SampleTrackPatternState();
@@ -78,7 +79,22 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                     },
                   ),
                   SizedBox(height: 50,),
-
+                  // FlatButton(
+                  // onPressed: () {
+                  //   DatePicker.showDateTimePicker(context, showTitleActions: true,
+                  //   onChanged: (date) {
+                  //     print('change $date in time zone ' +
+                  //     date.timeZoneOffset.inHours.toString());
+                  //   },
+                  //   onConfirm: (date) {
+                  //    print('confirm $date');
+                  //   },
+                  //   currentTime: DateTime(2008, 12, 31, 23, 12, 34));
+                  // },
+                  // child: Text(
+                  //   'show date time picker (English-America)',
+                  //   style: TextStyle(color: Colors.blue),
+                  // )),
                   SizedBox(
                     height: 20,
                   ),
