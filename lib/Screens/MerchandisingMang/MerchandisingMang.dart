@@ -10,12 +10,12 @@ class _MerchandisingMangState extends State<MerchandisingMang> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Merchandising Management"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+          children: <Widget>[          
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/BoM');
