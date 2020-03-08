@@ -21,16 +21,12 @@ class ProductionManagement extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Production Mangement"),
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 30, 30, 0),
-              child: Text("Production Management",
-                style: TextStyle(fontSize: 30,color: Colors.brown),),
-            ),
             Column(
               children: <Widget>[
                 RaisedButton(
@@ -39,19 +35,19 @@ class ProductionManagement extends StatelessWidget {
                     Navigator.pushNamed(context, '/CuttingPage');
                   },
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 RaisedButton(
                   child: Text("Sewing"),
                   onPressed: (){
                     Navigator.pushNamed(context, '/SewingPage');
                   },
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 RaisedButton(
                   child: Text("Finishing"),
                   onPressed: (){Navigator.pushNamed(context, '/FinishingPage');},
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 50,),
                 RaisedButton(
                   child: Text("Packing"),
                   onPressed: (){
