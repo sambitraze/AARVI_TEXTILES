@@ -8,6 +8,11 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTr
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackPattern.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/StockMang.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMang.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/CartonSup.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/FabricSup.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/LabelTagSup.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/PolybagSup.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/TrimSup.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/TnA.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
@@ -31,6 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
+      // theme: ThemeData.dark(),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
       '/AdminHomePage': (BuildContext context) => HomePage(),
@@ -50,10 +56,16 @@ class MyApp extends StatelessWidget {
       '/OrderTrack': (BuildContext context) => OrderTrack(),
       '/SampleTrack': (BuildContext context) => SampleTrack(),
         //Sub Screens
-       '/Pattern': (BuildContext context) => SampleTrackPattern(),
-       '/Cutting':(BuildContext context) => SampleTrackCutting(),
+        '/Pattern': (BuildContext context) => SampleTrackPattern(),
+        '/Cutting':(BuildContext context) => SampleTrackCutting(),
       '/StockMang': (BuildContext context) => StockMang(),
       '/SuppliersMang': (BuildContext context) => SuppliersMang(),
+      //subScrrens
+        '/FabricSup': (BuildContext context) => FabricSup(),
+        '/TrimSup': (BuildContext context) => Trimsup(),
+        '/LabelTagSup': (BuildContext context) => LabelTagSup(),
+        '/PolybagSup': (BuildContext context) => PolybagSup(),
+        '/CartonSup': (BuildContext context) => CartonSup(),
       '/TnA': (BuildContext context) => TnA(),
       },
     );

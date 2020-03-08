@@ -8,6 +8,9 @@ class BuyersMang extends StatefulWidget {
 class _BuyersMangState extends State<BuyersMang> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(title: Text('Buyers Management')),
+      //search for existing buyers and add additonal buyers.
+    );
   }
 }
