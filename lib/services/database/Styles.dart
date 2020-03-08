@@ -75,7 +75,8 @@ class Styles{
    Styles s;
    await document.get().then((value) async {
      if(value.exists){
-       s = Styles.setSampleTrack(styleNo: value.data['styleNo'],patternCompleted: value.data['patternCompleted'],patternCorrectionReq: value.data['patternCorrectionRequired'],expectedDateOfPatternCompletion: DateTime.now());
+       s = Styles.setSampleTrack(styleNo: value.data['styleNo'],patternCompleted: value.data['patternCompleted'],patternCorrectionReq: value.data['patternCorrectionRequired'],
+           expectedDateOfPatternCompletion: (value.data['expectedDateOfPatternCompletion'] as Timestamp).toDate());
        print("FETCHED");
      }
      else{
@@ -94,7 +95,7 @@ class Styles{
     await doc.get().then((value) {
       if(value.exists){
         print("Exists");
-        s = Styles.getCutting(styleNo: value.data['styleNo'],totalPiecesToBeCut: value.data['totalPiecesToBeCut'],expectedDateToCutting: value.data['expectedDateToCutting'],
+        s = Styles.getCutting(styleNo: value.data['styleNo'],totalPiecesToBeCut: value.data['totalPiecesToBeCut'],expectedDateToCutting: (value.data['expectedDateToCutting'] as Timestamp).toDate(),
         cuttingReq: (value.data['cuttingReq'] ?? false),cuttingManPowerReq: value.data['cuttingManPowerReq'],sampleType: value.data['sampleType']);
       }
       else{
@@ -112,6 +113,7 @@ class Styles{
           'manPowerRequired': this.cuttingManPowerReq,
           'sampleType': this
               .sampleType,
+          'expectedDateOfCuttingCompletion':expectedDateToCutting
         });
       } catch (e) {
         print(e.toString());

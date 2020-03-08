@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 class SampleTrackCutting extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class SampleTrackCutting extends StatefulWidget {
 }
 
 class _SampleTrackCuttingState extends State<SampleTrackCutting> {
+
   final _formKey = GlobalKey<FormState>();
   final _styleController = TextEditingController();
   bool _reCuttingRequired = false;
@@ -22,18 +24,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
   String manPowerReq;
   String sampleType;
   Styles s;
-
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
+  DateTime etc;
 
   @override
   Widget build(BuildContext context) {
@@ -105,23 +96,27 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  // FlatButton(
-                  //   onPressed: () {
-                  //   DatePicker.showDateTimePicker(context, showTitleActions: true,
-                  //     onChanged: (date) {
-                  //       print('change $date in time zone ' +
-                  //       date.timeZoneOffset.inHours.toString());
-                  //   }, 
-                  //   onConfirm: (date) {
-                  //     print('confirm $date');
-                  //   },
-                  //   currentTime: DateTime(2020, 3, 1, 23, 12, 34));
-                  // },
-                  // child: Text(
-                  //   'show date time picker (English-America)',
-                  //   style: TextStyle(color: Colors.blue),
-                  // )),
-                  // SizedBox(height: 20,),
+                   FlatButton(
+                     onPressed: () {
+                     DatePicker.showDateTimePicker(context, showTitleActions: true,
+                       onChanged: (date) {
+                         print('change $date in time zone ' +
+                         date.timeZoneOffset.inHours.toString());
+                     },
+                     onConfirm: (date) {
+                       print(etc);
+                       print('confirm $date');
+                       setState(() {
+                         etc = date;
+                       });
+                     },
+                     currentTime: DateTime.now() );
+                   },
+                   child: Text(
+                     'Expected Date to Cutting:' + ( etc != null ? DateFormat('yyyy-MM-dd').format(etc) : ''),
+                     style: TextStyle(color: Colors.blue),
+                   )),
+                   SizedBox(height: 20,),
 
                   TextFormField(
                     initialValue: (manPowerReq ?? ''),
@@ -172,8 +167,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                     onPressed: () async {
                       Styles s;
                       _snackBarKey.currentState.showSnackBar(SnackBar(content: Text("Updating"),));
-                      //TODO Implement Date Picker
-                      s = Styles.getCutting(styleNo: _styleController.value.text,totalPiecesToBeCut: int.parse(totalPieces),expectedDateToCutting: DateTime.now(),
+                      s = Styles.getCutting(styleNo: _styleController.value.text,totalPiecesToBeCut: int.parse(totalPieces),expectedDateToCutting: etc,
                       cuttingReq: _reCuttingRequired,cuttingManPowerReq: manPowerReq,sampleType: sampleType);
                       await s.updateSampleCutting(s,_update);
                     },
