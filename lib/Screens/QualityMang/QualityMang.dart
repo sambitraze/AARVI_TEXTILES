@@ -8,6 +8,8 @@ class QualityMang extends StatefulWidget {
 class _QualityMangState extends State<QualityMang> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(title: Text('Quality Mangement')),
+    );
   }
 }

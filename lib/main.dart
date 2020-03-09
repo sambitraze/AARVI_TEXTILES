@@ -15,6 +15,9 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/Poly
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/TrimSup.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/TnA.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CutOrderPlan.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CuttingQuality.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingPlan.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
@@ -41,32 +44,41 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
       '/AdminHomePage': (BuildContext context) => HomePage(),
       '/HomePage': (BuildContext context) => MyHomePage(),   
-      '/PoMang': (BuildContext context) => PoMang(),         
-      '/MerchandisingMang': (BuildContext context) => MerchandisingMang(),     
+      '/PoMang': (BuildContext context) => PoMang(),
+        '/AddBuyersPage': (BuildContext context) => AddBuyersPage(),         
+      '/MerchandisingMang': (BuildContext context) => MerchandisingMang(),
+        '/BoM': (BuildContext context) => BoM(),
+        '/BuyersMang':(BuildContext context) => BuyersMang(),
+        '/FabricEnquiry':(BuildContext context) => FabricEnquiry(),
+        '/OrderTrack': (BuildContext context) => OrderTrack(),
+        '/SampleTrack': (BuildContext context) => SampleTrack(), 
+          '/Pattern': (BuildContext context) => SampleTrackPattern(),
+          '/Cutting':(BuildContext context) => SampleTrackCutting(), 
+        '/StockMang': (BuildContext context) => StockMang(),
+        '/SuppliersMang': (BuildContext context) => SuppliersMang(),
+          '/FabricSup': (BuildContext context) => FabricSup(),
+          '/TrimSup': (BuildContext context) => Trimsup(),
+          '/LabelTagSup': (BuildContext context) => LabelTagSup(),
+          '/PolybagSup': (BuildContext context) => PolybagSup(),
+          '/CartonSup': (BuildContext context) => CartonSup(),   
+        '/TnA': (BuildContext context) => TnA(),
       '/ProductionMang': (BuildContext context) => ProductionMnag(),
+        '/CuttingPage': (BuildContext context) => CuttingPage(),
+          '/CutOrderPlan': (BuildContext context) => CutOrderPlan(),
+          '/DailyCuttingPlan': (BuildContext context) => DailyCuttingPlan(),
+          '/CuttingQuality': (BuildContext context) => CuttingQuality(),          
+        '/SewingPage': (BuildContext context) => SewingPage(),
+        '/PackagingPage': (BuildContext context) => PackagingPage(),
+        '/FinishingPage': (BuildContext context) => FinishingPage(),
       '/QualityMang': (BuildContext context) => QualityMang(),          
-      '/AddBuyersPage': (BuildContext context) => AddBuyersPage(),
-      '/CuttingPage': (BuildContext context) => CuttingPage(),
-      '/SewingPage': (BuildContext context) => SewingPage(),
-      '/PackagingPage': (BuildContext context) => PackagingPage(),
-      '/FinishingPage': (BuildContext context) => FinishingPage(),
-      '/BoM': (BuildContext context) => BoM(),
-      '/BuyersMang':(BuildContext context) => BuyersMang(),
-      '/FabricEnquiry':(BuildContext context) => FabricEnquiry(),
-      '/OrderTrack': (BuildContext context) => OrderTrack(),
-      '/SampleTrack': (BuildContext context) => SampleTrack(),
-        //Sub Screens
-        '/Pattern': (BuildContext context) => SampleTrackPattern(),
-        '/Cutting':(BuildContext context) => SampleTrackCutting(),
-      '/StockMang': (BuildContext context) => StockMang(),
-      '/SuppliersMang': (BuildContext context) => SuppliersMang(),
+      
+      
+      
+        
+      
       //subScrrens
-        '/FabricSup': (BuildContext context) => FabricSup(),
-        '/TrimSup': (BuildContext context) => Trimsup(),
-        '/LabelTagSup': (BuildContext context) => LabelTagSup(),
-        '/PolybagSup': (BuildContext context) => PolybagSup(),
-        '/CartonSup': (BuildContext context) => CartonSup(),
-      '/TnA': (BuildContext context) => TnA(),
+        
+     
       },
     );
   }

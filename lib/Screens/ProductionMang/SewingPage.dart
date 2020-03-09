@@ -3,32 +3,22 @@ class SewingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Aaarvi Textiles"),),
+      appBar: AppBar(title: Text("Sewing-production management"),),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 30, 30, 100),
-              child: Text("Sewing",
-                style: TextStyle(fontSize: 30,color: Colors.brown),),
+            RaisedButton(
+              child: Text("Daily Production Report"),
+              onPressed: (){},
             ),
-            Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Daily Production"),
-                  onPressed: (){},
-                ),
-                SizedBox(height: 30),
-                RaisedButton(
-                  child: Text("Hourly Production"),
-                  onPressed: (){},
-                ),
-                SizedBox(height: 30),
-                RaisedButton(
-                  child: Text("IE Management"),
-                  onPressed: (){},
-                )
-              ],
+            RaisedButton(
+              child: Text("Hourly Production Report"),
+              onPressed: (){},
+            ),
+            RaisedButton(
+              child: Text("IE Management"),
+              onPressed: (){},
             )
           ],
         ),

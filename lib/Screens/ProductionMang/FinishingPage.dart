@@ -38,7 +38,7 @@ class _FinishingPageState extends State<FinishingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Aarvi Textiles")),
+      appBar: AppBar(title: Text("Finishing-Production Management")),
       body: Container(
         child: Form(
           child: SingleChildScrollView(

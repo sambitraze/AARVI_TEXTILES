@@ -35,7 +35,7 @@ class _PackagingPageState extends State<PackagingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Aarvi Textiles")),
+      appBar: AppBar(title: Text("Packing-Production Management")),
       body: Container(
         child: Form(
           child: SingleChildScrollView(
