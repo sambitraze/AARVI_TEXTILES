@@ -17,7 +17,7 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/TnA.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CutOrderPlan.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CuttingQuality.dart';
-import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingPlan.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingReport.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
       '/ProductionMang': (BuildContext context) => ProductionMnag(),
         '/CuttingPage': (BuildContext context) => CuttingPage(),
           '/CutOrderPlan': (BuildContext context) => CutOrderPlan(),
-          '/DailyCuttingPlan': (BuildContext context) => DailyCuttingPlan(),
+          '/DailyCuttingPlan': (BuildContext context) => DailyCuttingReport(),
           '/CuttingQuality': (BuildContext context) => CuttingQuality(),          
         '/SewingPage': (BuildContext context) => SewingPage(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
