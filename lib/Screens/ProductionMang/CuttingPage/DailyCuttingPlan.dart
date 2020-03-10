@@ -10,6 +10,11 @@ class _DailyCuttingPlanState extends State<DailyCuttingPlan> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Daily Cutting Plan')),
+      body: Container(
+        child: Column(
+          
+        )
+      ),
     );
   }
 }

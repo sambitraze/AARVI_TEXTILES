@@ -7,7 +7,10 @@ class CutOrderPlan extends StatefulWidget {
 
 class _CutOrderPlanState extends State<CutOrderPlan> {  
   String styleNo;
-  String orederQuantity;
+  String orderQuantity;
+  String color;
+  String lays;
+  String piles;
   
   String xssize;
   String ssize;
@@ -16,8 +19,6 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
   String xlsize;
   String xxlsize;
   String xxsize;
-
-  final tabletextcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,10 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               TextFormField(
-                onChanged: (val) => styleNo = val,
+                onChanged: (val) {
+                  styleNo = val;
+                  print('$styleNo');
+                },
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -38,7 +42,10 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter Style No"),
               ),
               TextFormField(
-                onChanged: (val) => styleNo = val,
+                onChanged: (val) {
+                  orderQuantity = val;
+                  print('$orderQuantity');
+                },
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -46,7 +53,10 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter Order Quantity"),
               ),
               TextFormField(
-                onChanged: (val) => styleNo = val,
+                onChanged: (val) {
+                  color = val;
+                  print('$color');
+                },
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -54,7 +64,10 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter Colour"),
               ),
               TextFormField(
-                onChanged: (val) => styleNo = val,
+                onChanged: (val) {
+                  lays = val;
+                  print('$color');
+                },
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -62,7 +75,10 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter No of Lays"),
               ),
               TextFormField(
-                onChanged: (val) => styleNo = val,
+                onChanged: (val) {
+                  piles = val;
+                  print('$piles');
+                },
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -101,40 +117,34 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                   TableRow( children: [
                     Column(children:[
                       TextField(
-                        onChanged: (val) => xssize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
+                        onChanged: (val) => xssize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
-                        onChanged: (val) => ssize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
+                        onChanged: (val) => ssize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
-                        onChanged: (val) => msize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
+                        onChanged: (val) => msize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
-                        onChanged: (val) => lsize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
-                      ),                      
-                    ]),
-                    Column(children:[
-                      TextField(
-                        onChanged: (val) => xlsize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
+                        onChanged: (val) => lsize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
-                        onChanged: (val) => xxlsize = tabletextcontroller.toString(),
-                        controller: tabletextcontroller,
+                        onChanged: (val) => xlsize = val,
                       )
                     ]),
+                    Column(children:[
+                      TextField(
+                        onChanged: (val) => xxlsize = val,
+                      )
+                    ]),                                  
                   ]),
                 ],
               )
