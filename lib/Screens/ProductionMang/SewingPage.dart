@@ -14,7 +14,9 @@ class SewingPage extends StatelessWidget {
             ),
             RaisedButton(
               child: Text("Hourly Production Report"),
-              onPressed: (){},
+              onPressed: (){
+                Navigator.pushNamed(context, '/SewingHourlyProduction');
+              },
             ),
             RaisedButton(
               child: Text("IE Management"),
