@@ -21,6 +21,7 @@ import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingRe
 import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/HourlyProduction.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
           '/DailyCuttingPlan': (BuildContext context) => DailyCuttingReport(),
           '/CuttingQuality': (BuildContext context) => CuttingQuality(),          
         '/SewingPage': (BuildContext context) => SewingPage(),
+          '/DailyProductionReport': (BuildContext context) => DailyProductionReport(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
         '/FinishingPage': (BuildContext context) => FinishingPage(),
       '/QualityMang': (BuildContext context) => QualityMang(),          
