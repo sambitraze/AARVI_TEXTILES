@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             FlatButton(
@@ -24,7 +24,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/PoMang');
               },
-              child: Text('Po Mangement', style: TextStyle(fontSize: 25.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('images/po.png', height: 100.0, width: 100.0,),
+                  Text('Po Mangement')
+                ],
+              )
             ),
             FlatButton(
               color: Colors.grey[300],
@@ -33,7 +39,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/MerchandisingMang');
               },
-              child: Text('Merchandising Mangement', style: TextStyle(fontSize: 25.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('images/merchandise.png', height: 100.0, width: 100.0,),
+                  Text('Merchandising Mangement')
+                ],
+              )
             ),
             FlatButton(
               color: Colors.grey[300],
@@ -42,7 +54,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/ProductionMang');
               },
-              child: Text('Production Mangement', style: TextStyle(fontSize: 25.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('images/production.png', height: 100, width: 100,),
+                  Text('Production Mangement')
+                ],
+              )
             ),
             FlatButton(
               color: Colors.grey[300],
@@ -51,7 +69,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/QualityMang');
               },
-              child: Text('Quality Mangement', style: TextStyle(fontSize: 25.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('images/quality.png', height: 100.0, width: 100.0,),
+                  Text('Quality Mangement')
+                ],
+              )
             ),
           ],
         ),
