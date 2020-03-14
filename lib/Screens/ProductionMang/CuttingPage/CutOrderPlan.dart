@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -8,19 +10,19 @@ class CutOrderPlan extends StatefulWidget {
 
 class _CutOrderPlanState extends State<CutOrderPlan> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String styleNo;
-  String orderQuantity;
-  String color;
-  String lays;
-  String piles;
+  final styleNo = TextEditingController();
+  final orderQuantity= TextEditingController();
+  final color= TextEditingController();
+  final lays= TextEditingController();
+  final piles= TextEditingController();
   
-  String xssize;
-  String ssize;
-  String msize;
-  String lsize;
-  String xlsize;
-  String xxlsize;
-  String xxsize;
+  final xssize= TextEditingController();
+  final ssize= TextEditingController();
+  final msize= TextEditingController();
+  final lsize= TextEditingController();
+  final xlsize= TextEditingController();
+  final xxlsize= TextEditingController();
+  final xxsize= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +36,33 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               TextFormField(
-                onChanged: (val) {
-                  styleNo = val;
-                  print('$styleNo');
-                },
+                controller: styleNo,
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
                     filled: true,
-                    labelText: "Enter Style No"),
+                    labelText: "Enter Style No"
+                ),
+                onEditingComplete:() async {
+                  await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) {
+                    if(value.exists){
+                      var data = value.data;
+                      orderQuantity.text = data['order_quantity'] ?? '';
+                      color.text = data['color'] ?? '';
+                      lays.text = data['cutting_no_of_lays'] ?? '';
+                      piles.text = data['cutting_piles_per_day'] ?? '';
+                      xssize.text = data['sizes']['xs'] ?? '';
+                      msize.text = data['sizes']['m'] ?? '';
+                      ssize.text = data['sizes']['s'] ?? '';
+                      lsize.text = data['sizes']['l'] ?? '';
+                      xlsize.text = data['sizes']['xl'] ?? '';
+                      xxlsize.text = data['sizes']['xxl'] ?? '';
+                    }
+                  });
+                } ,
               ),
               TextFormField(
-                onChanged: (val) {
-                  orderQuantity = val;
-                  print('$orderQuantity');
-                },
+                controller: orderQuantity,
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -56,10 +70,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter Order Quantity"),
               ),
               TextFormField(
-                onChanged: (val) {
-                  color = val;
-                  print('$color');
-                },
+                controller: color,
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -67,10 +78,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter Colour"),
               ),
               TextFormField(
-                onChanged: (val) {
-                  lays = val;
-                  print('$color');
-                },
+                controller: lays,
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -79,10 +87,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
-                onChanged: (val) {
-                  piles = val;
-                  print('$piles');
-                },
+                controller: piles,
                 decoration: InputDecoration(
                     focusColor: Colors.white,
                     fillColor: Colors.white,
@@ -122,59 +127,60 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => xssize = val,
+                        controller: xssize,
                       )
                     ]),
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => ssize = val,
+                        controller: ssize,
                       )
                     ]),
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => msize = val,
+                        controller: msize,
                       )
                     ]),
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => lsize = val,
+                        controller: lsize,
                       )
                     ]),
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => xlsize = val,
+                        controller: xlsize,
                       )
                     ]),
                     Column(children:[
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (val) => xxlsize = val,
+                        controller: xxlsize,
                       )
                     ]),                                  
                   ]),
                 ],
               ),
               MaterialButton(
+                //TODO fix button color
                 child: Text("Submit"),
                 onPressed: () async {
                   scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Uploading"),));
                   Map<String,dynamic> stylesList = {
-                    'xs':xssize,
-                    's':ssize,
-                    'm':msize,
-                    'l':lsize,
-                    'xl':xlsize,
-                    'xxl':xxlsize
+                    'xs':xssize.value.text,
+                    's':ssize.value.text,
+                    'm':msize.value.text,
+                    'l':lsize.value.text,
+                    'xl':xlsize.value.text,
+                    'xxl':xxlsize.value.text
                   };
-                  await Firestore.instance.collection("Style").document(styleNo).updateData({
-                    'order_quantity':orderQuantity,
-                    'cutting_colour':color,
-                    'cutting_no_of_lays':lays,
-                    'cutting_piles_per_day':piles,
+                  await Firestore.instance.collection("aarvi").document(styleNo.text).updateData({
+                    'order_quantity':orderQuantity.value.text,
+                    'cutting_colour':color.value.text,
+                    'cutting_no_of_lays':lays.value.text,
+                    'cutting_piles_per_day':piles.value.text,
                     'sizes':stylesList
                   });
                   scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Done"),));

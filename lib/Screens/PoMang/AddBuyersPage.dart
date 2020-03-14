@@ -60,7 +60,8 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Product/Style Name"),
+                  keyboardType: TextInputType.number,
+                  decoration: inputDec("Product/Style Number"),
                   onChanged: (val) => style = val,
                 ),
                 SizedBox(
@@ -85,7 +86,7 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec('Fabric Details'),
-                  onChanged: (val) => fabricDetails,
+                  onChanged: (val) => fabricDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -100,7 +101,7 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Label/Tag Details"),
-                  onChanged: (val) => packingDetails = val,
+                  onChanged: (val) => labelDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -109,10 +110,27 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                   onChanged: (val) => price = val,
                 ),
                 leaveSpace(),
+                TextFormField(
+                  decoration: inputDec("Packing Details"),
+                  onChanged: (val) => packingDetails = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec("Shipping Address"),
+                  onChanged: (val) => shippingDetails = val,
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: inputDec("Other"),
+                  onChanged: (val) => other = val,
+                ),
+                leaveSpace(),
                 RaisedButton(
                   child: Text("Submit") ,
                   onPressed: () async {
-                    Buyer buyer = Buyer(name: name,style: style,desc: description,quantity: int.parse(quantity),sizeBreakup: sizeBreakup);
+                    Buyer buyer = Buyer(name: name,style: style,desc: description,quantity: quantity,sizeBreakup: sizeBreakup,
+                    fabricDetails: fabricDetails,printDetails: printDetails,washingDetails: washingDetails,labelDetails: labelDetails,
+                    price: price,packingDetails: packingDetails,address: shippingDetails,other: other);
                     await buyer.setData();
                     Navigator.pop(context);
                   },

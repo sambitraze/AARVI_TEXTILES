@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -12,11 +13,11 @@ class _OrderTrackState extends State<OrderTrack> {
   bool _textEnabled = true;
   DateTime orderedDate;
   DateTime dispatchedDate;
-  String orderStatus;
-  String buyer;
+  final orderStatus = TextEditingController();
+  final buyer = TextEditingController();
   final _snackBarKey = GlobalKey<ScaffoldState>();
   bool _update = true;
-  String totalPieces;
+  final totalPieces = TextEditingController();
   Styles s;
   @override
   Widget build(BuildContext context) {
@@ -47,23 +48,38 @@ class _OrderTrackState extends State<OrderTrack> {
                   RaisedButton(
                     child: Text("Fetch"),
                     onPressed: () async {
-                      s = await Styles.getCuttingFromStyleNo(_styleController.value.text);
-                      if(s == null){
-                        _update = false;
-                        print("No record");
-                      }
-                      else
-                        setState(() {
-                          print("Exist");
-                        });
+                      await Firestore.instance.collection('aarvi').document(_styleController.value.text).get().then((value) {
+                        if(value.exists){
+                          print("HEY");
+                          _update = true;
+                          buyer.text = value.data['buyer'].toString() ?? '';
+                          totalPieces.text = value.data['order_quantity'] ?? '';
+                          if(value.data['order_confirmation_date']==null)
+                            orderedDate = null;
+                          else
+                            orderedDate = (value.data['order_confirmation_date'] as Timestamp).toDate();
+                          if(value.data['order_dispatch_date']==null)
+                            dispatchedDate = null;
+                          else
+                            dispatchedDate = (value.data['order_dispatch_date'] as Timestamp).toDate();
+                          orderStatus.text = value.data['order_status'] ?? '';
+                        }
+                        else{
+                          _update = false;
+                        }
+                      });
+                      if(!_update)
+                       _snackBarKey.currentState.showSnackBar(SnackBar(content: Text("Style does not exist"),));
+                      setState(() {
+
+                      });
                     },
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   TextFormField(
-                    initialValue: 'xyz',
-                    onChanged: (val) => buyer = val,
+                    controller: buyer,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       labelText: "Name of Buyer",
@@ -78,8 +94,7 @@ class _OrderTrackState extends State<OrderTrack> {
                     height: 20,
                   ),
                   TextFormField(
-                    initialValue: (totalPieces ?? 0).toString(),
-                    onChanged: (val) => totalPieces = val,
+                    controller: totalPieces,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Total Pieces to be Cut",
@@ -100,10 +115,13 @@ class _OrderTrackState extends State<OrderTrack> {
                         print('change $orderedDate in time zone ' +
                         orderedDate.timeZoneOffset.inHours.toString());
                     }, 
-                    onConfirm: (orderedDate) {
-                      print('confirm $orderedDate');
+                    onConfirm: (val) {
+                      print('confirm $val');
+                      setState(() {
+                        orderedDate = val;
+                      });
                     },
-                    currentTime: DateTime(2020, 3, 1, 23, 12, 34));
+                    currentTime: DateTime.now());
                   },
                   child: Text(
                     'set Order ConfirmationDate',
@@ -123,10 +141,13 @@ class _OrderTrackState extends State<OrderTrack> {
                         print('change $dispatchedDate in time zone ' +
                         dispatchedDate.timeZoneOffset.inHours.toString());
                     }, 
-                    onConfirm: (dispatchedDate) {
-                      print('confirm $dispatchedDate');
+                    onConfirm: (val) {
+                      print('confirm $val');
+                      setState(() {
+                        dispatchedDate = val;
+                      });
                     },
-                    currentTime: DateTime(2020, 3, 1, 23, 12, 34));
+                    currentTime: DateTime.now());
                   },
                   child: Text(
                     'set Order DispatchDate',
@@ -141,8 +162,7 @@ class _OrderTrackState extends State<OrderTrack> {
                   ),
                   TextFormField(
                     // add dropdown
-                    initialValue: 'on its way',
-                    onChanged: (val) => buyer = val,
+                    controller: orderStatus,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       labelText: "Status of order",
@@ -153,6 +173,16 @@ class _OrderTrackState extends State<OrderTrack> {
                       ),
                     ),
                   ),
+                  FlatButton(
+                    child: Text("Submit"),
+                    onPressed: () async {
+                      await Firestore.instance.collection('aarvi').document(_styleController.value.text).updateData({
+                        'order_confirmation_date':orderedDate,
+                        'order_dispatch_date':dispatchedDate,
+                        'order_status':orderStatus.value.text
+                      });
+                    },
+                  )
                 ],
               ),
             ),

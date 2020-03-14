@@ -26,7 +26,7 @@ SizedBox leaveSpace() {
 }
 
 class _CuttingQualityState extends State<CuttingQuality> {
-  String styleNo, buyer, fabric, layNo, size, totalPartChecked, pass, fail;
+  TextEditingController styleNo, buyer, fabric, layNo, size, totalPartChecked, pass, fail;
 
   DateTime date;
 
@@ -42,17 +42,18 @@ class _CuttingQualityState extends State<CuttingQuality> {
               children: <Widget>[
                 TextFormField(
                   decoration: inputDec("Style Number"),
-                  onChanged: (val) => styleNo = val,
+                  controller: styleNo,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Buyer"),
-                  onChanged: (val) => buyer = val,
+                  controller: buyer,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextFormField(
+                  //TODO get date picker
                   decoration: inputDec("Date"),
                   onChanged: (val) => date = val as DateTime,
                 ),
@@ -60,33 +61,33 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 TextFormField(
                   decoration: inputDec("Lay Number"),
                   keyboardType: TextInputType.number,
-                  onChanged: (val) => layNo = val,
+                  controller: layNo,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Size"),
-                  onChanged: (val) => size = val,
+                  controller: size,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Part Checked"),
-                  onChanged: (val) => totalPartChecked = val,
+                  controller: totalPartChecked,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Pass"),
-                  onChanged: (val) => pass = val,
+                  controller: pass,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Fail"),
-                  onChanged: (val) => fail = val,
+                  controller: fail,
                   keyboardType: TextInputType.number,
                 ),
-                //TODO fix data dable
+                //TODO fix data table
                 SingleChildScrollView(
                   child: DataTable(
                     columns: [
@@ -110,7 +111,9 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 leaveSpace(),
                 RaisedButton(
                   child: Text("Submit"),
-                  onPressed: () {},
+                  onPressed: () async {
+
+                  },
                 )
               ],
             ),

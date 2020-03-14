@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SewingHourlyProduction extends StatefulWidget {
@@ -23,12 +24,23 @@ SizedBox leaveSpace(){
   );
 }
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
-  String styleNo,buyer,orderQty,totalCutPiecesRecieved,todayStitch,tillDateStitch,balance,todaySendToFinishing,totalSendToFinishing,finishingBalance;
+  final _scaffoldState = GlobalKey<ScaffoldState>();
+  final styleNo = TextEditingController();
+  final buyer = TextEditingController();
+  final orderQty = TextEditingController();
+  final totalCut = TextEditingController();
+  final todayStitch = TextEditingController();
+  final totalStitch = TextEditingController();
+  final todayFinish = TextEditingController();
+  final totalFinish = TextEditingController();
+  final finishBalance = TextEditingController();
+  final sewingBalance = TextEditingController();
   DateTime date;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(title: Text("Daily Production Report")),
       body: Container(
         child: Form(
@@ -38,12 +50,27 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
               children: <Widget>[
                 TextFormField(
                   decoration: inputDec("Style Number"),
-                  onChanged: (val) => styleNo = val,
+                  controller: styleNo,
+                  onEditingComplete: () async {
+                    await Firestore.instance.collection('aarvi').document(styleNo.text).get().then((value) {
+                      if(value.exists){
+                        var data = value.data;
+                        buyer.text = data['buyer'] ?? '';
+                        orderQty.text = data['order_quantity'] ?? '0';
+                        totalCut.text = data['total_issued_sewing'] ?? '0';
+                        totalStitch.text = data['sewing_total_stitch'] ?? '0';
+                        sewingBalance.text = data['sewing_balance'] ?? '0';
+                        totalFinish.text = data['sewing_total_send_to_finish'];
+                        finishBalance.text = data['finish_balance'];
+                      }
+                    });
+                  },
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Buyer"),
-                  onChanged: (val) => buyer = val,
+                  controller: buyer,
+                  enabled: false,
                 ),
                 SizedBox(
                   height: 10,
@@ -56,59 +83,61 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                 TextFormField(
                   decoration: inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
-                  onChanged: (val) => orderQty = val,
+                  controller: orderQty,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Cut Pieces Received"),
-                  onChanged: (val) => totalCutPiecesRecieved = val,
+                  controller: totalCut,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Stitch"),
-                  onChanged: (val)=> todayStitch = val,
+                  controller: todayStitch,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Till Date Stitch"),
-                  onChanged: (val) => tillDateStitch = val,
+                  controller: totalStitch,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Balance"),
-                  onChanged: (val) => balance = val,
+                  controller: sewingBalance,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Send to Finsihing"),
-                  onChanged: (val) => todaySendToFinishing = val,
+                  controller: todayFinish,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Send to Finishing"),
-                  onChanged: (val) => totalSendToFinishing = val,
+                  controller: totalFinish,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Finishing Balance"),
-                  onChanged: (val) => finishingBalance = val,
+                  controller: finishBalance,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 RaisedButton(
                   child: Text("Submit") ,
-                  onPressed: () {},
+                  onPressed: () async {
+
+                  },
                 )
               ],
             ),

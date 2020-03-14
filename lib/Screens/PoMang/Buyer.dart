@@ -7,13 +7,13 @@ class Buyer{
   String name;
   String style;
   String desc;
-  int quantity;
+  String quantity;
   String sizeBreakup;
   String fabricDetails;
   String printDetails;
   String washingDetails;
   String labelDetails;
-  double price;
+  String price;
   String packingDetails;
   String address;
   String other;
@@ -21,71 +21,54 @@ class Buyer{
   this.washingDetails,this.labelDetails,this.price,this.packingDetails,this.address,this.other});
 
   Buyer.convert(DocumentSnapshot snapshot){
-    this.name = snapshot['name'] ?? " ";
+    this.name = snapshot['buyer'] ?? " ";
     this.style = snapshot['style'] ?? " ";
-    this.desc = snapshot['desc']?? " ";
-    this.quantity = int.parse(snapshot['qty'].toString()) ?? 0;
-    this.sizeBreakup = snapshot['sizeBreakup'] ?? "";
-    this.fabricDetails = snapshot['fabricDetails'] ?? '';
-    this.printDetails = snapshot['printDetails'] ?? '';
-    this.washingDetails = snapshot['washingDetails'] ?? '';
-    this.labelDetails = snapshot['labelDetails'] ?? '';
-    if(snapshot['price']==null)
-      this.price = 0;
-    else
-      this.price = double.parse(snapshot['price'].toString());
+    this.desc = snapshot['description']?? " ";
+    this.quantity = snapshot['order_quantity'];
+    this.sizeBreakup = snapshot['size_breakup'] ?? "";
+    this.fabricDetails = snapshot['fabric_details'] ?? '';
+    this.printDetails = snapshot['print_details'] ?? '';
+    this.washingDetails = snapshot['washing_details'] ?? '';
+    this.labelDetails = snapshot['label_details'] ?? '';
+    this.price = snapshot['price'] ?? '';
     this.packingDetails = snapshot['packingDetails'] ?? '';
     this.address = snapshot['address'] ?? '';
     this.other = snapshot['other'] ?? '';
   }
   Future setData() async {
-    await Firestore.instance.collection("Buyer").document(name).setData({
+    await Firestore.instance.collection("aarvi").document(style).setData({
       'name':name,
       'style':style,
-      'desc':desc,
-      'qty':quantity,
-      'sizeBreakup':sizeBreakup,
-      'fabricDetails':fabricDetails,
-      'printDetails':printDetails,
-      'washingDetails':washingDetails,
-      'labelDetails':labelDetails,
+      'description':desc,
+      'order_quantity':quantity,
+      'size_breakup':sizeBreakup,
+      'fabric_details':fabricDetails,
+      'print_details':printDetails,
+      'washing_details':washingDetails,
+      'label_details':labelDetails,
       'price':price,
-      'packingDetails':packingDetails,
+      'packing_details':packingDetails,
       'address':address,
-      'other':other
-    });
-    await Firestore.instance.collection("Style").document(style).setData({
+      'other':other,
       'buyer':name,
-      'styleNo':style,
-      'orderQuantitiy':quantity,
-      'fabricDetails':fabricDetails,
-      'packingDetails':packingDetails,
-      'printDetails':printDetails,
     });
   }
   Future updateData() async {
-    await Firestore.instance.collection("Buyer").document(name).updateData({
+    await Firestore.instance.collection("aarvi").document(style).updateData({
       'name':name,
       'style':style,
-      'desc':desc,
-      'qty':quantity,
-      'sizeBreakup':sizeBreakup,
-      'fabricDetails':fabricDetails,
-      'printDetails':printDetails,
-      'washingDetails':washingDetails,
-      'labelDetails':labelDetails,
+      'description':desc,
+      'order_quantity':quantity,
+      'size_breakup':sizeBreakup,
+      'fabric_details':fabricDetails,
+      'print_details':printDetails,
+      'washing_details':washingDetails,
+      'label_details':labelDetails,
       'price':price,
-      'packingDetails':packingDetails,
+      'packing_details':packingDetails,
       'address':address,
-      'other':other
-    });
-    await Firestore.instance.collection("Style").document(style).updateData({
+      'other':other,
       'buyer':name,
-      'styleNo':style,
-      'orderQuantitiy':quantity,
-      'fabricDetails':fabricDetails,
-      'packingDetails':packingDetails,
-      'printDetails':printDetails,
     });
   }
 

@@ -49,11 +49,11 @@ class Styles{
   Future updateSamplePattern(Styles sample,bool update) async {
     if(update == true) {
       try {
-        Firestore.instance.collection('Style').document(styleNo).updateData({
-          'styleNo': this.styleNo,
-          'patternCompleted': this.patternCompleted,
-          'patternCorrectionRequired': this.patternCorrectionReq,
-          'expectedDateOfPatternCompletion': this
+        Firestore.instance.collection('aarvi').document(styleNo).updateData({
+          'style': this.styleNo,
+          'pattern_completed': this.patternCompleted,
+          'pattern_correction_required': this.patternCorrectionReq,
+          'expected_date_of_pattern_completion': this
               .expectedDateOfPatternCompletion,
         });
       } catch (e) {
@@ -61,22 +61,23 @@ class Styles{
       }
     }
     else{
-      Firestore.instance.collection('Style').document(styleNo).setData({
-        'styleNo':this.styleNo,
-        'patternCompleted':this.patternCompleted,
-        'patternCorrectionRequired':this.patternCorrectionReq,
-        'expectedDateOfPatternCompletion':this.expectedDateOfPatternCompletion,
-    });
+      Firestore.instance.collection('aarvi').document(styleNo).updateData({
+        'style': this.styleNo,
+        'pattern_completed': this.patternCompleted,
+        'pattern_correction_required': this.patternCorrectionReq,
+        'expected_date_of_pattern_completion': this
+            .expectedDateOfPatternCompletion,
+      });
     }
   }
 
   static Future<Styles> getSamplePatternTrack(String styleNo) async {
-   var document = await Firestore.instance.collection('Style').document(styleNo);
+   var document = await Firestore.instance.collection('aarvi').document(styleNo);
    Styles s;
    await document.get().then((value) async {
      if(value.exists){
-       s = Styles.setSampleTrack(styleNo: value.data['styleNo'],patternCompleted: value.data['patternCompleted'],patternCorrectionReq: value.data['patternCorrectionRequired'],
-           expectedDateOfPatternCompletion: (value.data['expectedDateOfPatternCompletion'] as Timestamp).toDate());
+       s = Styles.setSampleTrack(styleNo: value.data['style'],patternCompleted: value.data['pattern_completed'],patternCorrectionReq: value.data['pattern_correction_required'],
+           expectedDateOfPatternCompletion: (value.data['expected_date_of_pattern_completion'] as Timestamp).toDate());
        print("FETCHED");
      }
      else{
@@ -91,12 +92,12 @@ class Styles{
   Styles.getCutting({this.styleNo,this.totalPiecesToBeCut,this.expectedDateToCutting,this.cuttingReq,this.cuttingManPowerReq,this.sampleType});
   static Future <Styles> getCuttingFromStyleNo(String styleNo) async {
     Styles s;
-    var doc =  Firestore.instance.collection('Style').document(styleNo);
+    var doc =  Firestore.instance.collection('aarvi').document(styleNo);
     await doc.get().then((value) {
       if(value.exists){
         print("Exists");
-        s = Styles.getCutting(styleNo: value.data['styleNo'],totalPiecesToBeCut: value.data['totalPiecesToBeCut'],expectedDateToCutting: (value.data['expectedDateToCutting'] as Timestamp).toDate(),
-        cuttingReq: (value.data['cuttingReq'] ?? false),cuttingManPowerReq: value.data['cuttingManPowerReq'],sampleType: value.data['sampleType']);
+        s = Styles.getCutting(styleNo: value.data['style'],totalPiecesToBeCut: value.data['cutting_total_pieces'],expectedDateToCutting: (value.data['cutting_expected_date'] as Timestamp).toDate(),
+        cuttingReq: (value.data['cutting_required'] ?? false),cuttingManPowerReq: value.data['cutting_manpower_required'],sampleType: value.data['cutting_sample_type']);
       }
       else{
         s = null;
@@ -107,26 +108,24 @@ class Styles{
   Future updateSampleCutting(Styles sample,bool update) async {
     if(update == true) {
       try {
-        Firestore.instance.collection('Style').document(styleNo).updateData({
-          'styleNo': this.styleNo,
+        Firestore.instance.collection('aarvi').document(styleNo).updateData({
           'cutting_total_pieces': this.totalPiecesToBeCut,
           'cutting_manpower_required': this.cuttingManPowerReq,
-          'cutting_sampleType': this
+          'cutting_sample_type': this
               .sampleType,
-          'cutting_expected_date_of_completion':expectedDateToCutting
+          'cutting_expected_date':expectedDateToCutting
         });
       } catch (e) {
         print(e.toString());
       }
     }
     else{
-      Firestore.instance.collection('Style').document(styleNo).setData({
-        'styleNo': this.styleNo,
+      Firestore.instance.collection('aarvi').document(styleNo).updateData({
         'cutting_total_pieces': this.totalPiecesToBeCut,
         'cutting_manpower_required': this.cuttingManPowerReq,
-        'cutting_sampleType': this
+        'cutting_sample_type': this
             .sampleType,
-        'cutting_expected_date_of_completion':expectedDateToCutting
+        'cutting_expected_date':expectedDateToCutting
       });
     }
   }
@@ -134,10 +133,10 @@ class Styles{
   //Bill of Material
   static Future<Styles> getStyleFromStyleNo(String style) async {
     Styles s;
-    await Firestore.instance.collection('Style').document(style).get().then((value){
+    await Firestore.instance.collection('aarvi').document(style).get().then((value){
       if(value.exists){
         try{
-          s = Styles.getObjectFromStyleNo(styleNo: value.data['styleNo']);
+          s = Styles.getObjectFromStyleNo(styleNo: value.data['style']);
           print(s.styleNo + "In function");
         }catch(e){
           print(e.toString());
@@ -164,8 +163,8 @@ class Styles{
     await uploadTask.onComplete;
     if(uploadTask.isSuccessful){
       billOfMaterial = await storageRef.getDownloadURL();
-      Firestore.instance.collection('Style').document(styleNo).updateData({
-        'billOfMaterial':billOfMaterial
+      Firestore.instance.collection('aarvi').document(styleNo).updateData({
+        'bill_of_material':billOfMaterial
       });
       return true;
     }
@@ -186,7 +185,7 @@ class Styles{
     await uploadTask.onComplete;
     if(uploadTask.isSuccessful){
       tnaFile = await storageRef.getDownloadURL();
-      Firestore.instance.collection('Style').document(styleNo).updateData({
+      Firestore.instance.collection('aarvi').document(styleNo).updateData({
         'TnA':tnaFile
       });
       return true;
@@ -199,16 +198,16 @@ class Styles{
   //Fabric enquiry
   Future<bool> getFabricDetails() async {
     bool exists = false;
-      await Firestore.instance.collection('Style').document(styleNo).get().then((value){
+      await Firestore.instance.collection('aarvi').document(styleNo).get().then((value){
         if(value.exists){
           var data = value.data;
           buyer = data['buyer'] ?? '';
-          fabricDetails = data['fabricDetails'] ?? '';
+          fabricDetails = data['fabric_details'] ?? '';
           gsm = data['gsm'] ?? '0';
-          printDetails = data['printDetails'] ?? '';
-          washingDetails = data['washingDetails'] ?? '';
-          totalFabricReq = data['totalFabricRequired'] ?? '0';
-          totalDefectedFabric = data['totalDefectedFabric'] ?? '0';
+          printDetails = data['print_details'] ?? '';
+          washingDetails = data['washing_details'] ?? '';
+          totalFabricReq = data['total_fabric_required'] ?? '0';
+          totalDefectedFabric = data['total_defective_fabric'] ?? '0';
           exists = true;
         }
       });
@@ -217,13 +216,13 @@ class Styles{
 
   Future<bool> getStock() async {
     bool exists = false;
-    await Firestore.instance.collection('Style').document(styleNo).get().then((value){
+    await Firestore.instance.collection('aarvi').document(styleNo).get().then((value){
       if(value.exists){
         var data = value.data;
-        fabricDetails = data['fabricDetails'] ?? '';
-        availableFabric = data['availableFabirc'] ?? '0';
-        trimsDetails = data['trimsDetails'] ?? '';
-        trimsAvailable = data['trimsAvailable'] ?? '0';
+        fabricDetails = data['fabric_details'] ?? '';
+        availableFabric = data['available_fabric'] ?? '0';
+        trimsDetails = data['trims_details'] ?? '';
+        trimsAvailable = data['trims_available'] ?? '0';
         exists = true;
       }
     });

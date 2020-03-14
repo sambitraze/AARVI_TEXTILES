@@ -30,7 +30,7 @@ Widget BuyersList(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
                     children: <Widget>[
                       Text('Name: ' + b.name),
                       Text('Address: ' + b.address),
-                      Text('Desg: ' + b.desc),
+                      Text('Desc: ' + b.desc),
                       Text('Facbric: ' + b.fabricDetails),
                       Text('Lable: ' + b.labelDetails),
                       Text('Packing: ' + b.packingDetails),
@@ -89,7 +89,7 @@ class _PoMangState extends State<PoMang> {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
       body: StreamBuilder(
-        stream: Firestore.instance.collection("Buyer").snapshots(),
+        stream: Firestore.instance.collection("aarvi").snapshots(),
         builder: BuyersList,
       ),
       floatingActionButton: FloatingActionButton(

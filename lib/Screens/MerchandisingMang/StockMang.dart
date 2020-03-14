@@ -40,7 +40,6 @@ class _StockMangState extends State<StockMang> {
                 _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Loading"),));
                 if(await s.getStock() == true){
                   //TODO Preferably navigate to show data
-
                 }
                 else{
                   _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Style does not exist"),));

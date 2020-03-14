@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DailyCuttingReport extends StatefulWidget {
   @override
@@ -25,8 +27,19 @@ SizedBox leaveSpace(){
 }
 
 class _DailyCuttingReportState extends State<DailyCuttingReport> {
-  String styleNo,buyer,orderQty,fabricReq,fabricRec,fabricBalance,todayCut,totalCut,cutBalance,todayIssuedSewing,
-  totalIssuedSewing,sewingBalance;
+  final styleNo = TextEditingController();
+  final buyer = TextEditingController();
+  final orderQty = TextEditingController();
+  final fabricReq = TextEditingController();
+  final fabricRec = TextEditingController();
+  final fabricBalance = TextEditingController();
+  final todayCut = TextEditingController();
+  final totalCut = TextEditingController();
+  final cutBalance = TextEditingController();
+  final todayIssuedSewing = TextEditingController();
+  final totalIssuedSewing = TextEditingController();
+  final sewingBalance = TextEditingController();
+  int total;
   DateTime date;
   @override
   Widget build(BuildContext context) {
@@ -40,91 +53,146 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
               children: <Widget>[
                 TextFormField(
                   decoration: inputDec("Style Number"),
-                  onChanged: (val) => styleNo = val,
+                  controller: styleNo,
+                  onEditingComplete: () async {
+                    await Firestore.instance.collection('aarvi').document('678').get().then((value) {
+                      if(value.exists){
+                        print("Got");
+                        var data = value.data;
+                        buyer.text = data['buyer'] ?? '';
+                        orderQty.text = data['order_quantity'] ?? '0';
+                        fabricReq.text = data['fabric_required'] ?? '0';
+                        fabricRec.text = data['fabric_received'] ?? '0';
+                        totalCut.text = data['cutting_total_cut'] ?? '0';
+                        total = int.parse(totalCut.text);
+                        cutBalance.text = data['cut_balance'] ?? '0';
+                        totalIssuedSewing.text = data['total_issued_sewing'] ?? '0';
+                        sewingBalance.text = data['sewing_balance'] ?? '0';
+                      }
+                    });
+                    setState(() {
+                      print("HI");
+                    });
+                  },
                 ),
                 leaveSpace(),
                 TextFormField(
+                  enabled: false,
                   decoration: inputDec("Buyer"),
-                  onChanged: (val) => buyer = val,
+                  controller: buyer,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextFormField(
+                  //TODO get datepicker here
                   decoration: inputDec("Date"),
+                  keyboardType: TextInputType.datetime,
                   onChanged: (val) => date = val as DateTime,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
-                  onChanged: (val) => orderQty = val,
+                  controller: orderQty,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Fabric Required"),
-                  onChanged: (val) => fabricReq = val,
+                  controller: fabricReq,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Fabric Received"),
-                  onChanged: (val)=> fabricRec = val,
+                  controller: fabricRec,
                   keyboardType: TextInputType.number,
+                  onChanged: ((value){
+                    fabricBalance.text = (int.parse(fabricReq.text) - int.parse(fabricRec.text)).toString();
+                    setState(() {
+
+                    });
+                  }),
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Fabric Balance"),
-                  onChanged: (val) => fabricBalance = val,
+                  controller: fabricBalance,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Cut"),
-                  onChanged: (val) => todayCut = val,
+                  controller: todayCut,
                   keyboardType: TextInputType.number,
-
+                  onChanged: (value){
+                    setState(() {
+                      totalCut.text = (int.parse(value) + total).toString();
+                    });
+                  },
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Cut"),
-                  onChanged: (val) => totalCut = val,
+                  controller: totalCut,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Cut Balance"),
-                  onChanged: (val) => cutBalance = val,
+                  controller: cutBalance,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Issued to Sewing"),
-                  onChanged: (val) => totalIssuedSewing = val,
+                  controller: todayIssuedSewing,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Issued to Sewing"),
-                  onChanged: (val) => totalIssuedSewing = val,
+                  controller: totalIssuedSewing,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Sewing Balance"),
-                  onChanged: (val) => sewingBalance = val,
+                  controller: sewingBalance,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 RaisedButton(
                   child: Text("Submit") ,
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('DailyCuttingReport')
+                        .document(DateFormat('dd-MM-yyyy').format(DateTime.now())).setData({
+                      'fabric_required':fabricRec.value.text,
+                      'fabric_received':fabricRec.value.text,
+                      'fabric_balance':fabricBalance.value.text,
+                      'today_cut':todayCut.value.text,
+                      'cutting_total_cut':totalCut.value.text,
+                      'cut_balance':cutBalance.value.text,
+                      'today_issued_sewing':todayIssuedSewing.value.text,
+                      'total_issued_sewing':totalIssuedSewing.value.text,
+                      'sewing_balance':sewingBalance.value.text
+                    });
+                    //TODO do math part and fetching and date
+                    await Firestore.instance.collection('aarvi').document(styleNo.value.text).updateData({
+                      'fabric_required':fabricRec.value.text,
+                      'fabric_received':fabricRec.value.text,
+                      'fabric_balance':fabricBalance.value.text,
+                      'cutting_total_cut':totalCut.value.text,
+                      'cut_balance':cutBalance.value.text,
+                      'total_issued_sewing':totalIssuedSewing.value.text,
+                    });
+                  },
                 )
               ],
             ),
