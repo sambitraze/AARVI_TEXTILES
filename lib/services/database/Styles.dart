@@ -109,11 +109,11 @@ class Styles{
       try {
         Firestore.instance.collection('Style').document(styleNo).updateData({
           'styleNo': this.styleNo,
-          'totalPiecesToBeCut': this.totalPiecesToBeCut,
-          'manPowerRequired': this.cuttingManPowerReq,
-          'sampleType': this
+          'cutting_total_pieces': this.totalPiecesToBeCut,
+          'cutting_manpower_required': this.cuttingManPowerReq,
+          'cutting_sampleType': this
               .sampleType,
-          'expectedDateOfCuttingCompletion':expectedDateToCutting
+          'cutting_expected_date_of_completion':expectedDateToCutting
         });
       } catch (e) {
         print(e.toString());
@@ -122,10 +122,11 @@ class Styles{
     else{
       Firestore.instance.collection('Style').document(styleNo).setData({
         'styleNo': this.styleNo,
-        'totalPiecesToBeCut': this.totalPiecesToBeCut,
-        'manPowerRequired': this.cuttingManPowerReq,
-        'sampleType': this
+        'cutting_total_pieces': this.totalPiecesToBeCut,
+        'cutting_manpower_required': this.cuttingManPowerReq,
+        'cutting_sampleType': this
             .sampleType,
+        'cutting_expected_date_of_completion':expectedDateToCutting
       });
     }
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CutOrderPlan extends StatefulWidget {
@@ -5,7 +6,8 @@ class CutOrderPlan extends StatefulWidget {
   _CutOrderPlanState createState() => _CutOrderPlanState();
 }
 
-class _CutOrderPlanState extends State<CutOrderPlan> {  
+class _CutOrderPlanState extends State<CutOrderPlan> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   String styleNo;
   String orderQuantity;
   String color;
@@ -23,6 +25,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(title: Text('Cut Order plan')),
       body: Container(
         child: Padding(
@@ -75,6 +78,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     labelText: "Enter No of Lays"),
               ),
               TextFormField(
+                keyboardType: TextInputType.number,
                 onChanged: (val) {
                   piles = val;
                   print('$piles');
@@ -117,36 +121,64 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                   TableRow( children: [
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => xssize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => ssize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => msize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => lsize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => xlsize = val,
                       )
                     ]),
                     Column(children:[
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (val) => xxlsize = val,
                       )
                     ]),                                  
                   ]),
                 ],
+              ),
+              MaterialButton(
+                child: Text("Submit"),
+                onPressed: () async {
+                  scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Uploading"),));
+                  Map<String,dynamic> stylesList = {
+                    'xs':xssize,
+                    's':ssize,
+                    'm':msize,
+                    'l':lsize,
+                    'xl':xlsize,
+                    'xxl':xxlsize
+                  };
+                  await Firestore.instance.collection("Style").document(styleNo).updateData({
+                    'order_quantity':orderQuantity,
+                    'cutting_colour':color,
+                    'cutting_no_of_lays':lays,
+                    'cutting_piles_per_day':piles,
+                    'sizes':stylesList
+                  });
+                  scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Done"),));
+                },
               )
             ],
           ),
