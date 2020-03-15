@@ -95,7 +95,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isLoggedIn = false;
+  bool _isLoggedIntion = false;
   bool _isAdmin = false;
 
   @override

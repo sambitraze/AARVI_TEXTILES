@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:json_table/json_table.dart';
 
 class SewingHourlyProduction extends StatefulWidget {
@@ -20,45 +18,67 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
       setState(() {
         response = json.decode(s);
         print(response);
+        loaded = true;
       });
-      });
-    // var jsonResult = jsonDecode(jsonData);
-    // print(jsonResult);
-    // return jsonResult;
+    });
   }
-  // dynamic json;
-  // bool loaded = false;
-  // void setJson() async {
-  //   json = await loadVaue();
-  //   setState(() {
-  //     loaded = true;
-  //   });
-  // }
-  // @override
-  // void initState() {
-  //   setJson();
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
-  
+  bool loaded = false;
+
   @override
   Widget build(BuildContext context) {   
     return Scaffold(
-      appBar: AppBar(title: Text('Hourly Production Report')),
+      appBar: AppBar(title: Text('Hourly Production report')),
       body: Container(
-        child: Column(
-          children: <Widget>[
-            // JsonTable(response),
-             FlatButton(onPressed: (){loadVaue();}, child: Text('hel')),
-          ],
-        )
-        // child: Column(
-        //   children: <Widget>[
-        //     FlatButton(onPressed: (){loadVaue();}, child: Text('hel')),
-            
-        //   ],
-        // )
+        padding: EdgeInsets.all(16.0),
+        child: !loaded ? CircularProgressIndicator(): Column(
+                children: [
+                  JsonTable(
+                    response,
+                    showColumnToggle: true,
+                    tableHeaderBuilder: (String header) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5),
+                            color: Colors.grey[300]),
+                        child: Text(
+                          header,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14.0,
+                              color: Colors.black87),
+                        ),
+                      );
+                    },
+                    tableCellBuilder: (value) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 4.0, vertical: 2.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 0.5,
+                                color: Colors.grey.withOpacity(0.5))),
+                        child: Text(
+                          value,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              fontSize: 14.0, color: Colors.grey[900]),
+                        ),
+                      );
+                    },
+                    allowRowHighlight: true,
+                    rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
+                    paginationRowCount: 4,
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Text("Simple table which creates table direclty from json")
+                ],
+              )
       ),
     );
-  }
+  }   
 }
