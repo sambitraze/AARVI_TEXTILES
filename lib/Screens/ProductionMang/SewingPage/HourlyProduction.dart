@@ -14,13 +14,28 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
     print(jsonResult);
     return jsonResult;
   }
+  bool loaded = false;
+  dynamic json;
+  void setJson() async{
+    json = await loadValue();
+    setState(() {
+      loaded = true;
+    });
+  }
+
+  @override
+  void initState() {
+    setJson();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    dynamic json = loadValue();
+
     return Scaffold(
       appBar: AppBar(title: Text('Hourly Production Report')),
       body: Container(
-      child: Column(
+      child: !loaded? Container() : Column(
         children: <Widget>[
           JsonTable(
             json,
