@@ -17,6 +17,7 @@ dependencies:
   intl:
   flutter_datetime_picker: ^1.3.4
   json_table:
+  datetime_picker_formfield: ^1.0.0
 
 dev_dependencies:
   flutter_test:
