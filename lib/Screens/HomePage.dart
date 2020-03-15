@@ -28,7 +28,8 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('images/po.png', height: 100.0, width: 100.0,),
-                  Text('Po Mangement')
+                  Text('Po Mangement'),
+                  SizedBox(height: 15)
                 ],
               )
             ),
@@ -43,7 +44,8 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('images/merchandise.png', height: 100.0, width: 100.0,),
-                  Text('Merchandising Mangement')
+                  Text('Merchandising Mangement'),
+                  SizedBox(height: 15)
                 ],
               )
             ),
@@ -58,7 +60,8 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('images/production.png', height: 100, width: 100,),
-                  Text('Production Mangement')
+                  Text('Production Mangement'),
+                  SizedBox(height: 15)
                 ],
               )
             ),
@@ -73,7 +76,8 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('images/quality.png', height: 100.0, width: 100.0,),
-                  Text('Quality Mangement')
+                  Text('Quality Mangement'),
+                  SizedBox(height: 15)
                 ],
               )
             ),
