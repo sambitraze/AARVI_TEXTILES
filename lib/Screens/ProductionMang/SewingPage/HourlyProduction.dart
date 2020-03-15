@@ -1,6 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:json_table/json_table.dart';
 
 class SewingHourlyProduction extends StatefulWidget {
@@ -8,77 +9,34 @@ class SewingHourlyProduction extends StatefulWidget {
   _SewingHourlyProductionState createState() => _SewingHourlyProductionState();
 }
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
-  Future<dynamic> loadValue () async {    
-    String jsonData = await DefaultAssetBundle.of(context).loadString("assets/HPR.json"); 
-    dynamic jsonResult = jsonDecode(jsonData);
-    print(jsonResult);
-    return jsonResult;
+  
+ static Future<String> getFileData() async {
+  String data = await rootBundle.loadString('assets/data.txt');
+  print(data);         
+  return data;
   }
-  bool loaded = false;
-  dynamic json;
-  void setJson() async{
-    json = await loadValue();
-    setState(() {
-      loaded = true;
-    });
-  }
-
+  
+  
+  final String jsonSample = getFileData().toString();
   @override
-  void initState() {
-    setJson();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
+  Widget build(BuildContext context) {    
+    // var json = jsonDecode(jsonSample);
     return Scaffold(
       appBar: AppBar(title: Text('Hourly Production Report')),
       body: Container(
-      child: !loaded? Container() : Column(
-        children: <Widget>[
-          JsonTable(
-            json,
-            showColumnToggle: true,
-            tableHeaderBuilder: (String header) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5),
-                            color: Colors.grey[300]),
-                        child: Text(
-                          header,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.display1.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.0,
-                              color: Colors.black87),
-                        ),
-                      );
-                    },
-                    tableCellBuilder: (value) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 4.0, vertical: 2.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.5,
-                                color: Colors.grey.withOpacity(0.5))),
-                        child: Text(
-                          value,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.display1.copyWith(
-                              fontSize: 14.0, color: Colors.grey[900]),
-                        ),
-                      );
-                    },
-                    allowRowHighlight: true,
-                    rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
-                    paginationRowCount: 4,
-          )
-        ],
-      ),
+        child: Column(
+          children: <Widget>[
+            FlatButton(
+              onPressed: () async{
+                getFileData();
+                print(jsonSample);
+                
+              },
+              child: Text('print')
+            ),
+            // JsonTable(json,)
+          ],
+        ),
       ),
     );
   }
