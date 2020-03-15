@@ -1,148 +1,69 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:json_table/json_table.dart';
 
 class SewingHourlyProduction extends StatefulWidget {
   @override
   _SewingHourlyProductionState createState() => _SewingHourlyProductionState();
 }
-InputDecoration inputDec(String labelText){
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
-SizedBox leaveSpace(){
-  return SizedBox(
-    height: 10,
-  );
-}
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
-  final _scaffoldState = GlobalKey<ScaffoldState>();
-  final styleNo = TextEditingController();
-  final buyer = TextEditingController();
-  final orderQty = TextEditingController();
-  final totalCut = TextEditingController();
-  final todayStitch = TextEditingController();
-  final totalStitch = TextEditingController();
-  final todayFinish = TextEditingController();
-  final totalFinish = TextEditingController();
-  final finishBalance = TextEditingController();
-  final sewingBalance = TextEditingController();
-  DateTime date;
-
+  dynamic loadValue () async {    
+    String jsonData = await DefaultAssetBundle.of(context).loadString("assets/HPR.json"); 
+    dynamic jsonResult = jsonDecode(jsonData);
+    print(jsonResult);
+    return jsonResult;
+  }
   @override
   Widget build(BuildContext context) {
+    dynamic json = loadValue();
     return Scaffold(
-      key: _scaffoldState,
-      appBar: AppBar(title: Text("Daily Production Report")),
+      appBar: AppBar(title: Text('Hourly Production Report')),
       body: Container(
-        child: Form(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: inputDec("Style Number"),
-                  controller: styleNo,
-                  onEditingComplete: () async {
-                    await Firestore.instance.collection('aarvi').document(styleNo.text).get().then((value) {
-                      if(value.exists){
-                        var data = value.data;
-                        buyer.text = data['buyer'] ?? '';
-                        orderQty.text = data['order_quantity'] ?? '0';
-                        totalCut.text = data['total_issued_sewing'] ?? '0';
-                        totalStitch.text = data['sewing_total_stitch'] ?? '0';
-                        sewingBalance.text = data['sewing_balance'] ?? '0';
-                        totalFinish.text = data['sewing_total_send_to_finish'];
-                        finishBalance.text = data['finish_balance'];
-                      }
-                    });
-                  },
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Buyer"),
-                  controller: buyer,
-                  enabled: false,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  decoration: inputDec("Date"),
-                  onChanged: (val) => date = val as DateTime,
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Order Quantity"),
-                  keyboardType: TextInputType.number,
-                  controller: orderQty,
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Total Cut Pieces Received"),
-                  controller: totalCut,
-                  keyboardType: TextInputType.number,
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Today Stitch"),
-                  controller: todayStitch,
-                  keyboardType: TextInputType.number,
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Till Date Stitch"),
-                  controller: totalStitch,
-                  keyboardType: TextInputType.number,
-
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Balance"),
-                  controller: sewingBalance,
-                  keyboardType: TextInputType.number,
-
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Today Send to Finsihing"),
-                  controller: todayFinish,
-                  keyboardType: TextInputType.number,
-
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Total Send to Finishing"),
-                  controller: totalFinish,
-                  keyboardType: TextInputType.number,
-
-                ),
-                leaveSpace(),
-                TextFormField(
-                  decoration: inputDec("Finishing Balance"),
-                  controller: finishBalance,
-                  keyboardType: TextInputType.number,
-
-                ),
-                leaveSpace(),
-                RaisedButton(
-                  child: Text("Submit") ,
-                  onPressed: () async {
-
-                  },
-                )
-              ],
-            ),
-          ),
-        ),
+      child: Column(
+        children: <Widget>[
+          JsonTable(
+            json,
+            showColumnToggle: true,
+            tableHeaderBuilder: (String header) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5),
+                            color: Colors.grey[300]),
+                        child: Text(
+                          header,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14.0,
+                              color: Colors.black87),
+                        ),
+                      );
+                    },
+                    tableCellBuilder: (value) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 4.0, vertical: 2.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 0.5,
+                                color: Colors.grey.withOpacity(0.5))),
+                        child: Text(
+                          value,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              fontSize: 14.0, color: Colors.grey[900]),
+                        ),
+                      );
+                    },
+                    allowRowHighlight: true,
+                    rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
+                    paginationRowCount: 4,
+          )
+        ],
+      ),
       ),
     );
   }

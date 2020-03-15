@@ -71,10 +71,11 @@ class MyApp extends StatelessWidget {
           '/CuttingQuality': (BuildContext context) => CuttingQuality(),          
         '/SewingPage': (BuildContext context) => SewingPage(),
           '/DailyProductionReport': (BuildContext context) => DailyProductionReport(),
+          '/SewingHourlyProduction':(BuildContext context) => SewingHourlyProduction(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
         '/FinishingPage': (BuildContext context) => FinishingPage(),
       '/QualityMang': (BuildContext context) => QualityMang(),          
-      '/SewingHourlyProduction':(BuildContext context) => SewingHourlyProduction()
+      
       
       
         
