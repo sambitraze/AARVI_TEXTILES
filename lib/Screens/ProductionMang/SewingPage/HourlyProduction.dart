@@ -8,7 +8,7 @@ class SewingHourlyProduction extends StatefulWidget {
   _SewingHourlyProductionState createState() => _SewingHourlyProductionState();
 }
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
-  dynamic loadValue () async {    
+  Future<dynamic> loadValue () async {    
     String jsonData = await DefaultAssetBundle.of(context).loadString("assets/HPR.json"); 
     dynamic jsonResult = jsonDecode(jsonData);
     print(jsonResult);
