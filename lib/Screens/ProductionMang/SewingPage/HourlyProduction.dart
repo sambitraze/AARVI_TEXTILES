@@ -9,34 +9,55 @@ class SewingHourlyProduction extends StatefulWidget {
   _SewingHourlyProductionState createState() => _SewingHourlyProductionState();
 }
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
-  
- static Future<String> getFileData() async {
-  String data = await rootBundle.loadString('assets/data.txt');
-  print(data);         
-  return data;
-  }
-  
-  
-  final String jsonSample = getFileData().toString();
   @override
-  Widget build(BuildContext context) {    
-    // var json = jsonDecode(jsonSample);
+  void initState() {
+    loadVaue();
+    super.initState();
+  }
+  dynamic response;
+  void loadVaue() async{
+    await DefaultAssetBundle.of(context).loadString("assets/HPR.json").then((s) {
+      setState(() {
+        response = json.decode(s);
+        print(response);
+      });
+      });
+    // var jsonResult = jsonDecode(jsonData);
+    // print(jsonResult);
+    // return jsonResult;
+  }
+  // dynamic json;
+  // bool loaded = false;
+  // void setJson() async {
+  //   json = await loadVaue();
+  //   setState(() {
+  //     loaded = true;
+  //   });
+  // }
+  // @override
+  // void initState() {
+  //   setJson();
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+  
+  @override
+  Widget build(BuildContext context) {   
     return Scaffold(
       appBar: AppBar(title: Text('Hourly Production Report')),
       body: Container(
         child: Column(
           children: <Widget>[
-            FlatButton(
-              onPressed: () async{
-                getFileData();
-                print(jsonSample);
-                
-              },
-              child: Text('print')
-            ),
-            // JsonTable(json,)
+            // JsonTable(response),
+             FlatButton(onPressed: (){loadVaue();}, child: Text('hel')),
           ],
-        ),
+        )
+        // child: Column(
+        //   children: <Widget>[
+        //     FlatButton(onPressed: (){loadVaue();}, child: Text('hel')),
+            
+        //   ],
+        // )
       ),
     );
   }

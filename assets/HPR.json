@@ -1,14 +1,8 @@
 {
-    "id":1,
-    "name":"My First Crossword",
-    "across":[
-       {
-          "number":1,
-          "word":"TEL"
-       },
-       {
-          "number":3,
-          "word":"SES"
-       }
-    ]
- }
+   "name":"Ram",
+   "email":"ram@gmail.com",
+   "age":23,
+   "income":"10Rs",
+   "country":"India",
+   "area":"abc"
+}
