@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PolybagSup extends StatefulWidget {
@@ -38,6 +39,10 @@ class _PolybagSupState extends State<PolybagSup> {
       );
       String supplierName;
       final suppliernameController = TextEditingController();
+  final nominatedSupplierController = TextEditingController();
+  final nonNominatedSupplierController = TextEditingController();
+  String nominatedMessage = '';
+  String nonNominatedMessage = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +56,7 @@ class _PolybagSupState extends State<PolybagSup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextField(
+                  controller: nominatedSupplierController,
                   decoration: InputDecoration(
                     labelText: "Enter Nominated Supplier",
                     fillColor: Colors.white,
@@ -63,10 +69,26 @@ class _PolybagSupState extends State<PolybagSup> {
                 SizedBox(height: 10,),
                 RaisedButton(
                     child: Text("Search"),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      List nominated = [];
+                      Firestore.instance
+                          .collection('supplier')
+                          .where('nominated', isEqualTo: true)
+                          .where('type',isEqualTo: 'Polybag')
+                          .snapshots()
+                          .listen((event) {
+                        event.documents
+                            .forEach((element) => nominated.add(element['name']));
+                        if (nominated
+                            .contains(nominatedSupplierController.value.text)) {
+                          print("Nominated");
+                        }
+                      });
+                    },
                   ),
                 SizedBox(height: 10,),
                 TextField(
+                  controller: nonNominatedSupplierController,
                   decoration: InputDecoration(
                     labelText: "Enter  Non-Nominated Supplier",
                     fillColor: Colors.white,
@@ -79,7 +101,22 @@ class _PolybagSupState extends State<PolybagSup> {
                 SizedBox(height: 10,),
                 RaisedButton(
                     child: Text("Search"),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      List notNominated = [];
+                      Firestore.instance
+                          .collection('supplier')
+                          .where('nominated', isEqualTo: false)
+                          .where('type',isEqualTo: 'Polybag')
+                          .snapshots()
+                          .listen((event) {
+                        event.documents
+                            .forEach((element) => notNominated.add(element['name']));
+                        if (notNominated
+                            .contains(nonNominatedSupplierController.value.text)) {
+                          print("Not-Nominated");
+                        }
+                      });
+                    },
                   ),
                 SizedBox(height: 10,),
                 RaisedButton(
@@ -113,9 +150,18 @@ class _PolybagSupState extends State<PolybagSup> {
                               SizedBox(height: 10,),
                               _hintDown(),
                               RaisedButton(
-                                onPressed: (){
-                                  print('$supplierName');
-                                  print('$supplierType');
+                                onPressed: () async {
+                                  await Firestore.instance
+                                      .collection('supplier')
+                                      .document(
+                                      suppliernameController.value.text)
+                                      .setData({
+                                    'name': suppliernameController.value.text,
+                                    'nominated': supplierType == 'Nominated'
+                                        ? true
+                                        : false,
+                                    'type':"Polybag"
+                                  });
                                 },
                                 child: Text('Add'),
                               ),

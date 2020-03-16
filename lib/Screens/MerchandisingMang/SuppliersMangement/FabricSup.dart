@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 class FabricSup extends StatefulWidget {
   @override
   _FabricSupState createState() => _FabricSupState();
@@ -6,7 +8,8 @@ class FabricSup extends StatefulWidget {
 
 class _FabricSupState extends State<FabricSup> {
   String supplierType;
-    DropdownButton _hintDown() => DropdownButton<String>(
+
+  DropdownButton _hintDown() => DropdownButton<String>(
         items: [
           DropdownMenuItem<String>(
             value: "Nominated",
@@ -35,56 +38,98 @@ class _FabricSupState extends State<FabricSup> {
           ),
         ),
       );
-      String supplierName;
-      final suppliernameController = TextEditingController();
+  String supplierName;
+  final suppliernameController = TextEditingController();
+  final nominatedSupplierController = TextEditingController();
+  final nonNominatedSupplierController = TextEditingController();
+  String nominatedMessage = '';
+  String nonNominatedMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Fabric Suppliers')),
       body: Center(
-        child:Container(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20,30,20,30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "Enter Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
-                    ),
-                  ),
+          child: Container(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              TextField(
+                controller: nominatedSupplierController,
+                decoration: InputDecoration(
+                  labelText: "Enter Nominated Supplier",
+                  fillColor: Colors.white,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.brown, width: 2)),
                 ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Search"),
-                    onPressed: () async {},
-                  ),
-                SizedBox(height: 10,),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "Enter  Non-Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
-                    ),
-                  ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RaisedButton(
+                child: Text("Search"),
+                onPressed: () async {
+                  List nominated = [];
+                  Firestore.instance
+                      .collection('supplier')
+                      .where('nominated', isEqualTo: true)
+                      .where('type',isEqualTo: 'Fabric')
+                      .snapshots()
+                      .listen((event) {
+                    event.documents
+                        .forEach((element) => nominated.add(element['name']));
+                    if (nominated
+                        .contains(nominatedSupplierController.value.text)) {
+                      print("Nominated");
+                    }
+                  });
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Enter  Non-Nominated Supplier",
+                  fillColor: Colors.white,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.brown, width: 2)),
                 ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Search"),
-                    onPressed: () async {},
-                  ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Add Supplier"),
-                    onPressed: () async {
-                      showDialog(
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RaisedButton(
+                child: Text("Search"),
+                onPressed: () async {
+                  List notNominated = [];
+                  Firestore.instance
+                      .collection('supplier')
+                      .where('nominated', isEqualTo: false)
+                      .where('type',isEqualTo: 'Fabric')
+                      .snapshots()
+                      .listen((event) {
+                    event.documents
+                        .forEach((element) => notNominated.add(element['name']));
+                    if (notNominated
+                        .contains(nominatedSupplierController.value.text)) {
+                      print("Not-Nominated");
+                    }
+                  });
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RaisedButton(
+                child: Text("Add Supplier"),
+                onPressed: () async {
+                  showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
@@ -101,20 +146,32 @@ class _FabricSupState extends State<FabricSup> {
                                   fillColor: Colors.white,
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(
-                                   borderSide: BorderSide(color:Colors.brown,width: 2)
-                                  ),
+                                      borderSide: BorderSide(
+                                          color: Colors.brown, width: 2)),
                                 ),
                                 onChanged: (suppliernameController) {
-                                  supplierName = suppliernameController.toString();
+                                  supplierName =
+                                      suppliernameController.toString();
                                   print("$supplierName");
                                 },
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(
+                                height: 10,
+                              ),
                               _hintDown(),
                               RaisedButton(
-                                onPressed: (){
-                                  print('$supplierName');
-                                  print('$supplierType');
+                                onPressed: () async {
+                                  await Firestore.instance
+                                      .collection('supplier')
+                                      .document(
+                                          suppliernameController.value.text)
+                                      .setData({
+                                    'name': suppliernameController.value.text,
+                                    'nominated': supplierType == 'Nominated'
+                                        ? true
+                                        : false,
+                                    'type':"Fabric"
+                                  });
                                 },
                                 child: Text('Add'),
                               ),
@@ -126,19 +183,17 @@ class _FabricSupState extends State<FabricSup> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: new Text('close')
-                          )
+                              child: new Text('close'))
                         ],
                       );
                     },
                   );
-                    },
-                  ),
-              ],
-            ),
+                },
+              ),
+            ],
           ),
-        )
-      ),
+        ),
+      )),
     );
   }
 }
