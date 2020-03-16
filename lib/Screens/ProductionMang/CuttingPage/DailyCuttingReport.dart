@@ -55,8 +55,8 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 TextFormField(
                   decoration: inputDec("Style Number"),
                   controller: styleNo,
-                  onEditingComplete: () async {
-                    await Firestore.instance.collection('aarvi').document('678').get().then((value) {
+                  onChanged: (value) async {
+                    await Firestore.instance.collection('aarvi').document(value).get().then((value) {
                       if(value.exists){
                         print("Got");
                         var data = value.data;

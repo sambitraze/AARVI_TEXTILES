@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CartonSup extends StatefulWidget {
@@ -38,6 +39,11 @@ class _CartonSupState extends State<CartonSup> {
       );
       String supplierName;
       final suppliernameController = TextEditingController();
+  final nominatedSupplierController = TextEditingController();
+  final nonNominatedSupplierController = TextEditingController();
+  String nominatedMessage = '';
+  String nonNominatedMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +57,7 @@ class _CartonSupState extends State<CartonSup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextField(
+                  controller: nominatedSupplierController,
                   decoration: InputDecoration(
                     labelText: "Enter Nominated Supplier",
                     fillColor: Colors.white,
@@ -63,10 +70,26 @@ class _CartonSupState extends State<CartonSup> {
                 SizedBox(height: 10,),
                 RaisedButton(
                     child: Text("Search"),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      List nominated = [];
+                      Firestore.instance
+                          .collection('supplier')
+                          .where('nominated', isEqualTo: true)
+                          .where('type',isEqualTo: 'Carton')
+                          .snapshots()
+                          .listen((event) {
+                        event.documents
+                            .forEach((element) => nominated.add(element['name']));
+                        if (nominated
+                            .contains(nominatedSupplierController.value.text)) {
+                          print("Nominated");
+                        }
+                      });
+                    },
                   ),
                 SizedBox(height: 10,),
                 TextField(
+                  controller: nonNominatedSupplierController,
                   decoration: InputDecoration(
                     labelText: "Enter  Non-Nominated Supplier",
                     fillColor: Colors.white,
@@ -79,7 +102,22 @@ class _CartonSupState extends State<CartonSup> {
                 SizedBox(height: 10,),
                 RaisedButton(
                     child: Text("Search"),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      List notNominated = [];
+                      Firestore.instance
+                          .collection('supplier')
+                          .where('nominated', isEqualTo: false)
+                          .where('type',isEqualTo: 'Carton')
+                          .snapshots()
+                          .listen((event) {
+                        event.documents
+                            .forEach((element) => notNominated.add(element['name']));
+                        if (notNominated
+                            .contains(nominatedSupplierController.value.text)) {
+                          print("Not-Nominated");
+                        }
+                      });
+                    },
                   ),
                 SizedBox(height: 10,),
                 RaisedButton(
@@ -113,9 +151,18 @@ class _CartonSupState extends State<CartonSup> {
                               SizedBox(height: 10,),
                               _hintDown(),
                               RaisedButton(
-                                onPressed: (){
-                                  print('$supplierName');
-                                  print('$supplierType');
+                                onPressed: () async {
+                                  await Firestore.instance
+                                      .collection('supplier')
+                                      .document(
+                                      suppliernameController.value.text)
+                                      .setData({
+                                    'name': suppliernameController.value.text,
+                                    'nominated': supplierType == 'Nominated'
+                                        ? true
+                                        : false,
+                                    'type':"Carton"
+                                  });
                                 },
                                 child: Text('Add'),
                               ),

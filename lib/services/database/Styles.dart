@@ -113,6 +113,7 @@ class Styles{
           'cutting_manpower_required': this.cuttingManPowerReq,
           'cutting_sample_type': this
               .sampleType,
+          'cutting_required':this.cuttingReq,
           'cutting_expected_date':expectedDateToCutting
         });
       } catch (e) {
