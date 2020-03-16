@@ -7,6 +7,27 @@ class SewingHourlyProduction extends StatefulWidget {
   _SewingHourlyProductionState createState() => _SewingHourlyProductionState();
 }
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
+  InputDecoration inputDec(String labelText){
+  return InputDecoration(
+    fillColor: Colors.white,
+    filled: true,
+    labelText: labelText,
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.brown, width: 1.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.brown, width: 2.0),
+    ),
+  );
+}
+SizedBox leaveSpace(){
+  return SizedBox(
+    height: 10,
+  );
+}
+  final styleNo = TextEditingController();
+  String lineNo = 'ab1';
+  DateTime date;
   @override
   void initState() {
     loadVaue();
@@ -32,6 +53,24 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
         padding: EdgeInsets.all(16.0),
         child: !loaded ? CircularProgressIndicator(): Column(
                 children: [
+                  TextFormField(
+                    decoration: inputDec('Style No'),
+                    controller: styleNo,
+                  ),
+                  FlatButton(
+                    color: Colors.grey[300],
+                    onPressed: () async{
+                      setState(() {
+                        lineNo =  'abc';
+                        date = null;
+                      });
+                    //TODO: implement cloud store pull json file and set line no and date.
+                   },
+                   child: Text('fetch')
+                  ),
+                  Text('Line NO: $lineNo'),
+                  leaveSpace(),
+                  Text('Date: $date'),
                   JsonTable(
                     response,
                     showColumnToggle: true,
@@ -70,12 +109,8 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                     },
                     allowRowHighlight: true,
                     rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
-                    paginationRowCount: 4,
+                    paginationRowCount: 8,
                   ),
-                  SizedBox(
-                    height: 40.0,
-                  ),
-                  Text("Simple table which creates table direclty from json")
                 ],
               )
       ),
