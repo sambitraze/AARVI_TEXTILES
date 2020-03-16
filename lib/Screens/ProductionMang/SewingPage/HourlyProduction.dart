@@ -25,9 +25,7 @@ SizedBox leaveSpace(){
     height: 10,
   );
 }
-  final styleNo = TextEditingController();
-  String lineNo = 'ab1';
-  DateTime date;
+  final lineNo = TextEditingController();
   @override
   void initState() {
     loadVaue();
@@ -52,25 +50,23 @@ SizedBox leaveSpace(){
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: !loaded ? CircularProgressIndicator(): Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextFormField(
-                    decoration: inputDec('Style No'),
-                    controller: styleNo,
+                    decoration: inputDec('Line No'),
+                    controller: lineNo,
+                    onChanged: (value){
+                      print(lineNo.toString());
+                    },
                   ),
                   FlatButton(
                     color: Colors.grey[300],
-                    onPressed: () async{
-                      setState(() {
-                        lineNo =  'abc';
-                        date = null;
-                      });
+                    onPressed: () {
+                      
                     //TODO: implement cloud store pull json file and set line no and date.
                    },
                    child: Text('fetch')
                   ),
-                  Text('Line NO: $lineNo'),
-                  leaveSpace(),
-                  Text('Date: $date'),
                   JsonTable(
                     response,
                     showColumnToggle: true,

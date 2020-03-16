@@ -1,8 +1,9 @@
 [
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -13,9 +14,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -26,9 +28,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -39,9 +42,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -52,9 +56,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -65,9 +70,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -78,9 +84,10 @@
       "8TH HOUR":""
    }, 
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -91,9 +98,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
@@ -104,9 +112,10 @@
       "8TH HOUR":""
    },
    {
+      "DATE":"", 
       "OPERATOR":"",
       "OPERTAION":"",
-      "LINE NO":"",
+      "STYLE NO":"",
       "1ST HOUR":"",
       "2ND HOUR":"",
       "3RD HOUR":"",
