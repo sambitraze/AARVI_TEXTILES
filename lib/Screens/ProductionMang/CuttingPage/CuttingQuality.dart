@@ -5,6 +5,8 @@ class CuttingQuality extends StatefulWidget {
   _CuttingQualityState createState() => _CuttingQualityState();
 }
 
+var controllers = <TextEditingController>[];
+
 InputDecoration inputDec(String labelText) {
   return InputDecoration(
     fillColor: Colors.white,
@@ -25,10 +27,36 @@ SizedBox leaveSpace() {
   );
 }
 
+DataRow getRow(int index) {
+  var list = List<DataCell>();
+  for (int i = index; i < index + 6; ++i) {
+    list.add(DataCell(TextField(
+      controller: controllers[index],
+    )));
+  }
+  return DataRow(cells: list);
+}
+
 class _CuttingQualityState extends State<CuttingQuality> {
-  TextEditingController styleNo, buyer, fabric, layNo, size, totalPartChecked, pass, fail;
+  TextEditingController styleNo,
+      buyer,
+      fabric,
+      layNo,
+      size,
+      totalPartChecked,
+      pass,
+      fail;
 
   DateTime date;
+
+  @override
+  void initState() {
+    for (int i = 0; i < 36; ++i) {
+      controllers.add(TextEditingController());
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +117,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 ),
                 //TODO fix data table
                 SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: DataTable(
                     columns: [
                       DataColumn(label: Text("Part Name")),
@@ -98,21 +127,21 @@ class _CuttingQualityState extends State<CuttingQuality> {
                       DataColumn(label: Text("Placement")),
                       DataColumn(label: Text("Bowing"))
                     ],
-                    rows:[1,2,3,4,5].map((i) => DataRow(cells: [
-                      DataCell(Text(""),showEditIcon: true,placeholder: true),
-                      DataCell(Text(""),showEditIcon: true,placeholder: true),
-                      DataCell(Text(""),showEditIcon: true,placeholder: true),
-                      DataCell(Text(""),showEditIcon: true,placeholder: true),
-                      DataCell(Text(""),showEditIcon: true,placeholder: true),
-                      DataCell(Text(""),showEditIcon: true,placeholder: true)
-                    ])).toList() ,
+                    rows: [
+                      getRow(0),
+                      getRow(6),
+                      getRow(12),
+                      getRow(18),
+                      getRow(24),
+                      getRow(30)
+                    ],
                   ),
                 ),
                 leaveSpace(),
                 RaisedButton(
                   child: Text("Submit"),
                   onPressed: () async {
-
+                    
                   },
                 )
               ],
