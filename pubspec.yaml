@@ -18,6 +18,8 @@ dependencies:
   flutter_datetime_picker: ^1.3.4
   json_table:
   datetime_picker_formfield: ^1.0.0
+  path_provider:
+  flutter_rounded_date_picker:
 
 dev_dependencies:
   flutter_test:
