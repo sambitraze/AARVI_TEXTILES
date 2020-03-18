@@ -6,6 +6,7 @@ import 'package:aarvi_textiles/Screens/MerchandisingMang/OrderTrack.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTrack.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackCutting.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackPattern.dart';
+import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackSewing.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/StockMang.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMang.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SuppliersMangement/CartonSup.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           '/Pattern': (BuildContext context) => SampleTrackPattern(),
           '/Cutting':(BuildContext context) => SampleTrackCutting(),
           '/Quality':(BuildContext context) => SampleTrackQuality(),
+          '/Sewing':(BuildContext context) => SampleTrackSewing(),
         '/StockMang': (BuildContext context) => StockMang(),
         '/SuppliersMang': (BuildContext context) => SuppliersMang(),
           '/FabricSup': (BuildContext context) => FabricSup(),

@@ -8,7 +8,7 @@ class DailyCuttingReport extends StatefulWidget {
   _DailyCuttingReportState createState() => _DailyCuttingReportState();
 }
 
-InputDecoration inputDec(String labelText){
+InputDecoration inputDec(String labelText) {
   return InputDecoration(
     fillColor: Colors.white,
     filled: true,
@@ -21,7 +21,8 @@ InputDecoration inputDec(String labelText){
     ),
   );
 }
-SizedBox leaveSpace(){
+
+SizedBox leaveSpace() {
   return SizedBox(
     height: 10,
   );
@@ -42,6 +43,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
   final sewingBalance = TextEditingController();
   int total;
   final date = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +58,12 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                   decoration: inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
-                    await Firestore.instance.collection('aarvi').document(value).get().then((value) {
-                      if(value.exists){
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(value)
+                        .get()
+                        .then((value) {
+                      if (value.exists) {
                         print("Got");
                         var data = value.data;
                         buyer.text = data['buyer'] ?? '';
@@ -68,7 +74,8 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                         totalCut.text = data['cutting_total_cut'] ?? '0';
                         total = int.parse(totalCut.text);
                         cutBalance.text = data['cut_balance'] ?? '0';
-                        totalIssuedSewing.text = data['total_issued_sewing'] ?? '0';
+                        totalIssuedSewing.text =
+                            data['total_issued_sewing'] ?? '0';
                         sewingBalance.text = data['sewing_balance'] ?? '0';
                       }
                     });
@@ -86,23 +93,37 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 SizedBox(
                   height: 10,
                 ),
-                DateTimeField(format: DateFormat('dd-MM-yyyy'),
+                DateTimeField(
+                  format: DateFormat('dd-MM-yyyy'),
                   controller: date,
                   decoration: inputDec("Date"),
                   onShowPicker: (context, currentValue) async {
-                    final dat = await showDatePicker(context: context, initialDate: DateTime.now(),
-                     firstDate: DateTime(1970), lastDate: DateTime(2100));
-                    await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('DailyCuttingReport').
-                      document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
-                        if(value.exists){
+                    final dat = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1970),
+                        lastDate: DateTime(2100));
+                    try{
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(styleNo.value.text)
+                          .collection('DailyCuttingReport')
+                          .document(DateFormat('dd-MM-yyyy').format(dat))
+                          .get()
+                          .then((value) {
+                        if (value.exists) {
                           var data = value.data;
                           todayCut.text = data['today_cut'] ?? '';
-                          todayIssuedSewing.text = data['today_issued_sewing'] ?? '';
+                          todayIssuedSewing.text =
+                              data['today_issued_sewing'] ?? '';
                         }
                       });
+                    }catch(e){
+
+                    }
                     setState(() {
-                      print("Dat"+dat.toString());
-                      print("control"+date.value.text);
+                      print("Dat" + dat.toString());
+                      print("control" + date.value.text);
                     });
                     return dat;
                   },
@@ -124,11 +145,11 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                   decoration: inputDec("Fabric Received"),
                   controller: fabricRec,
                   keyboardType: TextInputType.number,
-                  onChanged: ((value){
-                    fabricBalance.text = (int.parse(fabricReq.text) - int.parse(fabricRec.text)).toString();
-                    setState(() {
-
-                    });
+                  onChanged: ((value) {
+                    fabricBalance.text =
+                        (int.parse(fabricReq.text) - int.parse(fabricRec.text))
+                            .toString();
+                    setState(() {});
                   }),
                 ),
                 leaveSpace(),
@@ -136,14 +157,13 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                   decoration: inputDec("Fabric Balance"),
                   controller: fabricBalance,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Cut"),
                   controller: todayCut,
                   keyboardType: TextInputType.number,
-                  onChanged: (value){
+                  onChanged: (value) {
                     setState(() {
                       totalCut.text = (int.parse(value) + total).toString();
                     });
@@ -154,61 +174,62 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                   decoration: inputDec("Total Cut"),
                   controller: totalCut,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Cut Balance"),
                   controller: cutBalance,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Today Issued to Sewing"),
                   controller: todayIssuedSewing,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Total Issued to Sewing"),
                   controller: totalIssuedSewing,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 TextFormField(
                   decoration: inputDec("Sewing Balance"),
                   controller: sewingBalance,
                   keyboardType: TextInputType.number,
-
                 ),
                 leaveSpace(),
                 RaisedButton(
-                  child: Text("Submit") ,
+                  child: Text("Submit"),
                   onPressed: () async {
-                    await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('DailyCuttingReport')
-                        .document(date.value.text).setData({
-                      'fabric_required':fabricRec.value.text,
-                      'fabric_received':fabricRec.value.text,
-                      'fabric_balance':fabricBalance.value.text,
-                      'today_cut':todayCut.value.text,
-                      'cutting_total_cut':totalCut.value.text,
-                      'cut_balance':cutBalance.value.text,
-                      'today_issued_sewing':todayIssuedSewing.value.text,
-                      'total_issued_sewing':totalIssuedSewing.value.text,
-                      'sewing_balance':sewingBalance.value.text
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(styleNo.value.text)
+                        .collection('DailyCuttingReport')
+                        .document(date.value.text)
+                        .setData({
+                      'fabric_required': fabricRec.value.text,
+                      'fabric_received': fabricRec.value.text,
+                      'fabric_balance': fabricBalance.value.text,
+                      'today_cut': todayCut.value.text,
+                      'cutting_total_cut': totalCut.value.text,
+                      'cut_balance': cutBalance.value.text,
+                      'today_issued_sewing': todayIssuedSewing.value.text,
+                      'total_issued_sewing': totalIssuedSewing.value.text,
+                      'sewing_balance': sewingBalance.value.text
                     });
                     //TODO do math part and fetching and date
-                    await Firestore.instance.collection('aarvi').document(styleNo.value.text).updateData({
-                      'fabric_required':fabricRec.value.text,
-                      'fabric_received':fabricRec.value.text,
-                      'fabric_balance':fabricBalance.value.text,
-                      'cutting_total_cut':totalCut.value.text,
-                      'cut_balance':cutBalance.value.text,
-                      'total_issued_sewing':totalIssuedSewing.value.text,
-                      
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(styleNo.value.text)
+                        .updateData({
+                      'fabric_required': fabricRec.value.text,
+                      'fabric_received': fabricRec.value.text,
+                      'fabric_balance': fabricBalance.value.text,
+                      'cutting_total_cut': totalCut.value.text,
+                      'cut_balance': cutBalance.value.text,
+                      'total_issued_sewing': totalIssuedSewing.value.text,
                     });
                   },
                 )
