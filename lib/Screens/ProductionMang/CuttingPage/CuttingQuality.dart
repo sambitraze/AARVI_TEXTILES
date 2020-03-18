@@ -173,7 +173,6 @@ class _CuttingQualityState extends State<CuttingQuality> {
                   controller: fail,
                   keyboardType: TextInputType.number,
                 ),
-                //TODO fix data table
                 SizedBox(
                   height: 10,
                 ),
