@@ -50,10 +50,13 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
         response = json.decode(s);
         print(response);
         loaded = true;
+        // list = response;
+        // print(list);
       });
     });
   }
   bool loaded = false;
+  // List<Map> list;
 
   DateTime date;
   final operatorname = TextEditingController();
