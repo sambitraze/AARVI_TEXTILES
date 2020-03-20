@@ -1,4 +1,3 @@
-import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/MachineReq.dart';
 import 'package:flutter/material.dart';
 
 class IEmanage extends StatelessWidget {
@@ -12,16 +11,20 @@ class IEmanage extends StatelessWidget {
           children: <Widget>[
             RaisedButton(
               child: Text("Operation Bulletin"),
-              onPressed: () => {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/opBulletin');
+              },
             ),
             RaisedButton(
               child: Text("Time Study"),
-              onPressed: (){},
+              onPressed: (){
+                Navigator.pushNamed(context, '/timeStudy');
+              },
             ),
             RaisedButton(
               child: Text("Machine Requirement(Style Wise)"),
               onPressed: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context) => MachineReq(),));
+                Navigator.pushNamed(context, '/machinceReq');
               },
             ),
           ],

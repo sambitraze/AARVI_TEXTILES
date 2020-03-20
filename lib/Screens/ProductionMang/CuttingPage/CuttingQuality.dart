@@ -39,6 +39,7 @@ DataRow getRow(int index,{bool newController = true}) {
     list.add(DataCell(TextField(
       controller: controllers[i],
     )));
+  
   }
   return DataRow(cells: list);
 }
@@ -173,7 +174,6 @@ class _CuttingQualityState extends State<CuttingQuality> {
                   controller: fail,
                   keyboardType: TextInputType.number,
                 ),
-                //TODO fix data table
                 SizedBox(
                   height: 10,
                 ),

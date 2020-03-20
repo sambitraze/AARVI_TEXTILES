@@ -89,6 +89,7 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                 TextFormField(
                   decoration: inputDec("Size Breakup"),
                   onChanged: (val) => sizeBreakup = val,
+                  //add table for diff size
                 ),
                 leaveSpace(),
                 TextFormField(

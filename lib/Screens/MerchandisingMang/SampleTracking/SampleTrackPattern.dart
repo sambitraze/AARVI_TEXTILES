@@ -153,6 +153,7 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                       Checkbox(
                         value: _patternCompleted,
                         onChanged: (val) {
+                          // add yes no dropdown
                           setState(() {
                             _patternCompleted = !_patternCompleted;
                           });
