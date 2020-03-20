@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-InputDecoration inputDec(String labelText){
+InputDecoration inputDec(String labelText) {
   return InputDecoration(
     fillColor: Colors.white,
     filled: true,
@@ -16,7 +16,8 @@ InputDecoration inputDec(String labelText){
     ),
   );
 }
-SizedBox leaveSpace(){
+
+SizedBox leaveSpace() {
   return SizedBox(
     height: 10,
   );
@@ -41,6 +42,12 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
   String packingDetails = '';
   String shippingDetails = '';
   String other = '';
+  final xssize = TextEditingController();
+  final ssize = TextEditingController();
+  final msize = TextEditingController();
+  final lsize = TextEditingController();
+  final xlsize = TextEditingController();
+  final xxlsize = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -125,13 +132,126 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                   onChanged: (val) => other = val,
                 ),
                 leaveSpace(),
+                Table(
+                  border: TableBorder.all(),
+                  children: [
+                    TableRow(children: [
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('XS')
+                      ]),
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('S')
+                      ]),
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('M')
+                      ]),
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('L')
+                      ]),
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('XL')
+                      ]),
+                      Column(children: [
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 50.0,
+                        ),
+                        Text('XXL')
+                      ]),
+                    ]),
+                    TableRow(children: [
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: xssize,
+                        )
+                      ]),
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: ssize,
+                        )
+                      ]),
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: msize,
+                        )
+                      ]),
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: lsize,
+                        )
+                      ]),
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: xlsize,
+                        )
+                      ]),
+                      Column(children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: xxlsize,
+                        )
+                      ]),
+                    ]),
+                  ],
+                ),
+                leaveSpace(),
                 RaisedButton(
-                  child: Text("Submit") ,
+                  child: Text("Submit"),
                   onPressed: () async {
-                    Buyer buyer = Buyer(name: name,style: style,desc: description,quantity: quantity,sizeBreakup: sizeBreakup,
-                    fabricDetails: fabricDetails,printDetails: printDetails,washingDetails: washingDetails,labelDetails: labelDetails,
-                    price: price,packingDetails: packingDetails,address: shippingDetails,other: other);
+                    Buyer buyer = Buyer(
+                      name: name,
+                      style: style,
+                      desc: description,
+                      quantity: quantity,
+                      sizeBreakup: sizeBreakup,
+                      fabricDetails: fabricDetails,
+                      printDetails: printDetails,
+                      washingDetails: washingDetails,
+                      labelDetails: labelDetails,
+                      price: price,
+                      packingDetails: packingDetails,
+                      address: shippingDetails,
+                      other: other,
+                    );
                     await buyer.setData();
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(style)
+                        .updateData({
+                      'order_sizes': {
+                        'xs': xssize.value.text,
+                        's': ssize.value.text,
+                        'm': msize.value.text,
+                        'l': lsize.value.text,
+                        'xl': xlsize.value.text,
+                        'xxl': xxlsize.value.text
+                      }
+                    });
                     Navigator.pop(context);
                   },
                 )

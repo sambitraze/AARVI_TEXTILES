@@ -3,12 +3,14 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+
 class SampleTrackSewing extends StatefulWidget {
   @override
   _SampleTrackSewingState createState() => _SampleTrackSewingState();
 }
 
 class _SampleTrackSewingState extends State<SampleTrackSewing> {
+  String dropdownvalue = 'Fit';
   final _scaffoldState = GlobalKey<ScaffoldState>();
   final styleNo = TextEditingController();
   final buyer = TextEditingController();
@@ -24,6 +26,7 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.brown, width: 2)),
   );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +53,19 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                 TextFormField(
                   controller: styleNo,
                   onChanged: (value) async {
-                    await Firestore.instance.collection('aarvi').document(value).
-                    get().then((value) {
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(value)
+                        .get()
+                        .then((value) {
                       var data = value.data;
                       buyer.text = data['buyer'];
-                      sampleType.text = data['sample_type'] ?? '';
+                      dropdownvalue = data['sample_type'] ?? 'Fit';
                       totalPieces.text = data['sewing_total_pieces'] ?? '';
-                      machineRequired.text = data['sewing_machine_required'] ?? '';
-                      manPowerRequired.text = data['sewing_manpower_required'] ?? '';
+                      machineRequired.text =
+                          data['sewing_machine_required'] ?? '';
+                      manPowerRequired.text =
+                          data['sewing_manpower_required'] ?? '';
                       date.text = data['sewing_date'] ?? '';
                     });
                     setState(() {
@@ -78,28 +86,48 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                   decoration: inputDec.copyWith(labelText: "Buyer"),
                 ),
                 SizedBox(height: 10),
-                TextFormField(
-                  controller: sampleType,
-                  decoration: inputDec.copyWith(labelText: "Sample Type"),
+                Text("Sample Type"),
+                DropdownButton<String>(
+                  value: dropdownvalue,
+                  icon: Icon(Icons.arrow_downward),
+                  items: <String>[
+                    'Proto',
+                    'Fit',
+                    'Salesman',
+                    'Size Set',
+                    'Pre Production',
+                    'Shipment'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownvalue = newValue;
+                    });
+                  },
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: totalPieces,
                   keyboardType: TextInputType.number,
-                  decoration:
-                  inputDec.copyWith(labelText: "Total Pieces"),
+                  decoration: inputDec.copyWith(labelText: "Total Pieces"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: machineRequired,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Machine Requirement"),
+                  decoration:
+                      inputDec.copyWith(labelText: "Machine Requirement"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: manPowerRequired,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Manpower Requirement"),
+                  decoration:
+                      inputDec.copyWith(labelText: "Manpower Requirement"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
@@ -107,16 +135,22 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                   keyboardType: TextInputType.number,
                   decoration: inputDec.copyWith(labelText: "Sample Type"),
                 ),
-                SizedBox(height: 10,),
-                DateTimeField(format: DateFormat('dd-MM-yy'),
-                controller: date,
+                SizedBox(
+                  height: 10,
+                ),
+                DateTimeField(
+                  format: DateFormat('dd-MM-yy'),
+                  controller: date,
                   decoration: inputDec.copyWith(labelText: "Expected Date"),
                   onShowPicker: (context, currentValue) async {
-                    final dat = await showDatePicker(context: context, initialDate: DateTime.now(),
-                        firstDate: DateTime(1970), lastDate: DateTime(2100));
+                    final dat = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1970),
+                        lastDate: DateTime(2100));
                     setState(() {
-                      print("Dat"+dat.toString());
-                      print("control"+date.value.text);
+                      print("Dat" + dat.toString());
+                      print("control" + date.value.text);
                     });
                     return dat;
                   },
@@ -135,10 +169,12 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                           .updateData({
                         'sample_type': sampleType.value.text,
                         'sewing_total_pieces': totalPieces.value.text,
-                        'sewing_machine_requirement': machineRequired.value.text,
-                        'sewing_manpower_requirement': manPowerRequired.value.text,
-                        'sample_type': sampleType.value.text,
-                        'sewing_date':date.value.text
+                        'sewing_machine_requirement':
+                            machineRequired.value.text,
+                        'sewing_manpower_requirement':
+                            manPowerRequired.value.text,
+                        'sample_type': dropdownvalue,
+                        'sewing_date': date.value.text
                       });
                       _scaffoldState.currentState.showSnackBar(SnackBar(
                         content: Text("Done"),

@@ -1,5 +1,6 @@
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTrack.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/Style.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
@@ -12,6 +13,7 @@ class SampleTrackPattern extends StatefulWidget {
 }
 
 class _SampleTrackPatternState extends State<SampleTrackPattern> {
+  String dropdownvalue = "Proto";
   final _formKey = GlobalKey<FormState>();
   final _styleController = TextEditingController();
   bool _patternCompleted = false;
@@ -19,7 +21,6 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
   DateTime selectedDate;
   final _snackBarKey = GlobalKey<ScaffoldState>();
   bool _update = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +69,57 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                           _styleController.value.text);
                       if (s == null) {
                         _update = false;
-                      } else
+                      } else {
+                        await Firestore.instance
+                            .collection('aarvi')
+                            .document(_styleController.value.text)
+                            .get()
+                            .then((value) =>
+                                dropdownvalue = value.data['sample_type']);
                         setState(() {
                           _update = true;
                           _patternCorrectionRequired =
                               (s.patternCorrectionReq ?? false);
                           _patternCompleted = (s.patternCompleted ?? false);
                           _textEnabled = false;
-                          selectedDate = s.expectedDateOfPatternCompletion ?? DateTime.now();
+                          selectedDate = s.expectedDateOfPatternCompletion ??
+                              DateTime.now();
                         });
+                      }
                     },
                   ),
                   SizedBox(
                     height: 50,
+                  ),
+                  Text("Sample Type"),
+                  DropdownButton<String>(
+                    value: dropdownvalue,
+                    icon: Icon(Icons.arrow_downward),
+                    items: <String>[
+                      'Proto',
+                      'Fit',
+                      'Salesman',
+                      'Size Set',
+                      'Pre Production',
+                      'Shipment'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownvalue = newValue;
+                      });
+                    },
+                  ),
+                  //Proto sample, Fit sample, salesman sample, size set sample, pre production sample, and shipment sample
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   FlatButton(
                       onPressed: () {
@@ -96,7 +135,10 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                         }, currentTime: DateTime.now());
                       },
                       child: Text(
-                        'Expected Date of Patern Completion: '+ (selectedDate!=null ? DateFormat('yyyy-MM-dd').format(selectedDate) : ''),
+                        'Expected Date of Patern Completion: ' +
+                            (selectedDate != null
+                                ? DateFormat('yyyy-MM-dd').format(selectedDate)
+                                : ''),
                         style: TextStyle(color: Colors.blue),
                       )),
                   SizedBox(
@@ -152,6 +194,10 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                           patternCorrectionReq: _patternCorrectionRequired,
                           expectedDateOfPatternCompletion: selectedDate);
                       await s.updateSamplePattern(s, _update);
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(_styleController.value.text)
+                          .updateData({'sample_type': dropdownvalue});
                     },
                   )
                 ],
