@@ -1,4 +1,5 @@
 import 'package:aarvi_textiles/Screens/MerchandisingMang/Style.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
@@ -32,6 +33,9 @@ class _SampleTrackState extends State<SampleTrack> {
               color: Colors.white70,
               child: Text("Search"),
               onPressed: () async {
+                await Firestore.instance.collection('aarvi').document(inputStyleNo).get().then((value) {
+                  print(value.data);
+                });
                 s = await Styles.getStyleFromStyleNo(inputStyleNo);
                 if (s != null) {
                   setState(() {
