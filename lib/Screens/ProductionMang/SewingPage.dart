@@ -1,4 +1,3 @@
-import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/iemanage.dart';
 import 'package:flutter/material.dart';
 class SewingPage extends StatelessWidget {
   @override
@@ -24,8 +23,7 @@ class SewingPage extends StatelessWidget {
             RaisedButton(
               child: Text("IE Management"),
               onPressed: (){
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context) => IEmanage(),));
+                Navigator.pushNamed(context,'/ieManage');
               },
             )
           ],

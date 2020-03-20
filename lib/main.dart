@@ -20,6 +20,10 @@ import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CutOrderPlan.d
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CuttingQuality.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingReport.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/FinishingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/MachineReq.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/iemanage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/opBulletin.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/timeStudy.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
@@ -76,17 +80,13 @@ class MyApp extends StatelessWidget {
         '/SewingPage': (BuildContext context) => SewingPage(),
           '/DailyProductionReport': (BuildContext context) => DailyProductionReport(),
           '/SewingHourlyProduction':(BuildContext context) => SewingHourlyProduction(),
+          '/ieManage': (BuildContext context) => IEmanage(),
+            '/opBulletin': (BuildContext context) => OpBulletin(),
+            '/timeStudy': (BuildContext context) => TimeStudy(),
+            '/machinceReq': (BuildContext context) => MachineReq(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
         '/FinishingPage': (BuildContext context) => FinishingPage(),
-      '/QualityMang': (BuildContext context) => QualityMang(),          
-      
-      
-      
-        
-      
-      //subScrrens
-        
-     
+      '/QualityMang': (BuildContext context) => QualityMang(),             
       },
     );
   }
