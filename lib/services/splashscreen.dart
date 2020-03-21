@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new CustomSplash(
+      home: CustomSplash(
         imagePath: 'assets/icon/icon.png',
         // backGroundColor: Colors.black,
         animationEffect: 'zoom-in',

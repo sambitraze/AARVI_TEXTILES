@@ -29,7 +29,6 @@ import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/HourlyProduction.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
-import 'package:aarvi_textiles/services/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'Screens/PoMang/PoMang.dart';
 import 'Screens/ProductionMang/ProductionMang.dart';
@@ -37,6 +36,7 @@ import 'Screens/QualityMang/QualityMang.dart';
 import 'Screens/MerchandisingMang/MerchandisingMang.dart';
 import 'package:aarvi_textiles/Screens/PoMang/AddBuyersPage.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackQuality.dart';
+import 'package:custom_splash/custom_splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,9 +49,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.brown,
       ),
       // theme: ThemeData.dark(),
-      home: MyHomePage(),
+      home:  CustomSplash(
+        imagePath: 'assets/icon/icon.png',
+        animationEffect: 'zoom-in',
+        logoSize: 200,
+        duration: 2500,
+        type: CustomSplashType.StaticDuration,
+        home: Loginscreen() 
+      ),
       routes: <String, WidgetBuilder>{
-      '/Login': (BuildContext context) => Loginscreen(),
       '/AdminHomePage': (BuildContext context) => HomePage(),
       '/HomePage': (BuildContext context) => MyHomePage(),   
       '/PoMang': (BuildContext context) => PoMang(),
@@ -108,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SplashScreen()
+      body:Loginscreen()
     );
   }
 }
