@@ -29,6 +29,7 @@ import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/HourlyProduction.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
+import 'package:aarvi_textiles/services/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'Screens/PoMang/PoMang.dart';
 import 'Screens/ProductionMang/ProductionMang.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData.dark(),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
+      '/Login': (BuildContext context) => Loginscreen(),
       '/AdminHomePage': (BuildContext context) => HomePage(),
       '/HomePage': (BuildContext context) => MyHomePage(),   
       '/PoMang': (BuildContext context) => PoMang(),
@@ -99,14 +101,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
   bool _isLoggedIntion = false;
   bool _isAdmin = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
-      body:Loginscreen()
+      body:SplashScreen()
     );
   }
 }
