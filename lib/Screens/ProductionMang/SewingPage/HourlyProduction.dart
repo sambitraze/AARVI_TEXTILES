@@ -59,7 +59,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
     List<DataRow> getRows() {
     for (int i = 0; i < rows; ++i) rowList.add(getRow(i));
     return rowList;
-  }
+    }
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: inputDec("Line Number"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -144,11 +144,6 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                             border: Border.all(color: Colors.black)),
                         child: DataTable(
                           columns: [
-                            DataColumn(
-                              label: Text("Date",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            )),
                             DataColumn(
                               label: Text("Operation",
                                   style: TextStyle(
@@ -230,7 +225,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                               rows--;
                               if(rows>=0){
                                 rowList.removeLast();
-                                [1,2,3,4,5,6].forEach((element) {
+                                [1,2,3,4,5,6,7,8,9,10,11,12].forEach((element) {
                                   controllers.removeLast();
                                 });
                               }
