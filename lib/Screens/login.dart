@@ -17,7 +17,9 @@ class _LoginscreenState extends State<Loginscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      appBar: AppBar(title: Center(child: Text('AARVI TEXTILES')), backgroundColor: Colors.brown,),
+      body:  Center(
       child: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50,horizontal: 20),
@@ -100,6 +102,7 @@ class _LoginscreenState extends State<Loginscreen> {
           ),
         ),
       ),
+    ),
     );
   }
 }
