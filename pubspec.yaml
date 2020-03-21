@@ -20,6 +20,7 @@ dependencies:
   datetime_picker_formfield: ^1.0.0
   path_provider:
   flutter_rounded_date_picker:
+  animations: ^1.0.0+5
   custom_splash: ^0.0.2
 
 dev_dependencies:

@@ -13,12 +13,15 @@ class _HomePageState extends State<HomePage> {
         title: Text("Aarvi Textiles"),
       ),
       body: Center(
-        child: Container(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
           child: Column(
+
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              FlatButton(
+              MaterialButton(
+                  minWidth: 200,
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
@@ -38,7 +41,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              FlatButton(
+              SizedBox(height: 20,),
+              MaterialButton(
+                  minWidth: 200,
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
@@ -58,7 +63,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              FlatButton(
+              SizedBox(height: 20,),
+              MaterialButton(
+                  minWidth: 200,
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
@@ -78,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              FlatButton(
+              SizedBox(height: 20,),
+              MaterialButton(
+                  minWidth: 200,
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
