@@ -8,7 +8,7 @@ class OpBulletin extends StatefulWidget {
   _OpBulletinState createState() => _OpBulletinState();
 }
 
-var controllers = <TextEditingController>[];
+var controllers = List<TextEditingController>();
 var rowList = List<DataRow>();
 
 InputDecoration inputDec(String labelText) {
@@ -54,11 +54,11 @@ class _OpBulletinState extends State<OpBulletin> {
     comments = TextEditingController();
    
 
-  String buyer;
-  String garment;
-  String orderQty;
-  String efficency;
-  String target;
+  TextEditingController buyer = TextEditingController(),
+   garment = TextEditingController(),
+   orderQty  = TextEditingController(),
+   efficency = TextEditingController(),
+   target  = TextEditingController();
   final styleNo = TextEditingController();
   final date = TextEditingController();
 
@@ -88,21 +88,20 @@ class _OpBulletinState extends State<OpBulletin> {
               TextFormField(
                   decoration: inputDec("Style Number"),
                   controller: styleNo,
+                  onChanged: ((value) async {
+                    await Firestore.instance.collection('aarvi').document(value).get().then((value) {
+                      if(value.exists){
+                        buyer.text = value.data['buyer'];
+                        orderQty.text = value.data['order_quantity'];
+                        efficency.text = value.data['effeciency'];
+                      }
+                    });
+                  }),
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Byuer"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  decoration: inputDec("Buyer"),
+                  controller: buyer,
                 ),
               leaveSpace(),              
               DateTimeField(
@@ -116,14 +115,11 @@ class _OpBulletinState extends State<OpBulletin> {
                           firstDate: DateTime(1970),
                           lastDate: DateTime(2100));
                       try{
-                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
+                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('OperationBulletin').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
                           if(value.exists){
                             var data = value;
-                            // layNo.text = data['lay_number'] ?? '';
-                            // size.text = data['size'] ?? '';
-                            // totalPartChecked.text = data['total_part_checked'] ?? '';
-                            // pass.text = data['pass'] ?? '';
-                            // fail.text = data['fail'] ?? '';
+                            efficency.text = data['efficiency'] ?? '';
+                            target.text = data['target'] ?? '';
                             int len = 0;
                             data['table'].forEach((element) {
                               len++;
@@ -149,63 +145,23 @@ class _OpBulletinState extends State<OpBulletin> {
                     }),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Garemnt"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  decoration: inputDec("Garment"),
+                  controller: garment,
                 ),
               leaveSpace(),
               TextFormField(
                   decoration: inputDec("Order Quantity"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  controller: orderQty,
                 ),
               leaveSpace(),
               TextFormField(
                   decoration: inputDec("Efficiency"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  controller: efficency,
                 ),
               leaveSpace(),
               TextFormField(
                   decoration: inputDec("Target"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  controller: target,
                 ),
               leaveSpace(),
               Column(
@@ -316,9 +272,16 @@ class _OpBulletinState extends State<OpBulletin> {
                       controllers.forEach((element) {
                         tableList.add(element.value.text);
                       });
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(date.value.text).
+                      controllers.forEach((element) {
+                        print(element.text);
+                      });
+                      await Firestore.instance.collection('aarvi').document(int.parse(styleNo.value.text.toString()).toString()).collection('OperationBulletin').document(date.value.text).
                       setData({
-                        //set the data
+
+                        'effeciency':efficency.value.text,
+                        'target':target.value.text,
+                        'table':tableList
+
                       });
                     }
                     catch(e){
