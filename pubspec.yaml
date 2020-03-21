@@ -22,6 +22,7 @@ dependencies:
   flutter_rounded_date_picker:
   animations: ^1.0.0+5
   custom_splash: ^0.0.2
+  google_fonts: ^0.3.10
 
 dev_dependencies:
   flutter_test:
