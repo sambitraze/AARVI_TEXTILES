@@ -22,6 +22,7 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.brown, width: 2)),
   );
+  String dropdownvalue = 'Proto';
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +50,27 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                 TextFormField(
                   controller: styleNo,
                   onChanged: (value) async {
-                    await Firestore.instance.collection('aarvi').document(value).
-                      get().then((value) {
+                    await Firestore.instance
+                        .collection('aarvi')
+                        .document(styleNo.value.text)
+                        .get()
+                        .then((value) {
+                      if (value.exists) {
                         var data = value.data;
                         buyer.text = data['buyer'];
-                        sampleType.text = data['sample_type'] ?? '';
-                        totalPiecesChecked.text = data['sample_track_checked'] ?? '';
+                        dropdownvalue = data['sample_type'] ?? 'Fit';
+                        totalPiecesChecked.text =
+                            data['sample_track_checked'] ?? '';
                         totalDefecit.text = data['sample_track_defecit'] ?? '';
                         totalRework.text = data['sample_track_rework'] ?? '';
-                        totalRejected.text = data['sample_track_rejected'] ?? '';
-                      });
-                      setState(() {
-                        print("Got");
-                      });
+                        totalRejected.text =
+                            data['sample_track_rejected'] ?? '';
+                      } else
+                        print("NOTGOT");
+                    });
+                    setState(() {
+                      print("Got");
+                    });
                   },
                   decoration: InputDecoration(
                     labelText: "Style No",
@@ -77,9 +86,28 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                   decoration: inputDec.copyWith(labelText: "Buyer"),
                 ),
                 SizedBox(height: 10),
-                TextFormField(
-                  controller: sampleType,
-                  decoration: inputDec.copyWith(labelText: "Sample Type"),
+                Text("Sample Type"),
+                DropdownButton<String>(
+                  value: dropdownvalue,
+                  icon: Icon(Icons.arrow_downward),
+                  items: <String>[
+                    'Proto',
+                    'Fit',
+                    'Salesman',
+                    'Size Set',
+                    'Pre Production',
+                    'Shipment'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownvalue = newValue;
+                    });
+                  },
                 ),
                 SizedBox(height: 10),
                 TextFormField(
@@ -118,7 +146,7 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                           .collection('aarvi')
                           .document(styleNo.value.text)
                           .updateData({
-                        'sample_type': sampleType.value.text,
+                        'sample_type': dropdownvalue,
                         'sample_track_checked': totalPiecesChecked.value.text,
                         'sample_track_defecit': totalDefecit.value.text,
                         'sample_track_rework': totalRework.value.text,

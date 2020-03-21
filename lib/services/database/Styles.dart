@@ -134,17 +134,20 @@ class Styles{
   //Bill of Material
   static Future<Styles> getStyleFromStyleNo(String style) async {
     Styles s;
-    await Firestore.instance.collection('aarvi').document(style).get().then((value){
+    await Firestore.instance.collection('aarvi').document(style.toString()).get().then((value){
+      print(value.data);
       if(value.exists){
         try{
           s = Styles.getObjectFromStyleNo(styleNo: value.data['style']);
           print(s.styleNo + "In function");
         }catch(e){
+          print("DID NOT GET");
           print(e.toString());
         }
         print("GOT it");
       }
       else{
+        print("DID NOT GET and Else");
         s = null;
       }
     });

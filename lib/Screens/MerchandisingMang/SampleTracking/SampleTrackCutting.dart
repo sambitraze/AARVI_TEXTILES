@@ -13,6 +13,7 @@ class SampleTrackCutting extends StatefulWidget {
 }
 
 class _SampleTrackCuttingState extends State<SampleTrackCutting> {
+  String dropdownvalue = 'Proto';
   final _formKey = GlobalKey<FormState>();
   final _styleController = TextEditingController();
   bool _reCuttingRequired = false;
@@ -29,6 +30,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
   final manPowerRequiredController = TextEditingController();
   final sampleTypeController = TextEditingController();
   final etcController = TextEditingController();
+  final _sampleType = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,13 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                       if (s == null) {
                         _update = false;
                         print("No record");
-                      } else
+                      } else {
+                        await Firestore.instance
+                            .collection('aarvi')
+                            .document(_styleController.value.text)
+                            .get()
+                            .then((value) =>
+                                dropdownvalue = value.data['sample_type']);
                         setState(() {
                           print("Exist");
                           _reCuttingRequired = s.cuttingReq;
@@ -96,6 +104,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                               s.expectedDateToCutting.toString());
                           etc = s.expectedDateToCutting;
                         });
+                      }
                     },
                   ),
                   SizedBox(
@@ -116,6 +125,16 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                           borderSide:
                               BorderSide(color: Colors.brown, width: 2)),
                     ),
+                  ),
+                  TextFormField(
+                    controller: _sampleType,
+                    decoration: InputDecoration(
+                        labelText: "Sample Type",
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.brown, width: 2))),
                   ),
                   SizedBox(
                     height: 20,
@@ -165,17 +184,28 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: sampleTypeController,
-                    onChanged: (val) => sampleType = val,
-                    decoration: InputDecoration(
-                      labelText: "Sample Type",
-                      fillColor: Colors.white,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.brown, width: 2)),
-                    ),
+                  Text("Sample Type"),
+                  DropdownButton<String>(
+                    value: dropdownvalue,
+                    icon: Icon(Icons.arrow_downward),
+                    items: <String>[
+                      'Proto',
+                      'Fit',
+                      'Salesman',
+                      'Size Set',
+                      'Pre Production',
+                      'Shipment'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownvalue = newValue;
+                      });
+                    },
                   ),
                   SizedBox(
                     height: 20,
@@ -212,7 +242,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                           expectedDateToCutting: etc,
                           cuttingReq: _reCuttingRequired,
                           cuttingManPowerReq: manPowerReq,
-                          sampleType: sampleType);
+                          sampleType: dropdownvalue);
                       await s.updateSampleCutting(s, _update);
                     },
                   )
