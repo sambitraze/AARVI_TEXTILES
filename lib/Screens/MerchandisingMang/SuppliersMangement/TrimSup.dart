@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class Trimsup extends StatefulWidget {
   @override
@@ -9,6 +10,8 @@ class Trimsup extends StatefulWidget {
 class _TrimsupState extends State<Trimsup> {
   String supplierType;
     DropdownButton _hintDown() => DropdownButton<String>(
+        iconEnabledColor: Colors.blueAccent,
+        icon: Icon(Icons.arrow_downward),
         items: [
           DropdownMenuItem<String>(
             value: "Nominated",
@@ -31,7 +34,7 @@ class _TrimsupState extends State<Trimsup> {
           supplierType = value;
         },
         hint: Text(
-          "Please select Supplier type!",
+          "Supplier type!",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -48,23 +51,15 @@ class _TrimsupState extends State<Trimsup> {
     return Scaffold(
       appBar: AppBar(title: Text('Trim Suppliers')),
       body: Center(
-        child:Container(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20,30,20,30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
                   controller: nominatedSupplierController,
-                  decoration: InputDecoration(
-                    labelText: "Enter Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
-                    ),
-                  ),
+                  decoration: TextFieldDec.inputDec("Enter Nominated Supplier"),
                 ),
                 SizedBox(height: 10,),
                 RaisedButton(
@@ -86,17 +81,10 @@ class _TrimsupState extends State<Trimsup> {
                       });
                     },
                   ),
-                SizedBox(height: 10,),
+                SizedBox(height: 50,),
                 TextField(
                   controller: nonNominatedSupplierController,
-                  decoration: InputDecoration(
-                    labelText: "Enter  Non-Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
-                    ),
-                  ),
+                  decoration: TextFieldDec.inputDec("Enter Non-Nominated Supplier"),
                 ),
                 SizedBox(height: 10,),
                 RaisedButton(
@@ -120,7 +108,7 @@ class _TrimsupState extends State<Trimsup> {
                       });
                     },
                   ),
-                SizedBox(height: 10,),
+                SizedBox(height: 80,),
                 RaisedButton(
                     child: Text("Add Supplier"),
                     onPressed: () async {
@@ -131,28 +119,24 @@ class _TrimsupState extends State<Trimsup> {
                         title: new Text('Add Supplier'),
                         content: new Container(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               TextField(
                                 controller: suppliernameController,
-                                decoration: InputDecoration(
-                                  labelText: "Enter Name of Supplier",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                   borderSide: BorderSide(color:Colors.brown,width: 2)
-                                  ),
-                                ),
+                                decoration: TextFieldDec.inputDec("Name of Supplier"),
                                 onChanged: (suppliernameController) {
                                   supplierName = suppliernameController.toString();
                                   print("$supplierName");
                                 },
                               ),
-                              SizedBox(height: 10,),
-                              _hintDown(),
-                              RaisedButton(
-                                onPressed: () async {
+                              SizedBox(height: 80,),
+                              _hintDown(),                              
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            onPressed: () async {
                                   await Firestore.instance
                                       .collection('supplier')
                                       .document(
@@ -166,11 +150,7 @@ class _TrimsupState extends State<Trimsup> {
                                   });
                                 },
                                 child: Text('Add'),
-                              ),
-                            ],
                           ),
-                        ),
-                        actions: <Widget>[
                           new FlatButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -186,8 +166,8 @@ class _TrimsupState extends State<Trimsup> {
               ],
             ),
           ),
-        )
-      ),
+        ),
+      )
     );
   }
 }

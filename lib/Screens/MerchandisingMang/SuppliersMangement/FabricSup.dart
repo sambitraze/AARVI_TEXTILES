@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class FabricSup extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class _FabricSupState extends State<FabricSup> {
   String supplierType;
 
   DropdownButton _hintDown() => DropdownButton<String>(
+        iconEnabledColor: Colors.blueAccent,
+        icon: Icon(Icons.arrow_downward),
         items: [
           DropdownMenuItem<String>(
             value: "Nominated",
@@ -32,7 +35,7 @@ class _FabricSupState extends State<FabricSup> {
           supplierType = value;
         },
         hint: Text(
-          "Please select Supplier type!",
+          "Supplier type!",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -50,150 +53,130 @@ class _FabricSupState extends State<FabricSup> {
     return Scaffold(
       appBar: AppBar(title: Text('Fabric Suppliers')),
       body: Center(
-          child: Container(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TextField(
-                controller: nominatedSupplierController,
-                decoration: InputDecoration(
-                  labelText: "Enter Nominated Supplier",
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.brown, width: 2)),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextField(
+                  controller: nominatedSupplierController,
+                  decoration: TextFieldDec.inputDec("Enter Nominated Supplier"),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              RaisedButton(
-                child: Text("Search"),
-                onPressed: () async {
-                  List nominated = [];
-                  Firestore.instance
-                      .collection('supplier')
-                      .where('nominated', isEqualTo: true)
-                      .where('type',isEqualTo: 'Fabric')
-                      .snapshots()
-                      .listen((event) {
-                    event.documents
-                        .forEach((element) => nominated.add(element['name']));
-                    if (nominated
-                        .contains(nominatedSupplierController.value.text)) {
-                      print("Nominated");
-                    }
-                  });
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Enter  Non-Nominated Supplier",
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.brown, width: 2)),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              RaisedButton(
-                child: Text("Search"),
-                onPressed: () async {
-                  List notNominated = [];
-                  Firestore.instance
-                      .collection('supplier')
-                      .where('nominated', isEqualTo: false)
-                      .where('type',isEqualTo: 'Fabric')
-                      .snapshots()
-                      .listen((event) {
-                    event.documents
-                        .forEach((element) => notNominated.add(element['name']));
-                    if (notNominated
-                        .contains(nominatedSupplierController.value.text)) {
-                      print("Not-Nominated");
-                    }
-                  });
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              RaisedButton(
-                child: Text("Add Supplier"),
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: new Text('Add Supplier'),
-                        content: new Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              TextField(
-                                controller: suppliernameController,
-                                decoration: InputDecoration(
-                                  labelText: "Enter Name of Supplier",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.brown, width: 2)),
+                RaisedButton(
+                  child: Text("Search"),
+                  onPressed: () async {
+                    List nominated = [];
+                    Firestore.instance
+                        .collection('supplier')
+                        .where('nominated', isEqualTo: true)
+                        .where('type',isEqualTo: 'Fabric')
+                        .snapshots()
+                        .listen((event) {
+                      event.documents
+                          .forEach((element) => nominated.add(element['name']));
+                      if (nominated
+                          .contains(nominatedSupplierController.value.text)) {
+                        print("Nominated");
+                      }
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                TextField(
+                  decoration:TextFieldDec.inputDec("Enter Non-Nominated Supplier"),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                RaisedButton(
+                  child: Text("Search"),
+                  onPressed: () async {
+                    List notNominated = [];
+                    Firestore.instance
+                        .collection('supplier')
+                        .where('nominated', isEqualTo: false)
+                        .where('type',isEqualTo: 'Fabric')
+                        .snapshots()
+                        .listen((event) {
+                      event.documents
+                          .forEach((element) => notNominated.add(element['name']));
+                      if (notNominated
+                          .contains(nominatedSupplierController.value.text)) {
+                        print("Not-Nominated");
+                      }
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 80,
+                ),
+                RaisedButton(
+                  child: Text("Add Supplier"),
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text('Add Supplier'),
+                          content: new Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                TextField(
+                                  controller: suppliernameController,
+                                  decoration: TextFieldDec.inputDec("Name of Supplier"),
+                                  onChanged: (suppliernameController) {
+                                    supplierName =
+                                        suppliernameController.toString();
+                                    print("$supplierName");
+                                  },
                                 ),
-                                onChanged: (suppliernameController) {
-                                  supplierName =
-                                      suppliernameController.toString();
-                                  print("$supplierName");
-                                },
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              _hintDown(),
-                              RaisedButton(
-                                onPressed: () async {
-                                  await Firestore.instance
-                                      .collection('supplier')
-                                      .document(
-                                          suppliernameController.value.text)
-                                      .setData({
-                                    'name': suppliernameController.value.text,
-                                    'nominated': supplierType == 'Nominated'
-                                        ? true
-                                        : false,
-                                    'type':"Fabric"
-                                  });
-                                },
-                                child: Text('Add'),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                _hintDown()
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: <Widget>[
-                          new FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: new Text('close'))
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+                          actions: <Widget>[
+                            new FlatButton(
+                              onPressed: () async {
+                                    await Firestore.instance
+                                        .collection('supplier')
+                                        .document(
+                                            suppliernameController.value.text)
+                                        .setData({
+                                      'name': suppliernameController.value.text,
+                                      'nominated': supplierType == 'Nominated'
+                                          ? true
+                                          : false,
+                                      'type':"Fabric"
+                                    });
+                                  },
+                                  child: Text('Add'),
+                            ),
+                            new FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: new Text('close'))
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      )),
+      )
     );
   }
 }
