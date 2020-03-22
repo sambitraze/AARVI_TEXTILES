@@ -32,22 +32,13 @@ class _TimeStudyState extends State<TimeStudy> {
 
   final _scaffoldState = GlobalKey<ScaffoldState>();
   int rows = 0;
-  TextEditingController srlNo = TextEditingController(),
-   operationName = TextEditingController(),
-   firstCycle = TextEditingController(),
-   secondCycle = TextEditingController(),
-   thirdCycle = TextEditingController(),
-   fourthCycle = TextEditingController(),
-   avg = TextEditingController(),
-   comments = TextEditingController();
-   
-
-  String buyer;
-  final garment = TextEditingController();
-  String orderQty;
-  final styleNo = TextEditingController();
-  final lineNo = TextEditingController();
-  final date = TextEditingController();
+  TextEditingController styleNo = TextEditingController(),
+   buyer = TextEditingController(),
+   garment = TextEditingController(),
+      orderQty = TextEditingController(),
+   efficiency = TextEditingController(),
+   target = TextEditingController(),
+  date = TextEditingController();
 
 
   List<DataRow> getRows() {
@@ -62,13 +53,10 @@ class _TimeStudyState extends State<TimeStudy> {
     super.initState();
   }
 
-// first enter style number then buyer gets shown automatically
-// then enter line number to pull exact db
-// then enter date for new record or to view existing db
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(title: Text('Time Study')),
       body: Container(
         child: SingleChildScrollView(
@@ -76,38 +64,27 @@ class _TimeStudyState extends State<TimeStudy> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: TextFieldDec.inputDec("Line No"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
+                      await Firestore.instance.collection('aarvi').document(value).get().then((value) {
+                        if(value.exists){
+                          var data = value.data;
+                          buyer.text = data['buyer'] ?? '';
+                          garment.text = data['garment'] ?? '';
+                          orderQty.text = data['order_quantity'] ?? '';
+                        }
                       });
+                    }catch(e){
+
                     }
-                    catch(e){}
                   },
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: TextFieldDec.inputDec("Style No"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
-                ),
-              leaveSpace(),
-              TextFormField(
-                  decoration: TextFieldDec.inputDec("Byuer"),
-                  initialValue: buyer,                  
+                  decoration: TextFieldDec.inputDec("Buyer"),
+                  controller: buyer,
                 ),
               leaveSpace(),              
               DateTimeField(
@@ -121,14 +98,12 @@ class _TimeStudyState extends State<TimeStudy> {
                           firstDate: DateTime(1970),
                           lastDate: DateTime(2100));
                       try{
-                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
+                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('TimeStudy').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
                           if(value.exists){
                             var data = value;
-                            // layNo.text = data['lay_number'] ?? '';
-                            // size.text = data['size'] ?? '';
-                            // totalPartChecked.text = data['total_part_checked'] ?? '';
-                            // pass.text = data['pass'] ?? '';
-                            // fail.text = data['fail'] ?? '';
+                            garment.text = data['garment'] ?? '';
+                            efficiency.text = data['efficiency'] ?? '';
+                            target.text = data['target'] ?? '';
                             int len = 0;
                             data['table'].forEach((element) {
                               len++;
@@ -154,14 +129,24 @@ class _TimeStudyState extends State<TimeStudy> {
                     }),
               leaveSpace(),
               TextFormField(
-                  decoration: TextFieldDec.inputDec("Garemnt"),
+                  decoration: TextFieldDec.inputDec("Garment"),
                   controller: garment,
-                  
+                  enabled: false,
                 ),
               leaveSpace(),
               TextFormField(
                   decoration: TextFieldDec.inputDec("Order Quantity"),
-                  initialValue: orderQty,
+                  controller: orderQty,
+                ),
+              leaveSpace(),
+              TextFormField(
+                  decoration: TextFieldDec.inputDec("Efficiency"),
+                  controller: efficiency,
+                ),
+              leaveSpace(),
+              TextFormField(
+                  decoration: TextFieldDec.inputDec("Target"),
+                  controller: target,
                 ),
               leaveSpace(),
               Column(
@@ -272,9 +257,11 @@ class _TimeStudyState extends State<TimeStudy> {
                       controllers.forEach((element) {
                         tableList.add(element.value.text);
                       });
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(date.value.text).
+                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('TimeStudy').document(date.value.text).
                       setData({
-                        //set the data
+                        'efficiency':efficiency.value.text,
+                        'target':target.value.text,
+                        'table':tableList
                       });
                     }
                     catch(e){
