@@ -10,6 +10,7 @@ class _QualityMangState extends State<QualityMang> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Quality Mangement')),
+      body: Container(),
     );
   }
 }
