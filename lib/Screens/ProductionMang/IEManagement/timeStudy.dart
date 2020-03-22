@@ -43,7 +43,7 @@ class _TimeStudyState extends State<TimeStudy> {
    
 
   String buyer;
-  String garment;
+  final garment = TextEditingController();
   String orderQty;
   final styleNo = TextEditingController();
   final lineNo = TextEditingController();
@@ -76,12 +76,7 @@ class _TimeStudyState extends State<TimeStudy> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: TextFieldDec.inputDec("stylenumber"),
-                  controller: styleNo,
-                ),
-              leaveSpace(),
-              TextFormField(
-                  decoration: TextFieldDec.inputDec("Byuer"),
+                  decoration: TextFieldDec.inputDec("Line No"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -93,6 +88,26 @@ class _TimeStudyState extends State<TimeStudy> {
                     }
                     catch(e){}
                   },
+                ),
+              leaveSpace(),
+              TextFormField(
+                  decoration: TextFieldDec.inputDec("Style No"),
+                  controller: styleNo,
+                  onChanged: (value) async {
+                    try{
+                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
+                      //  buyer.text = value.data['buyer']);
+                      setState(() {
+
+                      });
+                    }
+                    catch(e){}
+                  },
+                ),
+              leaveSpace(),
+              TextFormField(
+                  decoration: TextFieldDec.inputDec("Byuer"),
+                  initialValue: buyer,                  
                 ),
               leaveSpace(),              
               DateTimeField(
@@ -140,62 +155,13 @@ class _TimeStudyState extends State<TimeStudy> {
               leaveSpace(),
               TextFormField(
                   decoration: TextFieldDec.inputDec("Garemnt"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  controller: garment,
+                  
                 ),
               leaveSpace(),
               TextFormField(
                   decoration: TextFieldDec.inputDec("Order Quantity"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
-                ),
-              leaveSpace(),
-              TextFormField(
-                  decoration: TextFieldDec.inputDec("Efficiency"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
-                ),
-              leaveSpace(),
-              TextFormField(
-                  decoration: TextFieldDec.inputDec("Target"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  initialValue: orderQty,
                 ),
               leaveSpace(),
               Column(
