@@ -2,20 +2,7 @@ import 'package:aarvi_textiles/Screens/PoMang/Buyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 SizedBox leaveSpace() {
   return SizedBox(
@@ -62,74 +49,74 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: inputDec("Buyer Name"),
+                  decoration: TextFieldDec.inputDec("Buyer Name"),
                   onChanged: (val) => name = val,
                 ),
                 leaveSpace(),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: inputDec("Product/Style Number"),
+                  decoration: TextFieldDec.inputDec("Product/Style Number"),
                   onChanged: (val) => style = val,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: inputDec("Description"),
+                  decoration: TextFieldDec.inputDec("Description"),
                   maxLines: 3,
                   onChanged: (val) => description = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
                   onChanged: (val) => quantity = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Size Breakup"),
+                  decoration: TextFieldDec.inputDec("Size Breakup"),
                   onChanged: (val) => sizeBreakup = val,
                   //add table for diff size
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec('Fabric Details'),
+                  decoration: TextFieldDec.inputDec('Fabric Details'),
                   onChanged: (val) => fabricDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Print Details"),
+                  decoration: TextFieldDec.inputDec("Print Details"),
                   onChanged: (val) => printDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec('Washing Details'),
+                  decoration: TextFieldDec.inputDec('Washing Details'),
                   onChanged: (val) => washingDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Label/Tag Details"),
+                  decoration: TextFieldDec.inputDec("Label/Tag Details"),
                   onChanged: (val) => labelDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: inputDec("Price in ₹"),
+                  decoration: TextFieldDec.inputDec("Price in ₹"),
                   onChanged: (val) => price = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Packing Details"),
+                  decoration: TextFieldDec.inputDec("Packing Details"),
                   onChanged: (val) => packingDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Shipping Address"),
+                  decoration: TextFieldDec.inputDec("Shipping Address"),
                   onChanged: (val) => shippingDetails = val,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Other"),
+                  decoration: TextFieldDec.inputDec("Other"),
                   onChanged: (val) => other = val,
                 ),
                 leaveSpace(),

@@ -101,7 +101,7 @@ class _PoMangState extends State<PoMang> {
       ), */
           OpenContainer(
 
-            closedColor: Colors.brown,
+            closedColor: Colors.cyan,
         openBuilder: (BuildContext context, void Function() action) {
           return AddBuyersPage();
         },
