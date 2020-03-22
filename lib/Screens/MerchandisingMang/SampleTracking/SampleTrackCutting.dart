@@ -1,11 +1,10 @@
-import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTrack.dart';
-import 'package:aarvi_textiles/Screens/MerchandisingMang/Style.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class SampleTrackCutting extends StatefulWidget {
   @override
@@ -37,7 +36,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
     return Scaffold(
       key: _snackBarKey,
       appBar: AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Sample Tracking - Cutting"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -50,24 +49,10 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                   SizedBox(
                     height: 50,
                   ),
-                  Text(
-                    "Sample Tracking - Cutting",
-                    style: TextStyle(color: Colors.brown, fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
                   TextFormField(
                     enabled: _textEnabled,
                     controller: _styleController,
-                    decoration: InputDecoration(
-                      labelText: "Enter Style",
-                      fillColor: Colors.white,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.brown, width: 2)),
-                    ),
+                    decoration: TextFieldDec.inputDec("Style No"),
                   ),
                   SizedBox(
                     height: 10,
@@ -117,29 +102,20 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                     controller: totalPiecesController,
                     onChanged: (val) => totalPieces = val,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Total Pieces to be Cut",
-                      fillColor: Colors.white,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.brown, width: 2)),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: _sampleType,
-                    decoration: InputDecoration(
-                        labelText: "Sample Type",
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.brown, width: 2))),
+                    decoration: TextFieldDec.inputDec("Total pieces to be cut"),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  FlatButton(
+                  TextFormField(
+                    controller: _sampleType,
+                    decoration: TextFieldDec.inputDec("Sample Type"),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  RaisedButton(
+                      // color: Colors.grey[200],
                       onPressed: () {
                         DatePicker.showDateTimePicker(
                           context,
@@ -159,11 +135,10 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                         );
                       },
                       child: Text(
-                        'Expected Date to Cutting:' +
+                        'Enter Expected Date to Cutting:' +
                             (etc != null
                                 ? DateFormat('dd-MM-yyyy').format(etc)
                                 : ''),
-                        style: TextStyle(color: Colors.blue),
                       )),
                   SizedBox(
                     height: 20,
@@ -172,45 +147,48 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                     controller: manPowerRequiredController,
                     onChanged: (val) => manPowerReq = val,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Man Power Required",
-                      fillColor: Colors.white,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.brown, width: 2)),
-                    ),
+                    decoration: TextFieldDec.inputDec("Man Power Required"),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("Sample Type"),
-                  DropdownButton<String>(
-                    value: dropdownvalue,
-                    icon: Icon(Icons.arrow_downward),
-                    items: <String>[
-                      'Proto',
-                      'Fit',
-                      'Salesman',
-                      'Size Set',
-                      'Pre Production',
-                      'Shipment'
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownvalue = newValue;
-                      });
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Sample Type :",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        iconEnabledColor: Colors.blueAccent,
+                        value: dropdownvalue,
+                        icon: Icon(Icons.arrow_downward),
+                        items: <String>[
+                          'Proto',
+                          'Fit',
+                          'Salesman',
+                          'Size Set',
+                          'Pre Production',
+                          'Shipment'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownvalue = newValue;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         "Re-Cutting Required",

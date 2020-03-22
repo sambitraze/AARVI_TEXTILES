@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class SampleTrackQuality extends StatefulWidget {
   @override
@@ -15,13 +16,6 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
   final totalDefecit = TextEditingController();
   final totalRework = TextEditingController();
   final totalRejected = TextEditingController();
-  final inputDec = InputDecoration(
-    labelText: "Style No",
-    fillColor: Colors.white,
-    filled: true,
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.brown, width: 2)),
-  );
   String dropdownvalue = 'Proto';
 
   @override
@@ -29,7 +23,7 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
     return Scaffold(
       key: scaffoldState,
       appBar: AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Sample Tracking - Quality"),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -37,13 +31,6 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
             padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Sample Tracking - Quality",
-                  style: TextStyle(color: Colors.brown, fontSize: 20),
-                ),
                 SizedBox(
                   height: 50,
                 ),
@@ -72,22 +59,17 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                       print("Got");
                     });
                   },
-                  decoration: InputDecoration(
-                    labelText: "Style No",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.brown, width: 2)),
-                  ),
+                  decoration: TextFieldDec.inputDec("Style No"),
                 ),
                 TextFormField(
                   enabled: false,
                   controller: buyer,
-                  decoration: inputDec.copyWith(labelText: "Buyer"),
+                  decoration:  TextFieldDec.inputDec("Buyer"),
                 ),
                 SizedBox(height: 10),
                 Text("Sample Type"),
                 DropdownButton<String>(
+                  iconEnabledColor: Colors.blueAccent,
                   value: dropdownvalue,
                   icon: Icon(Icons.arrow_downward),
                   items: <String>[
@@ -114,25 +96,25 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                   controller: totalPiecesChecked,
                   keyboardType: TextInputType.number,
                   decoration:
-                      inputDec.copyWith(labelText: "Total Pieces Checked"),
+                       TextFieldDec.inputDec("Total Pieces Checked"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: totalDefecit,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Total Defecit"),
+                  decoration:  TextFieldDec.inputDec("Total Defects"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: totalRework,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Total Rework"),
+                  decoration:  TextFieldDec.inputDec("Total Rework"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: totalRejected,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Total Rejected"),
+                  decoration:  TextFieldDec.inputDec("Total Rejected"),
                 ),
                 SizedBox(height: 10),
                 RaisedButton(

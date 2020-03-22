@@ -14,7 +14,6 @@ class _SplashScreenState extends State<SplashScreen> {
       debugShowCheckedModeBanner: false,
       home: CustomSplash(
         imagePath: 'assets/icon/icon.png',
-        // backGroundColor: Colors.black,
         animationEffect: 'zoom-in',
         logoSize: 200,
         duration: 2500,

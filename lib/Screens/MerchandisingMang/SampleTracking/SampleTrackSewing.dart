@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class SampleTrackSewing extends StatefulWidget {
   @override
@@ -19,20 +19,14 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
   final manPowerRequired = TextEditingController();
   final sampleType = TextEditingController();
   final date = TextEditingController();
-  final inputDec = InputDecoration(
-    labelText: "Style No",
-    fillColor: Colors.white,
-    filled: true,
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.brown, width: 2)),
-  );
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Sample Tracking - Quality"),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -40,16 +34,6 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
             padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Sample Tracking - Quality",
-                  style: TextStyle(color: Colors.brown, fontSize: 20),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
                 TextFormField(
                   controller: styleNo,
                   onChanged: (value) async {
@@ -72,22 +56,17 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                       print("Got");
                     });
                   },
-                  decoration: InputDecoration(
-                    labelText: "Style No",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.brown, width: 2)),
-                  ),
+                  decoration: TextFieldDec.inputDec("Style No"),
                 ),
                 TextFormField(
                   enabled: false,
                   controller: buyer,
-                  decoration: inputDec.copyWith(labelText: "Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                 ),
                 SizedBox(height: 10),
                 Text("Sample Type"),
                 DropdownButton<String>(
+                  iconEnabledColor: Colors.blueAccent,
                   value: dropdownvalue,
                   icon: Icon(Icons.arrow_downward),
                   items: <String>[
@@ -113,35 +92,27 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                 TextFormField(
                   controller: totalPieces,
                   keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Total Pieces"),
+                  decoration: TextFieldDec.inputDec("Total Pieces"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: machineRequired,
                   keyboardType: TextInputType.number,
-                  decoration:
-                      inputDec.copyWith(labelText: "Machine Requirement"),
+                  decoration:TextFieldDec.inputDec("Machine Requirement"),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: manPowerRequired,
                   keyboardType: TextInputType.number,
-                  decoration:
-                      inputDec.copyWith(labelText: "Manpower Requirement"),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: sampleType,
-                  keyboardType: TextInputType.number,
-                  decoration: inputDec.copyWith(labelText: "Sample Type"),
-                ),
+                  decoration:TextFieldDec.inputDec("Manpower Requirement"),
+                ),                
                 SizedBox(
                   height: 10,
                 ),
                 DateTimeField(
                   format: DateFormat('dd-MM-yy'),
                   controller: date,
-                  decoration: inputDec.copyWith(labelText: "Expected Date"),
+                  decoration: TextFieldDec.inputDec("Expected Date"),
                   onShowPicker: (context, currentValue) async {
                     final dat = await showDatePicker(
                         context: context,

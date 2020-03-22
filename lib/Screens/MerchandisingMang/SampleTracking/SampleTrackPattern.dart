@@ -1,11 +1,10 @@
-import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTrack.dart';
-import 'package:aarvi_textiles/Screens/MerchandisingMang/Style.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class SampleTrackPattern extends StatefulWidget {
   @override
@@ -27,7 +26,7 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
     return Scaffold(
       key: _snackBarKey,
       appBar: AppBar(
-        title: Text("Aarvi Textiles"),
+        title: Text("Sample Tracking - Pattern"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -40,24 +39,10 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                   SizedBox(
                     height: 50,
                   ),
-                  Text(
-                    "Sample Tracking - Pattern",
-                    style: TextStyle(color: Colors.brown, fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
                   TextFormField(
                     enabled: _textEnabled,
                     controller: _styleController,
-                    decoration: InputDecoration(
-                      labelText: "Enter Style",
-                      fillColor: Colors.white,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.brown, width: 2)),
-                    ),
+                    decoration: TextFieldDec.inputDec("Style No"),
                   ),
                   SizedBox(
                     height: 10,
@@ -93,6 +78,7 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                   ),
                   Text("Sample Type"),
                   DropdownButton<String>(
+                    iconEnabledColor: Colors.blueAccent,
                     value: dropdownvalue,
                     icon: Icon(Icons.arrow_downward),
                     items: <String>[
@@ -113,15 +99,14 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                         dropdownvalue = newValue;
                       });
                     },
-                  ),
-                  //Proto sample, Fit sample, salesman sample, size set sample, pre production sample, and shipment sample
-                  SizedBox(
+                  ),SizedBox(
                     height: 10,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  FlatButton(
+                  RaisedButton(
+                    color: Colors.grey[200],
                       onPressed: () {
                         DatePicker.showDateTimePicker(context,
                             showTitleActions: true, onChanged: (date) {
@@ -139,12 +124,12 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                             (selectedDate != null
                                 ? DateFormat('yyyy-MM-dd').format(selectedDate)
                                 : ''),
-                        style: TextStyle(color: Colors.blue),
                       )),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         "Pattern Completed",
@@ -153,7 +138,6 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                       Checkbox(
                         value: _patternCompleted,
                         onChanged: (val) {
-                          // add yes no dropdown
                           setState(() {
                             _patternCompleted = !_patternCompleted;
                           });
@@ -165,6 +149,7 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         "Pattern Correction Required",
