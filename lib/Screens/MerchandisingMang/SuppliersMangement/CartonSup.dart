@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class CartonSup extends StatefulWidget {
   @override
@@ -49,143 +50,128 @@ class _CartonSupState extends State<CartonSup> {
     return Scaffold(
       appBar: AppBar(title: Text('Carton Suppliers')),
       body: Center(
-        child:Container(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20,30,20,30),
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextField(
-                  controller: nominatedSupplierController,
-                  decoration: InputDecoration(
-                    labelText: "Enter Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextField(
+                    controller: nominatedSupplierController,
+                    decoration: TextFieldDec.inputDec("Enter Nominated Supplier"),
+                  ),
+                  SizedBox(height: 10,),
+                  RaisedButton(
+                      child: Text("Search"),
+                      onPressed: () async {
+                        List nominated = [];
+                        Firestore.instance
+                            .collection('supplier')
+                            .where('nominated', isEqualTo: true)
+                            .where('type',isEqualTo: 'Carton')
+                            .snapshots()
+                            .listen((event) {
+                          event.documents
+                              .forEach((element) => nominated.add(element['name']));
+                          if (nominated
+                              .contains(nominatedSupplierController.value.text)) {
+                            print("Nominated");
+                          }
+                        });
+                      },
                     ),
+                  SizedBox(height: 50,),
+                  TextField(
+                    controller: nonNominatedSupplierController,
+                    decoration: TextFieldDec.inputDec("Enter Non-Nominated Supplier"),
                   ),
-                ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Search"),
-                    onPressed: () async {
-                      List nominated = [];
-                      Firestore.instance
-                          .collection('supplier')
-                          .where('nominated', isEqualTo: true)
-                          .where('type',isEqualTo: 'Carton')
-                          .snapshots()
-                          .listen((event) {
-                        event.documents
-                            .forEach((element) => nominated.add(element['name']));
-                        if (nominated
-                            .contains(nominatedSupplierController.value.text)) {
-                          print("Nominated");
-                        }
-                      });
-                    },
-                  ),
-                SizedBox(height: 10,),
-                TextField(
-                  controller: nonNominatedSupplierController,
-                  decoration: InputDecoration(
-                    labelText: "Enter  Non-Nominated Supplier",
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:Colors.brown,width: 2)
+                  SizedBox(height: 10,),
+                  RaisedButton(
+                      child: Text("Search"),
+                      onPressed: () async {
+                        List notNominated = [];
+                        Firestore.instance
+                            .collection('supplier')
+                            .where('nominated', isEqualTo: false)
+                            .where('type',isEqualTo: 'Carton')
+                            .snapshots()
+                            .listen((event) {
+                          event.documents
+                              .forEach((element) => notNominated.add(element['name']));
+                          if (notNominated
+                              .contains(nominatedSupplierController.value.text)) {
+                            print("Not-Nominated");
+                          }
+                        });
+                      },
                     ),
-                  ),
-                ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Search"),
-                    onPressed: () async {
-                      List notNominated = [];
-                      Firestore.instance
-                          .collection('supplier')
-                          .where('nominated', isEqualTo: false)
-                          .where('type',isEqualTo: 'Carton')
-                          .snapshots()
-                          .listen((event) {
-                        event.documents
-                            .forEach((element) => notNominated.add(element['name']));
-                        if (notNominated
-                            .contains(nominatedSupplierController.value.text)) {
-                          print("Not-Nominated");
-                        }
-                      });
-                    },
-                  ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                    child: Text("Add Supplier"),
-                    onPressed: () async {
-                      showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: new Text('Add Supplier'),
-                        content: new Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              TextField(
-                                controller: suppliernameController,
-                                decoration: InputDecoration(
-                                  labelText: "Enter Name of Supplier",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                   borderSide: BorderSide(color:Colors.brown,width: 2)
+                  SizedBox(height: 80,),
+                  RaisedButton(
+                      child: Text("Add Supplier"),
+                      onPressed: () async {
+                        showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text('Add Supplier'),
+                          content: new Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                TextField(
+                                  controller: suppliernameController,
+                                  decoration: InputDecoration(
+                                    labelText: "Enter Name of Supplier",
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(color:Colors.brown,width: 2)
+                                    ),
                                   ),
+                                  onChanged: (suppliernameController) {
+                                    supplierName = suppliernameController.toString();
+                                    print("$supplierName");
+                                  },
                                 ),
-                                onChanged: (suppliernameController) {
-                                  supplierName = suppliernameController.toString();
-                                  print("$supplierName");
-                                },
-                              ),
-                              SizedBox(height: 10,),
-                              _hintDown(),
-                              RaisedButton(
-                                onPressed: () async {
-                                  await Firestore.instance
-                                      .collection('supplier')
-                                      .document(
-                                      suppliernameController.value.text)
-                                      .setData({
-                                    'name': suppliernameController.value.text,
-                                    'nominated': supplierType == 'Nominated'
-                                        ? true
-                                        : false,
-                                    'type':"Carton"
-                                  });
-                                },
-                                child: Text('Add'),
-                              ),
-                            ],
+                                SizedBox(height: 10,),
+                                _hintDown(),
+                                RaisedButton(
+                                  onPressed: () async {
+                                    await Firestore.instance
+                                        .collection('supplier')
+                                        .document(
+                                        suppliernameController.value.text)
+                                        .setData({
+                                      'name': suppliernameController.value.text,
+                                      'nominated': supplierType == 'Nominated'
+                                          ? true
+                                          : false,
+                                      'type':"Carton"
+                                    });
+                                  },
+                                  child: Text('Add'),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: <Widget>[
-                          new FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: new Text('close')
-                          )
-                        ],
-                      );
-                    },
-                  );
-                    },
-                  ),
-              ],
-            ),
+                          actions: <Widget>[
+                            new FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: new Text('close')
+                            )
+                          ],
+                        );
+                      },
+                    );
+                      },
+                    ),
+                ],
+              ),
           ),
-        )
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:aarvi_textiles/services/database/Styles.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class StockMang extends StatefulWidget {
   @override
@@ -16,38 +17,30 @@ class _StockMangState extends State<StockMang> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(title: Text('Stock Management')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            controller: mycontroller,
-            decoration: InputDecoration(
-              prefix: Text('Style No: '),
-              contentPadding: EdgeInsets.all(10.0),
-              alignLabelWithHint: false,
-              labelText: 'Enter Style Number',
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.brown, width: 1.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.brown, width: 2.0),
-              ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              controller: mycontroller,
+              decoration: TextFieldDec.inputDec("Style No"),
             ),
-          ),
-          RaisedButton(
-              onPressed: () async {
-                s = Styles.getObjectFromStyleNo(styleNo: mycontroller.value.text);
-                _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Loading"),));
-                if(await s.getStock() == true){
-                  //TODO Preferably navigate to show data
-                }
-                else{
-                  _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Style does not exist"),));
-                }
-              },
-              child: Text('Search'),
-            ),
-        ],
+            RaisedButton(
+                onPressed: () async {
+                  s = Styles.getObjectFromStyleNo(styleNo: mycontroller.value.text);
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Loading"),));
+                  if(await s.getStock() == true){
+                    //TODO: Preferably navigate to show data
+                  }
+                  else{
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Style does not exist"),));
+                  }
+                },
+                child: Text('Search'),
+              ),
+          ],
+        ),
       ),
     );
   }
