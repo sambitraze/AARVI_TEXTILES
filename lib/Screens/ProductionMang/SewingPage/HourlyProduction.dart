@@ -30,8 +30,8 @@ SizedBox leaveSpace() {
 }
 DataRow getRow(int index,{bool newController = true}) {
   var list = List<DataCell>();
-  index = index * 12;
-  for (int i = index; i < index + 12; ++i) {
+  index = index * 11;
+  for (int i = index; i < index + 11; ++i) {
     newController ? controllers.add(TextEditingController()) : print("Not New Controller");
     list.add(DataCell(TextField(
       controller: controllers[i],
@@ -43,7 +43,7 @@ DataRow getRow(int index,{bool newController = true}) {
 class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
   final _scaffoldState = GlobalKey<ScaffoldState>();
   int rows = 0;
-  TextEditingController styleNo = TextEditingController(),
+  TextEditingController lineNo = TextEditingController(),
       operatorName = TextEditingController(),
       operationName = TextEditingController(),
       first = TextEditingController(),
@@ -75,21 +75,12 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
       appBar: AppBar(title: Text('Hourly Production report')),
       body: Container(
         child: SingleChildScrollView(
+          padding: EdgeInsets.all(8),
           child: Column(
             children: <Widget>[
               TextFormField(
                   decoration: inputDec("Line Number"),
-                  controller: styleNo,
-                  onChanged: (value) async {
-                    try{
-                      // await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value) =>
-                      //  buyer.text = value.data['buyer']);
-                      setState(() {
-
-                      });
-                    }
-                    catch(e){}
-                  },
+                  controller: lineNo
                 ),
               leaveSpace(),
               DateTimeField(
@@ -103,20 +94,15 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                           firstDate: DateTime(1970),
                           lastDate: DateTime(2100));
                       try{
-                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
+                        await Firestore.instance.collection('lines').document(lineNo.value.text).collection('HourlyProduction').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
                           if(value.exists){
                             var data = value;
-                            // layNo.text = data['lay_number'] ?? '';
-                            // size.text = data['size'] ?? '';
-                            // totalPartChecked.text = data['total_part_checked'] ?? '';
-                            // pass.text = data['pass'] ?? '';
-                            // fail.text = data['fail'] ?? '';
                             int len = 0;
                             data['table'].forEach((element) {
                               len++;
                             });
-                            for(int i=0; i<len;i = i + 12){
-                              for(int j=i;j<i+12;++j){
+                            for(int i=0; i<len;i = i + 11){
+                              for(int j=i;j<i+11;++j){
                                 controllers.add(TextEditingController());
                                 controllers[j].text = data['table'][j];
                                 print(controllers[j].text);
@@ -225,7 +211,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                               rows--;
                               if(rows>=0){
                                 rowList.removeLast();
-                                [1,2,3,4,5,6,7,8,9,10,11,12].forEach((element) {
+                                [1,2,3,4,5,6,7,8,9,10,11].forEach((element) {
                                   controllers.removeLast();
                                 });
                               }
@@ -258,9 +244,9 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                       controllers.forEach((element) {
                         tableList.add(element.value.text);
                       });
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('CuttingQuality').document(date.value.text).
+                      await Firestore.instance.collection('lines').document(lineNo.value.text).collection('HourlyProduction').document(date.value.text).
                       setData({
-                        //set the data
+                        'table':tableList
                       });
                     }
                     catch(e){
