@@ -122,6 +122,7 @@ class _LoginscreenState extends State<Loginscreen> {
                               print(user.email);
                               setState(() {
                                 error = "";
+                                Navigator.pushNamed(context, '/AdminHomePage');
                               });
                             }
                           },
