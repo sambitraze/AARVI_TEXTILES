@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 class TimeStudy extends StatefulWidget {
   @override
   _TimeStudyState createState() => _TimeStudyState();
@@ -11,19 +11,6 @@ class TimeStudy extends StatefulWidget {
 var controllers = <TextEditingController>[];
 var rowList = List<DataRow>();
 
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
 SizedBox leaveSpace() {
   return SizedBox(
     height: 10,
@@ -89,12 +76,12 @@ class _TimeStudyState extends State<TimeStudy> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("stylenumber"),
                   controller: styleNo,
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Byuer"),
+                  decoration: TextFieldDec.inputDec("Byuer"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -111,7 +98,7 @@ class _TimeStudyState extends State<TimeStudy> {
               DateTimeField(
                   controller: date,
                     format: DateFormat('dd-MM-yyyy'),
-                    decoration: inputDec("Date"),
+                    decoration: TextFieldDec.inputDec("Date"),
                     onShowPicker: (context, currentValue) async {
                       final dat = await showDatePicker(
                           context: context,
@@ -152,7 +139,7 @@ class _TimeStudyState extends State<TimeStudy> {
                     }),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Garemnt"),
+                  decoration: TextFieldDec.inputDec("Garemnt"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -167,7 +154,7 @@ class _TimeStudyState extends State<TimeStudy> {
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -182,7 +169,7 @@ class _TimeStudyState extends State<TimeStudy> {
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Efficiency"),
+                  decoration: TextFieldDec.inputDec("Efficiency"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -197,7 +184,7 @@ class _TimeStudyState extends State<TimeStudy> {
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Target"),
+                  decoration: TextFieldDec.inputDec("Target"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -232,32 +219,32 @@ class _TimeStudyState extends State<TimeStudy> {
                                       fontWeight: FontWeight.bold)),
                             ),
                             DataColumn(
-                                label: Text("Machine Type",
+                                label: Text("1ST CYCLE",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text("Sample",
+                                label: Text("2ND CYCLE",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text("No of Operators",
+                                label: Text("3RD CYCLE",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text("No of Machines",
+                                label: Text("4TH CYCLE",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text("Hourly Target",
+                                label: Text("AVG",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text("Comments",
+                                label: Text("COMMENTS",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold)))
