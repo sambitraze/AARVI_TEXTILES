@@ -161,7 +161,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                       ),
                       DropdownButton<String>(
                         iconEnabledColor: Colors.blueAccent,
-                        value: dropdownvalue,
+                        hint: Text('sample Type'),
                         icon: Icon(Icons.arrow_downward),
                         items: <String>[
                           'Proto',
