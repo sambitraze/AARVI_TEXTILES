@@ -219,7 +219,6 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                       'total_issued_sewing': totalIssuedSewing.value.text,
                       'sewing_balance': sewingBalance.value.text
                     });
-                    //TODO do math part and fetching and date
                     await Firestore.instance
                         .collection('aarvi')
                         .document(styleNo.value.text)

@@ -94,7 +94,6 @@ class _FinishingPageState extends State<FinishingPage> {
                             data['total_send_packing'] ?? '';
                       }
                     });
-                    //TODO fix today received from sewing
                   },
                 ),
                 SizedBox(
