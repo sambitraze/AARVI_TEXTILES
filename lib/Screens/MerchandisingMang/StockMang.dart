@@ -42,56 +42,58 @@ class _StockMangState extends State<StockMang> {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: new Text('STOCK'),
-                                content: new Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text("Fabric Detials: "),
-                                      SizedBox(height: 10.0),
-                                      TextFormField(
-                                        decoration:
-                                            TextFieldDec.inputDec("ENter Details"),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Text("Fabric Available: "),
-                                      SizedBox(height: 10.0),
-                                      TextFormField(
-                                        decoration:
-                                            TextFieldDec.inputDec("Enter Amount"),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Text("Trim Detials: "),
-                                      SizedBox(height: 10.0),
-                                      TextFormField(
-                                        decoration:
-                                            TextFieldDec.inputDec("Enter Details"),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      
-                                      Text("Trim Available: "),
-                                      SizedBox(height: 10.0),
-                                      TextFormField(
-                                        decoration:
-                                            TextFieldDec.inputDec("Enter Amount"),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                    ],
+                              return SingleChildScrollView(
+                                child: AlertDialog(
+                                  title: new Text('STOCK'),
+                                  content: new Container(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Fabric Detials: "),
+                                        SizedBox(height: 10.0),
+                                        TextFormField(
+                                          decoration:
+                                              TextFieldDec.inputDec("ENter Details"),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        Text("Fabric Available: "),
+                                        SizedBox(height: 10.0),
+                                        TextFormField(
+                                          decoration:
+                                              TextFieldDec.inputDec("Enter Amount"),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        Text("Trim Detials: "),
+                                        SizedBox(height: 10.0),
+                                        TextFormField(
+                                          decoration:
+                                              TextFieldDec.inputDec("Enter Details"),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        
+                                        Text("Trim Available: "),
+                                        SizedBox(height: 10.0),
+                                        TextFormField(
+                                          decoration:
+                                              TextFieldDec.inputDec("Enter Amount"),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                      ],
+                                    ),
                                   ),
+                                  actions: <Widget>[
+                                    new FlatButton(
+                                        onPressed: () {
+                                          //TODO: upload updated detials
+                                        },
+                                        child: new Text('update')),
+                                    new FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: new Text('close'))
+                                  ],
                                 ),
-                                actions: <Widget>[
-                                  new FlatButton(
-                                      onPressed: () {
-                                        //TODO: upload updated detials
-                                      },
-                                      child: new Text('update')),
-                                  new FlatButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: new Text('close'))
-                                ],
                               );
                             });
                       },

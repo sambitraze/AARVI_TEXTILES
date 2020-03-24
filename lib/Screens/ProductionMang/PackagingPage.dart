@@ -88,6 +88,7 @@ class _PackagingPageState extends State<PackagingPage> {
                   },
                   controller: dateController,
                 ),
+                leaveSpace(),
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,

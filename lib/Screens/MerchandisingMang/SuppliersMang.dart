@@ -16,6 +16,7 @@ class _SuppliersMangState extends State<SuppliersMang> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget> [
+              //TODO: add adrees to each add supplier page.
               RaisedButton(onPressed: () {Navigator.pushNamed(context, '/FabricSup');}, child: Text('Fabric Suppliers')),
               RaisedButton(onPressed: () {Navigator.pushNamed(context, '/TrimSup');}, child: Text('Trim Suppliers')),
               RaisedButton(onPressed: () {Navigator.pushNamed(context, '/LabelTagSup');}, child: Text('Lable/Tag Suppliers')),

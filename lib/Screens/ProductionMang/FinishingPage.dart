@@ -68,6 +68,7 @@ class _FinishingPageState extends State<FinishingPage> {
                       if (value.exists) {
                         var data = value.data;
                         buyer.text = data['buyer'] ?? '';
+                        //TODO: chk funcanility buyer name is not coming and there is no finsihing db for 678
                         qty.text = data['order_quantity'] ?? '';
                         totalrs.text = data['total_sewing'] ?? '';
                         balance.text = data['finishing_balance'] ?? '';

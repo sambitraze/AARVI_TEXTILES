@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//TODO: delte this page because it already does same as po mang
 
 class BuyersMang extends StatefulWidget {
   @override

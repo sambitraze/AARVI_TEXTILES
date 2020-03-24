@@ -103,7 +103,7 @@ class _OrderTrackState extends State<OrderTrack> {
                     children: <Widget>[
                       Text('$orderedDate'),
                       SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
                       RaisedButton(
                           onPressed: () {
@@ -121,12 +121,13 @@ class _OrderTrackState extends State<OrderTrack> {
                             }, currentTime: DateTime.now());
                           },
                           child: Text(
-                            'set Order ConfirmationDate',
+                            'Set Order\nConfirmationDate',
+                            textAlign: TextAlign.center,
                           ))
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[                      
@@ -149,7 +150,8 @@ class _OrderTrackState extends State<OrderTrack> {
                         }, currentTime: DateTime.now());
                       },
                       child: Text(
-                        'set Order DispatchDate',
+                        'Set Order\nDispatchDate',
+                        textAlign: TextAlign.center,
                       )),
                   
                     ],

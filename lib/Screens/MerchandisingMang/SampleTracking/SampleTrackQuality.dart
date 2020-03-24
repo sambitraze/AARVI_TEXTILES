@@ -61,6 +61,7 @@ class _SampleTrackQualityState extends State<SampleTrackQuality> {
                   },
                   decoration: TextFieldDec.inputDec("Style No"),
                 ),
+                SizedBox(height: 10),
                 TextFormField(
                   enabled: false,
                   controller: buyer,
