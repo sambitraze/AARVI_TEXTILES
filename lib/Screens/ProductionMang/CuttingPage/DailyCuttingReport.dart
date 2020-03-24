@@ -2,25 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class DailyCuttingReport extends StatefulWidget {
   @override
   _DailyCuttingReportState createState() => _DailyCuttingReportState();
 }
 
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
+
 
 SizedBox leaveSpace() {
   return SizedBox(
@@ -55,7 +44,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
                     await Firestore.instance
@@ -87,7 +76,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 leaveSpace(),
                 TextFormField(
                   enabled: false,
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                 ),
                 SizedBox(
@@ -96,7 +85,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 DateTimeField(
                   format: DateFormat('dd-MM-yyyy'),
                   controller: date,
-                  decoration: inputDec("Date"),
+                  decoration: TextFieldDec.inputDec("Date"),
                   onShowPicker: (context, currentValue) async {
                     final dat = await showDatePicker(
                         context: context,
@@ -130,19 +119,19 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
                   controller: orderQty,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Fabric Required"),
+                  decoration: TextFieldDec.inputDec("Fabric Required"),
                   controller: fabricReq,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Fabric Received"),
+                  decoration: TextFieldDec.inputDec("Fabric Received"),
                   controller: fabricRec,
                   keyboardType: TextInputType.number,
                   onChanged: ((value) {
@@ -154,13 +143,13 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Fabric Balance"),
+                  decoration: TextFieldDec.inputDec("Fabric Balance"),
                   controller: fabricBalance,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Today Cut"),
+                  decoration: TextFieldDec.inputDec("Today Cut"),
                   controller: todayCut,
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
@@ -171,31 +160,31 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Cut"),
+                  decoration: TextFieldDec.inputDec("Total Cut"),
                   controller: totalCut,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Cut Balance"),
+                  decoration: TextFieldDec.inputDec("Cut Balance"),
                   controller: cutBalance,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Today Issued to Sewing"),
+                  decoration: TextFieldDec.inputDec("Today Issued to Sewing"),
                   controller: todayIssuedSewing,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Issued to Sewing"),
+                  decoration: TextFieldDec.inputDec("Total Issued to Sewing"),
                   controller: totalIssuedSewing,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Sewing Balance"),
+                  decoration: TextFieldDec.inputDec("Sewing Balance"),
                   controller: sewingBalance,
                   keyboardType: TextInputType.number,
                 ),

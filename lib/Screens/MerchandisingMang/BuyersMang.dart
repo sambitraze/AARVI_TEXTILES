@@ -1,4 +1,3 @@
-import 'package:aarvi_textiles/Screens/PoMang/Buyer.dart';
 import 'package:flutter/material.dart';
 
 class BuyersMang extends StatefulWidget {

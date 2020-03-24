@@ -1,8 +1,4 @@
-import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage.dart';
 import 'package:flutter/material.dart';
-
-import '../../main.dart';
-
 
 class ProductionMnag extends StatefulWidget {
   @override
@@ -60,6 +56,6 @@ class ProductionManagement extends StatelessWidget {
           ],
         ),
       ),
-    );;
+    );
   }
 }

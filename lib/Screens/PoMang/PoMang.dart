@@ -9,7 +9,7 @@ class PoMang extends StatefulWidget {
   _PoMangState createState() => _PoMangState();
 }
 
-Widget BuyersList(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+Widget buyersList(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
   if (snapshot.hasData) {
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -92,7 +92,7 @@ class _PoMangState extends State<PoMang> {
       appBar: AppBar(title: Center(child: Text('AARVI TEXTILES'))),
       body: StreamBuilder(
         stream: Firestore.instance.collection("aarvi").snapshots(),
-        builder: BuyersList,
+        builder: buyersList,
       ),
       floatingActionButton:
           /* FloatingActionButton(

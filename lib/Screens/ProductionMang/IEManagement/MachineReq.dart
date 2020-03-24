@@ -1,24 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class MachineReq extends StatefulWidget {
   @override
   _MachineReqState createState() => _MachineReqState();
 }
-InputDecoration inputDec(String labelText){
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
+
 SizedBox leaveSpace(){
   return SizedBox(
     height: 10,
@@ -48,7 +36,7 @@ class _MachineReqState extends State<MachineReq> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onEditingComplete: () async {
                     await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value){
@@ -69,7 +57,7 @@ class _MachineReqState extends State<MachineReq> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                   enabled: false,
                 ),
@@ -77,49 +65,49 @@ class _MachineReqState extends State<MachineReq> {
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
                   controller: orderQty,
                   enabled: false,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Number of Operation"),
+                  decoration: TextFieldDec.inputDec("Number of Operation"),
                   controller: numberOfOperations,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Machine Type"),
+                  decoration: TextFieldDec.inputDec("Machine Type"),
                   controller: machineType1,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Machine Required"),
+                  decoration: TextFieldDec.inputDec("Total Machine Required"),
                   controller: totalMachineReq1,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Machine Type"),
+                  decoration: TextFieldDec.inputDec("Machine Type"),
                   controller: machineType2,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Machine Required"),
+                  decoration: TextFieldDec.inputDec("Total Machine Required"),
                   controller: totalMachineReq2,
                   keyboardType: TextInputType.number,
 
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Machine Type"),
+                  decoration: TextFieldDec.inputDec("Machine Type"),
                   controller: machineType3,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Machine Required"),
+                  decoration: TextFieldDec.inputDec("Total Machine Required"),
                   controller: totalMachineReq3,
                   keyboardType: TextInputType.number,
 

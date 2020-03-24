@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -26,58 +25,62 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
   final xxsize = TextEditingController();
 
   var controllersList = List<List<TextEditingController>>();
-  var _rows = [TableRow(children: [
-    Container(
-        padding: EdgeInsets.symmetric(horizontal: 0,vertical: 25),
-        child: Text("Lays",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),)
-    ),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('XS')
+  var _rows = [
+    TableRow(children: [
+      Container(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 25),
+          child: Text(
+            "Lays",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('XS')
+      ]),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('S')
+      ]),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('M')
+      ]),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('L')
+      ]),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('XL')
+      ]),
+      Column(children: [
+        Icon(
+          Icons.accessibility_new,
+          size: 50.0,
+        ),
+        Text('XXL')
+      ]),
     ]),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('S')
-    ]),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('M')
-    ]),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('L')
-    ]),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('XL')
-    ]),
-    Column(children: [
-      Icon(
-        Icons.accessibility_new,
-        size: 50.0,
-      ),
-      Text('XXL')
-    ]),
-  ]),];
+  ];
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -94,11 +97,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
             children: <Widget>[
               TextFormField(
                 controller: styleNo,
-                decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: "Enter Style No"),
+                decoration: TextFieldDec.inputDec("Style No"),
                 onEditingComplete: () async {
                   var listOfStrings = [];
                   await Firestore.instance
@@ -119,144 +118,149 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                       xlsize.text = data['sizes']['xl'] ?? '';
                       xxlsize.text = data['sizes']['xxl'] ?? '';
                       listOfStrings = data['lays_table'];
-                      for(int i=0;i<(listOfStrings.length);i = i+6){
-
+                      for (int i = 0; i < (listOfStrings.length); i = i + 6) {
                         var textControllers = List<TextEditingController>();
-                        for(int j=0;j<6;++j){
-                          textControllers.add(TextEditingController(text: (listOfStrings[i+j] ?? '0')));
+                        for (int j = 0; j < 6; ++j) {
+                          textControllers.add(TextEditingController(
+                              text: (listOfStrings[i + j] ?? '0')));
                         }
                         controllersList.add(textControllers);
                         setState(() {
-                          _rows.add(TableRow(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
-                                  child: Text(i.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[0],
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[1],
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[2],
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[3],
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[4],
-                                ),
-                                TextFormField(
-                                  controller: controllersList.last[5],
-                                )
-                              ]
-                          ));
+                          _rows.add(TableRow(children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 15),
+                              child: Text(
+                                i.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[0],
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[1],
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[2],
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[3],
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[4],
+                            ),
+                            TextFormField(
+                              controller: controllersList.last[5],
+                            )
+                          ]));
                         });
                       }
                     }
                   });
                 },
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 controller: orderQuantity,
-                decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: "Enter Order Quantity"),
+                decoration: TextFieldDec.inputDec("Order Quantity"),
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 controller: color,
-                decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: "Enter Colour"),
+                decoration: TextFieldDec.inputDec("Colour"),
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 controller: lays,
                 readOnly: true,
                 decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    fillColor: Colors.white,
-                    filled: true,
+                  fillColor: Colors.grey[200],
+                  filled: true,
                   labelText: "Enter No of Lays",
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () { lays.text = ((int.tryParse(lays.value.text) ?? 0) + 1).toString();
+                  labelStyle: TextStyle(color: Colors.black),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.blueAccent, width: 2.0),
+                  ),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        color: Colors.blueAccent,
+                        onPressed: () {
+                          lays.text = ((int.tryParse(lays.value.text) ?? 0) + 1)
+                              .toString();
                           var textControllers = List<TextEditingController>();
-                          for(int i=0;i<6;++i){
-                              textControllers.add(TextEditingController());
-                            }
+                          for (int i = 0; i < 6; ++i) {
+                            textControllers.add(TextEditingController());
+                          }
                           controllersList.add(textControllers);
                           setState(() {
-                            _rows.add(TableRow(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
-                                    child: Text(lays.value.text,style: TextStyle(fontWeight: FontWeight.bold),),
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[0],
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[1],
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[2],
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[3],
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[4],
-                                  ),
-                                  TextFormField(
-                                    controller: controllersList.last[5],
-                                  )
-                                ]
-                            ));
+                            _rows.add(TableRow(children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 15),
+                                child: Text(
+                                  lays.value.text,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[0],
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[1],
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[2],
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[3],
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[4],
+                              ),
+                              TextFormField(
+                                controller: controllersList.last[5],
+                              )
+                            ]));
                           });
-
-                          },
-                        ),
-                        IconButton(
+                        },
+                      ),
+                      IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             var number = int.tryParse(lays.value.text);
-                            if(number <=0)
+                            if (number <= 0)
                               lays.text = "0";
-                            else{
+                            else {
                               lays.text = (--number).toString();
                               setState(() {
-                                if(_rows.length>1){
+                                if (_rows.length > 1) {
                                   _rows.removeLast();
                                   controllersList.removeLast();
                                 }
                               });
-
                             }
-
-                          }
-                        ),
-                      ],
-                    ),
-                    ),
+                          }),
+                    ],
+                  ),
+                ),
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 keyboardType: TextInputType.number,
                 controller: piles,
-                decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: "Enter No of Plies Per Day"),
+                decoration: TextFieldDec.inputDec("No of Piles Per Day"),
               ),
+              SizedBox(height: 10.0),              
+              SizedBox(height: 10.0),
               Table(
                 border: TableBorder.all(),
                 children: [
@@ -344,13 +348,17 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                   ]),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Table(
                 border: TableBorder.all(),
                 children: _rows,
               ),
-              MaterialButton(
-                //TODO fix button color
+              SizedBox(
+                height: 10,
+              ),
+              RaisedButton(
                 child: Text("Submit"),
                 onPressed: () async {
                   scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -379,7 +387,7 @@ class _CutOrderPlanState extends State<CutOrderPlan> {
                     'cutting_no_of_lays': lays.value.text,
                     'cutting_piles_per_day': piles.value.text,
                     'sizes': stylesList,
-                    'lays_table':listOfStrings,
+                    'lays_table': listOfStrings,
                   });
                   scaffoldKey.currentState.showSnackBar(SnackBar(
                     content: Text("Done"),

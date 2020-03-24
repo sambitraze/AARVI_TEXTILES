@@ -107,8 +107,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  bool _isLoggedIntion = false;
-  bool _isAdmin = false;
+  // bool _isLoggedIntion = false;
+  // bool _isAdmin = false;
 
   @override
   Widget build(BuildContext context) {

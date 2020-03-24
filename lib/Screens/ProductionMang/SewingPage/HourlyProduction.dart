@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class SewingHourlyProduction extends StatefulWidget {
   @override
@@ -10,19 +11,6 @@ class SewingHourlyProduction extends StatefulWidget {
 var controllers = <TextEditingController>[];
 var rowList = List<DataRow>();
 
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
 SizedBox leaveSpace() {
   return SizedBox(
     height: 10,
@@ -79,14 +67,14 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: inputDec("Line Number"),
+                  decoration: TextFieldDec.inputDec("Line Number"),
                   controller: lineNo
                 ),
               leaveSpace(),
               DateTimeField(
                   controller: date,
                     format: DateFormat('dd-MM-yyyy'),
-                    decoration: inputDec("Date"),
+                    decoration: TextFieldDec.inputDec("Date"),
                     onShowPicker: (context, currentValue) async {
                       final dat = await showDatePicker(
                           context: context,
@@ -194,6 +182,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                     Row(
                       children: <Widget>[
                         IconButton(
+                          color: Colors.blueAccent,
                           icon: Icon(Icons.add),
                           onPressed: () {
                             setState(() {
@@ -204,6 +193,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                           },
                         ),
                         IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             setState(() {
@@ -222,6 +212,7 @@ class _SewingHourlyProductionState extends State<SewingHourlyProduction> {
                           },
                         ),
                         IconButton(
+                          color: Colors.green,
                           icon: Icon(Icons.refresh),
                           onPressed: (){
                             setState(() {

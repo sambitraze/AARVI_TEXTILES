@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class OpBulletin extends StatefulWidget {
   @override
@@ -11,19 +12,6 @@ class OpBulletin extends StatefulWidget {
 var controllers = List<TextEditingController>();
 var rowList = List<DataRow>();
 
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
 SizedBox leaveSpace() {
   return SizedBox(
     height: 10,
@@ -86,7 +74,7 @@ class _OpBulletinState extends State<OpBulletin> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: ((value) async {
                     await Firestore.instance.collection('aarvi').document(value).get().then((value) {
@@ -100,14 +88,14 @@ class _OpBulletinState extends State<OpBulletin> {
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                 ),
               leaveSpace(),              
               DateTimeField(
                   controller: date,
                     format: DateFormat('dd-MM-yyyy'),
-                    decoration: inputDec("Date"),
+                    decoration: TextFieldDec.inputDec("Date"),
                     onShowPicker: (context, currentValue) async {
                       final dat = await showDatePicker(
                           context: context,
@@ -145,22 +133,22 @@ class _OpBulletinState extends State<OpBulletin> {
                     }),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Garment"),
+                  decoration: TextFieldDec.inputDec("Garment"),
                   controller: garment,
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   controller: orderQty,
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Efficiency"),
+                  decoration: TextFieldDec.inputDec("Efficiency"),
                   controller: efficency,
                 ),
               leaveSpace(),
               TextFormField(
-                  decoration: inputDec("Target"),
+                  decoration: TextFieldDec.inputDec("Target"),
                   controller: target,
                 ),
               leaveSpace(),
@@ -222,6 +210,7 @@ class _OpBulletinState extends State<OpBulletin> {
                     Row(
                       children: <Widget>[
                         IconButton(
+                          color: Colors.blueAccent,
                           icon: Icon(Icons.add),
                           onPressed: () {
                             setState(() {
@@ -232,6 +221,7 @@ class _OpBulletinState extends State<OpBulletin> {
                           },
                         ),
                         IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             setState(() {
@@ -250,6 +240,7 @@ class _OpBulletinState extends State<OpBulletin> {
                           },
                         ),
                         IconButton(
+                          color: Colors.green,
                           icon: Icon(Icons.refresh),
                           onPressed: (){
                             setState(() {

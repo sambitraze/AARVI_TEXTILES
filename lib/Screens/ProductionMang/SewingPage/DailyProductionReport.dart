@@ -2,25 +2,14 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class DailyProductionReport extends StatefulWidget {
   @override
   _DailyProductionReportState createState() => _DailyProductionReportState();
 }
 
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
+
 
 SizedBox leaveSpace() {
   return SizedBox(
@@ -54,7 +43,7 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
                     await Firestore.instance
@@ -77,7 +66,7 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                   enabled: false,
                 ),
@@ -87,7 +76,7 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                 DateTimeField(
                   format: DateFormat('dd-MM-yyyy'),
                   controller: date,
-                  decoration: inputDec('Date'),
+                  decoration: TextFieldDec.inputDec('Date'),
                   onShowPicker: (context, currentValue) async {
                     final dat = await showDatePicker(
                         context: context,
@@ -120,49 +109,49 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
                   controller: orderQty,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Cut Pieces Received"),
+                  decoration: TextFieldDec.inputDec("Total Cut Pieces Received"),
                   controller: totalCut,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Today Stitch"),
+                  decoration: TextFieldDec.inputDec("Today Stitch"),
                   controller: todayStitch,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Till Date Stitch"),
+                  decoration: TextFieldDec.inputDec("Till Date Stitch"),
                   controller: totalStitch,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Balance"),
+                  decoration: TextFieldDec.inputDec("Balance"),
                   controller: sewingBalance,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Today Send to Finsihing"),
+                  decoration: TextFieldDec.inputDec("Today Send to Finsihing"),
                   controller: todayFinish,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Send to Finishing"),
+                  decoration: TextFieldDec.inputDec("Total Send to Finishing"),
                   controller: totalFinish,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Finishing Balance"),
+                  decoration: TextFieldDec.inputDec("Finishing Balance"),
                   controller: finishBalance,
                   keyboardType: TextInputType.number,
                 ),

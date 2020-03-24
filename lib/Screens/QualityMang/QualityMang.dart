@@ -233,6 +233,7 @@ class _QualityMangState extends State<QualityMang> {
                     Row(
                       children: <Widget>[
                         IconButton(
+                          color: Colors.blueAccent,
                           icon: Icon(Icons.add),
                           onPressed: () {
                             setState(() {
@@ -243,6 +244,7 @@ class _QualityMangState extends State<QualityMang> {
                           },
                         ),
                         IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             setState(() {
@@ -260,6 +262,7 @@ class _QualityMangState extends State<QualityMang> {
                           },
                         ),
                         IconButton(
+                          color: Colors.green,
                           icon: Icon(Icons.refresh),
                           onPressed: () {
                             setState(() {

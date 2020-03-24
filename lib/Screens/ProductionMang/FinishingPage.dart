@@ -2,24 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class FinishingPage extends StatefulWidget {
   @override
   _FinishingPageState createState() => _FinishingPageState();
-}
-
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
 }
 
 SizedBox leaveSpace() {
@@ -56,7 +43,7 @@ class _FinishingPageState extends State<FinishingPage> {
               children: <Widget>[
                 DateTimeField(
                   format: DateFormat('dd-MM-yyyy'),
-                  decoration: inputDec("Date"),
+                  decoration: TextFieldDec.inputDec("Date"),
                   onShowPicker: (context, currentValue) async {
                     final dat = await showDatePicker(
                         context: context,
@@ -70,7 +57,7 @@ class _FinishingPageState extends State<FinishingPage> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Product/Style Number"),
+                  decoration: TextFieldDec.inputDec("Product/Style Number"),
                   controller: styleNo,
                   onEditingComplete: () async {
                     await Firestore.instance
@@ -100,62 +87,62 @@ class _FinishingPageState extends State<FinishingPage> {
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                   enabled: false,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Order Quantity"),
+                  decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,
                   controller: qty,
                   enabled: false,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Today Received from Sewing"),
+                  decoration: TextFieldDec.inputDec("Today Received from Sewing"),
                   controller: todayrs,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Received from Sewing"),
+                  decoration: TextFieldDec.inputDec("Total Received from Sewing"),
                   controller: totalrs,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Balance"),
+                  decoration: TextFieldDec.inputDec("Balance"),
                   controller: balance,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Inspected Piece"),
+                  decoration: TextFieldDec.inputDec("Total Inspected Piece"),
                   controller: totalInspected,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Rework Piece"),
+                  decoration: TextFieldDec.inputDec("Total Rework Piece"),
                   controller: totalRework,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Send to Pressing"),
+                  decoration: TextFieldDec.inputDec("Total Send to Pressing"),
                   controller: totalSendToPress,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Send to Button Attach"),
+                  decoration: TextFieldDec.inputDec("Total Send to Button Attach"),
                   controller: totalSendToButtonAttach,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Send to Packaging"),
+                  decoration: TextFieldDec.inputDec("Total Send to Packaging"),
                   controller: totalSendToPacking,
                   keyboardType: TextInputType.number,
                 ),

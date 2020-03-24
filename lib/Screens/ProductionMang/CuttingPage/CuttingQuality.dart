@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class CuttingQuality extends StatefulWidget {
   @override
@@ -10,20 +11,6 @@ class CuttingQuality extends StatefulWidget {
 
 var controllers = <TextEditingController>[];
 var rowList = List<DataRow>();
-
-InputDecoration inputDec(String labelText) {
-  return InputDecoration(
-    fillColor: Colors.white,
-    filled: true,
-    labelText: labelText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 1.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.brown, width: 2.0),
-    ),
-  );
-}
 
 SizedBox leaveSpace() {
   return SizedBox(
@@ -82,7 +69,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: inputDec("Style Number"),
+                  decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
                     try{
@@ -96,7 +83,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Buyer"),
+                  decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                 ),
                 SizedBox(
@@ -105,7 +92,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 DateTimeField(
                   controller: date,
                     format: DateFormat('dd-MM-yyyy'),
-                    decoration: inputDec("Date"),
+                    decoration: TextFieldDec.inputDec("Date"),
                     onShowPicker: (context, currentValue) async {
                       final dat = await showDatePicker(
                           context: context,
@@ -146,31 +133,31 @@ class _CuttingQualityState extends State<CuttingQuality> {
                     }),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Lay Number"),
+                  decoration: TextFieldDec.inputDec("Lay Number"),
                   keyboardType: TextInputType.number,
                   controller: layNo,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Size"),
+                  decoration: TextFieldDec.inputDec("Size"),
                   controller: size,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Total Part Checked"),
+                  decoration: TextFieldDec.inputDec("Total Part Checked"),
                   controller: totalPartChecked,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Pass"),
+                  decoration: TextFieldDec.inputDec("Pass"),
                   controller: pass,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: inputDec("Fail"),
+                  decoration: TextFieldDec.inputDec("Fail"),
                   controller: fail,
                   keyboardType: TextInputType.number,
                 ),
@@ -226,6 +213,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                     Row(
                       children: <Widget>[
                         IconButton(
+                          color: Colors.blueAccent,
                           icon: Icon(Icons.add),
                           onPressed: () {
                             setState(() {
@@ -236,6 +224,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                           },
                         ),
                         IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             setState(() {
@@ -254,6 +243,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                           },
                         ),
                         IconButton(
+                          color: Colors.green,
                           icon: Icon(Icons.refresh),
                           onPressed: (){
                             setState(() {

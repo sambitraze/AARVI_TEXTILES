@@ -173,7 +173,6 @@ class _SampleTrackPatternState extends State<SampleTrackPattern> {
                       _snackBarKey.currentState.showSnackBar(SnackBar(
                         content: Text("Updating"),
                       ));
-                      //TODO Implement Date Picker
                       s = Styles.setSampleTrack(
                           styleNo: _styleController.value.text,
                           patternCompleted: _patternCompleted,
