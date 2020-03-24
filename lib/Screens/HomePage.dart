@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
 
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               MaterialButton(
                   minWidth: 200,

@@ -21,6 +21,7 @@ class _LoginscreenState extends State<Loginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        padding: new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Container(
             height: MediaQuery.of(context).size.height,
             child: Stack(
@@ -34,8 +35,6 @@ class _LoginscreenState extends State<Loginscreen> {
                   child: Form(
                     key: _formKey,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           flex: 3,
@@ -63,7 +62,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                       color: Colors.greenAccent, fontSize: 50),
                                 ),
                                 TextSpan(
-                                  text: '  Textiles',
+                                  text: '\nTextiles',
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 50),
                                 ),
@@ -127,7 +126,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             }
                           },
                           child: Container(
-                            width: 150,
+                            width: double.infinity,
                             height: 50,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -170,7 +169,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             Navigator.pushNamed(context, '/AdminHomePage');
                           },
                           child: Container(
-                            width: 300,
+                            width: double.infinity,
                             height: 50,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
