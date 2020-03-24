@@ -9,65 +9,121 @@ class _MerchandisingMangState extends State<MerchandisingMang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        title: Text("Merchandising Management"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[          
-            RaisedButton(
-              onPressed: () {
+        appBar: AppBar(
+          title: Text("Merchandising Management"),
+        ),
+        body: new GridView.count(
+          
+          crossAxisCount: 2,
+          childAspectRatio: 1.0,
+          padding: const EdgeInsets.all(4.0),
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+          children: <Widget>[
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('BoM', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/BoM');
               },
-              child: Text('BOM'),
-
-            ),
-            RaisedButton(
-              onPressed: () {
+            ),GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('TnA', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/TnA');
               },
-              child: Text('TnA'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Fabric\nEnquiry', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/FabricEnquiry');
               },
-              child: Text('Fabric Enquiry'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Stock\nMangement', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/StockMang');
               },
-              child: Text('Stock Mangement'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Sample\nTracking', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/SampleTrack');
               },
-              child: Text('Sample Tracking'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Order\nTracking', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/OrderTrack');
               },
-              child: Text('Order Tracking'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Supplier\nManagement', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/SuppliersMang');
               },
-              child: Text('Supplier Mangement'),
             ),
-            RaisedButton(
-              onPressed: () {
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text('Buyer\'s\nManagement', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                )
+              ),
+              onTap: () {
                 Navigator.pushNamed(context, '/BuyersMang');
               },
-              child: Text('Buyers Mangement'),
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
