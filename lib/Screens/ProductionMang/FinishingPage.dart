@@ -59,16 +59,15 @@ class _FinishingPageState extends State<FinishingPage> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Product/Style Number"),
                   controller: styleNo,
-                  onEditingComplete: () async {
+                  onChanged: (value) async {
                     await Firestore.instance
                         .collection('aarvi')
-                        .document(styleNo.value.text)
+                        .document(value)
                         .get()
                         .then((value) {
                       if (value.exists) {
                         var data = value.data;
                         buyer.text = data['buyer'] ?? '';
-                        //TODO: chk funcanility buyer name is not coming and there is no finsihing db for 678
                         qty.text = data['order_quantity'] ?? '';
                         totalrs.text = data['total_sewing'] ?? '';
                         balance.text = data['finishing_balance'] ?? '';

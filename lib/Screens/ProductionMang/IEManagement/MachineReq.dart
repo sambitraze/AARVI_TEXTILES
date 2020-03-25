@@ -38,12 +38,11 @@ class _MachineReqState extends State<MachineReq> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
-                  onEditingComplete: () async {
+                  onChanged: (value) async {
                     await Firestore.instance.collection('aarvi').document(styleNo.value.text).get().then((value){
                       if(value.exists){
                         var data = value.data;
                         buyer.text = data['buyer'];
-                        //TODO: buyer not working device not fetching buyer name
                         orderQty.text = data['order_quantity'];
                         numberOfOperations.text = data['number_of_operations'];
                         machineType1.text = data['machine_type_1'] ?? '';
