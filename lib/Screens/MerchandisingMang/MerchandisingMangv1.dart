@@ -79,7 +79,7 @@ class _MerchandisingMangState extends State<MerchandisingMang> {
                 color: Colors.grey[200],
                 minWidth: double.infinity,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/BuyersMang');
+                  Navigator.pushNamed(context, '/PoMang');
                 },
                 child: Text('Buyers Mangement'),
               ),

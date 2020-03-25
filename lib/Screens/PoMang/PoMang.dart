@@ -95,10 +95,6 @@ class _PoMangState extends State<PoMang> {
         builder: buyersList,
       ),
       floatingActionButton:
-          /* FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed:() { Navigator.push(context, MaterialPageRoute(builder: (context) => AddBuyersPage()));},
-      ), */
           OpenContainer(
 
             closedColor: Colors.cyan,

@@ -122,7 +122,7 @@ class _MerchandisingMangState extends State<MerchandisingMang> {
                   )
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, '/BuyersMang');
+                  Navigator.pushNamed(context, '/Po Mang');
                 },
               ),
             ],
