@@ -47,7 +47,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.cyan,
+        
       ),
+      // theme: ThemeData.dark(),
+      
       home:  CustomSplash(
         imagePath: 'assets/icon/icon.png',
         animationEffect: 'zoom-in',
