@@ -26,7 +26,7 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
-        title: Text("Sample Tracking - Quality"),
+        title: Text("Sample Tracking - sewing"),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -58,6 +58,7 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                   },
                   decoration: TextFieldDec.inputDec("Style No"),
                 ),
+                SizedBox(height: 10),
                 TextFormField(
                   enabled: false,
                   controller: buyer,

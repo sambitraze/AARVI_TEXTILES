@@ -171,7 +171,11 @@ class _OrderTrackState extends State<OrderTrack> {
                   RaisedButton(
                     child: Text("Submit"),
                     onPressed: () async {
-                      await Firestore.instance
+                      _snackBarKey.currentState.showSnackBar(SnackBar(
+                      content: Text("Uploading"),
+                    ));
+                      try {
+                        await Firestore.instance
                           .collection('aarvi')
                           .document(_styleController.value.text)
                           .updateData({
@@ -179,7 +183,12 @@ class _OrderTrackState extends State<OrderTrack> {
                         'order_dispatch_date': dispatchedDate,
                         'order_status': orderStatus.value.text
                       });
-                    },
+                      } catch (e) {
+                      _snackBarKey.currentState.showSnackBar(SnackBar(
+                        content: Text(e.toString()),
+                      ));
+                    }
+                    }
                   )
                 ],
               ),

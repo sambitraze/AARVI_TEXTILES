@@ -1,5 +1,5 @@
 name: aarvi_textiles
-description: A new Flutter project.
+description: An app for managing textile startup.
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

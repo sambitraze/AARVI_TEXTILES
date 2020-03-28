@@ -107,10 +107,6 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _sampleType,
-                    decoration: TextFieldDec.inputDec("Sample Type"),
-                  ),
                   SizedBox(
                     height: 20,
                   ),
