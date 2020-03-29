@@ -46,6 +46,7 @@ class _CartonSupState extends State<CartonSup> {
   final nonNominatedSupplierController = TextEditingController();
   String nominatedMessage = '';
   String nonNominatedMessage = '';
+  final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +139,11 @@ class _CartonSupState extends State<CartonSup> {
                                     print("$supplierName");
                                   },
                                 ),
+                                TextField(
+                                  controller: addressController,
+                                  decoration: TextFieldDec.inputDec('Address'),
+        
+                                ),
                                 SizedBox(
                                   height: 50,
                                 ),
@@ -158,7 +164,8 @@ class _CartonSupState extends State<CartonSup> {
                                       'nominated': supplierType == 'Nominated'
                                           ? true
                                           : false,
-                                      'type': "Carton"
+                                      'type': "Carton",
+                                      'address': addressController.value.text
                                     });
                                   },
                                   child: Text('Add'),

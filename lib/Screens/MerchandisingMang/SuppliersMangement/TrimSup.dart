@@ -46,6 +46,8 @@ class _TrimsupState extends State<Trimsup> {
   final nonNominatedSupplierController = TextEditingController();
   String nominatedMessage = '';
   String nonNominatedMessage = '';
+  final addressController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,6 +131,10 @@ class _TrimsupState extends State<Trimsup> {
                                   print("$supplierName");
                                 },
                               ),
+                              TextField(
+                                controller: addressController,
+                                decoration: TextFieldDec.inputDec("Address"),
+                              ),
                               SizedBox(height: 80,),
                               _hintDown(),                              
                             ],
@@ -146,7 +152,8 @@ class _TrimsupState extends State<Trimsup> {
                                     'nominated': supplierType == 'Nominated'
                                         ? true
                                         : false,
-                                    'type':"Trim"
+                                    'type':"Trim",
+                                    'address':addressController.value.text
                                   });
                                 },
                                 child: Text('Add'),

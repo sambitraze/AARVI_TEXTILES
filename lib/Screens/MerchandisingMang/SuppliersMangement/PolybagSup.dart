@@ -46,6 +46,8 @@ class _PolybagSupState extends State<PolybagSup> {
   final nonNominatedSupplierController = TextEditingController();
   String nominatedMessage = '';
   String nonNominatedMessage = '';
+  final addressController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,6 +132,7 @@ class _PolybagSupState extends State<PolybagSup> {
                                         print("$supplierName");
                                       },
                                     ),
+                                    TextField(controller: addressController,decoration: TextFieldDec.inputDec("Address"),),
                                     SizedBox(height: 50,),
                                     _hintDown(),                                    
                                   ],
@@ -148,7 +151,8 @@ class _PolybagSupState extends State<PolybagSup> {
                                           'nominated': supplierType == 'Nominated'
                                               ? true
                                               : false,
-                                          'type':"Polybag"
+                                          'type':"Polybag",
+                                          'address':addressController.value.text
                                         });
                                       },
                                       child: Text('Add'),

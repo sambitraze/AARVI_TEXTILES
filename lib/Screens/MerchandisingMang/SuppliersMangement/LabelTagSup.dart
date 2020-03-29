@@ -47,6 +47,7 @@ class _LabelTagSupState extends State<LabelTagSup> {
   final nonNominatedSupplierController = TextEditingController();
   String nominatedMessage = '';
   String nonNominatedMessage = '';
+  final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +139,7 @@ class _LabelTagSupState extends State<LabelTagSup> {
                                   print("$supplierName");
                                 },
                               ),
+                              TextField(controller: addressController,decoration: TextFieldDec.inputDec('Address'),),
                               SizedBox(
                                 height: 50,
                               ),
@@ -157,7 +159,8 @@ class _LabelTagSupState extends State<LabelTagSup> {
                                     'nominated': supplierType == 'Nominated'
                                         ? true
                                         : false,
-                                    'type':"Label"
+                                    'type':"Label",
+                                    'address':addressController.value.text
                                   });
                                 },
                                 child: Text('Add'),

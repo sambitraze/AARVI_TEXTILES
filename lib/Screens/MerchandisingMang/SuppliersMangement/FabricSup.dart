@@ -47,6 +47,7 @@ class _FabricSupState extends State<FabricSup> {
   final nonNominatedSupplierController = TextEditingController();
   String nominatedMessage = '';
   String nonNominatedMessage = '';
+  final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +138,10 @@ class _FabricSupState extends State<FabricSup> {
                                     print("$supplierName");
                                   },
                                 ),
+                                TextField(
+                                  controller: addressController,
+                                  decoration: TextFieldDec.inputDec("Address"),
+                                ),
                                 SizedBox(
                                   height: 50,
                                 ),
@@ -156,7 +161,8 @@ class _FabricSupState extends State<FabricSup> {
                                       'nominated': supplierType == 'Nominated'
                                           ? true
                                           : false,
-                                      'type':"Fabric"
+                                      'type':"Fabric",
+                                      'address':addressController.value.text
                                     });
                                   },
                                   child: Text('Add'),
