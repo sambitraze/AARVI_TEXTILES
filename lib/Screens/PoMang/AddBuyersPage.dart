@@ -29,6 +29,7 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
   String packingDetails = '';
   String shippingDetails = '';
   String other = '';
+  String garment = '';
   final xssize = TextEditingController();
   final ssize = TextEditingController();
   final msize = TextEditingController();
@@ -77,6 +78,11 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                   decoration: TextFieldDec.inputDec("Size Breakup"),
                   onChanged: (val) => sizeBreakup = val,
                   //add table for diff size
+                ),
+                leaveSpace(),
+                TextFormField(
+                  decoration: TextFieldDec.inputDec("Garment"),
+                  onChanged: (val) => garment = val,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -231,6 +237,7 @@ class _AddBuyersPageState extends State<AddBuyersPage> {
                         .collection('aarvi')
                         .document(style)
                         .updateData({
+                      'garment':garment,
                       'order_sizes': {
                         'xs': xssize.value.text,
                         's': ssize.value.text,

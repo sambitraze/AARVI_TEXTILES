@@ -41,7 +41,8 @@ class _CuttingQualityState extends State<CuttingQuality> {
       size = TextEditingController(),
       totalPartChecked = TextEditingController(),
       pass = TextEditingController(),
-      fail = TextEditingController();
+      fail = TextEditingController(),
+      garment = TextEditingController();
 
   TextEditingController date = TextEditingController();
 
@@ -85,6 +86,13 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
                 ),
                 SizedBox(
                   height: 10,

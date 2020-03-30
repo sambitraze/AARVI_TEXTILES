@@ -30,6 +30,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
   final todayIssuedSewing = TextEditingController();
   final totalIssuedSewing = TextEditingController();
   final sewingBalance = TextEditingController();
+  final garment = TextEditingController();
   int total;
   final date = TextEditingController();
 
@@ -66,6 +67,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                         totalIssuedSewing.text =
                             data['total_issued_sewing'] ?? '0';
                         sewingBalance.text = data['sewing_balance'] ?? '0';
+                        garment.text = data['garment'];
                       }
                     });
                     setState(() {
@@ -78,6 +80,13 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                   enabled: false,
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
                 ),
                 SizedBox(
                   height: 10,

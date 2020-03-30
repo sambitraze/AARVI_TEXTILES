@@ -30,6 +30,7 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
   final finishBalance = TextEditingController();
   final sewingBalance = TextEditingController();
   final date = TextEditingController();
+  final garment = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,13 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                   enabled: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
                 ),
                 SizedBox(
                   height: 10,
