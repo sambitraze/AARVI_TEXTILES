@@ -26,16 +26,13 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
           child: Column(
-
             crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               MaterialButton(
                   minWidth: 200,
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
-                  // padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
                   onPressed: () {
                     Navigator.pushNamed(context, '/PoMang');
                   },
@@ -57,7 +54,6 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
-                  // padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   onPressed: () {
                     Navigator.pushNamed(context, '/MerchandisingMang');
                   },
@@ -79,7 +75,6 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
-                  // padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                   onPressed: () {
                     Navigator.pushNamed(context, '/ProductionMang');
                   },
@@ -101,7 +96,6 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
-                  // padding: EdgeInsets.fromLTRB(60, 20, 60, 20),
                   onPressed: () {
                     Navigator.pushNamed(context, '/QualityMang');
                   },

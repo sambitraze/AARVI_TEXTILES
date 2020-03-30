@@ -22,9 +22,8 @@ class _SampleTrackState extends State<SampleTrack> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                onChanged: (val) => inputStyleNo = val,
-                decoration: TextFieldDec.inputDec("Style No")
-              ),
+                  onChanged: (val) => inputStyleNo = val,
+                  decoration: TextFieldDec.inputDec("Style No")),
               SizedBox(
                 height: 30,
               ),
@@ -32,7 +31,14 @@ class _SampleTrackState extends State<SampleTrack> {
                 color: Colors.white70,
                 child: Text("Search"),
                 onPressed: () async {
-                  await Firestore.instance.collection('aarvi').document(inputStyleNo).get().then((value) {
+                  await Firestore.instance
+                      .collection('aarvi')
+                      .document(inputStyleNo)
+                      .get()
+                      .then((value) {
+                    _scaffoldState.currentState.showSnackBar(SnackBar(
+                      content: Text("searching"),
+                    ));
                     print(value.data);
                   });
                   s = await Styles.getStyleFromStyleNo(inputStyleNo);
@@ -60,39 +66,88 @@ class _SampleTrackState extends State<SampleTrack> {
       appBar: AppBar(
         title: Text("Sample Trackiing"),
       ),
-      body: Center(
-        child: !_styleExists
-            ? searchStyle()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: !_styleExists
+          ? searchStyle()
+          : Padding(
+              padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+              child: new GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 1.0,
+                padding: const EdgeInsets.all(4.0),
+                mainAxisSpacing: 20.0,
+                crossAxisSpacing: 20.0,
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
+                  GestureDetector(
+                    child: Card(
+                      elevation: 8.0,
+                      child: Container(
+                        color: Colors.grey[300],
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Pattern',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
                       Navigator.pushNamed(context, '/Pattern');
                     },
-                    child: Text('Pattern'),
                   ),
-                  RaisedButton(
-                    onPressed: () {
+                  GestureDetector(
+                    child: Card(
+                      elevation: 8.0,
+                      child: Container(
+                        color: Colors.grey[300],
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Cutting',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
                       Navigator.pushNamed(context, '/Cutting');
                     },
-                    child: Text('Cutting'),
                   ),
-                  RaisedButton(
-                    onPressed: () {
+                  GestureDetector(
+                    child: Card(
+                      elevation: 8.0,
+                      child: Container(
+                        color: Colors.grey[300],
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Sewing',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
                       Navigator.pushNamed(context, '/Sewing');
                     },
-                    child: Text('Sewing'),
                   ),
-                  RaisedButton(
-                    onPressed: () {
+                  GestureDetector(
+                    child: Card(
+                      elevation: 8.0,
+                      child: Container(
+                        color: Colors.grey[300],
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Quality',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
                       Navigator.pushNamed(context, '/Quality');
                     },
-                    child: Text('Quality'),
                   ),
                 ],
               ),
-      ),
+            ),
     );
   }
 }

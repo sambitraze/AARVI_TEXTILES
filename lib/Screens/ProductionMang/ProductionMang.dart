@@ -19,43 +19,86 @@ class ProductionManagement extends StatelessWidget {
       appBar: AppBar(
         title: Text("Production Mangement"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+        child: new GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 1.0,
+          padding: const EdgeInsets.all(4.0),
+          mainAxisSpacing: 20.0,
+          crossAxisSpacing: 20.0,
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Cutting"),
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/CuttingPage');
-                  },
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Cutting',
+                    style: TextStyle(fontSize: 22.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                SizedBox(height: 50),
-                RaisedButton(
-                  child: Text("Sewing"),
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/SewingPage');
-                  },
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/CuttingPage');
+              },
+            ),
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Sewing',
+                    style: TextStyle(fontSize: 22.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                SizedBox(height: 50),
-                RaisedButton(
-                  child: Text("Finishing"),
-                  onPressed: (){Navigator.pushNamed(context, '/FinishingPage');},
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/SewingPage');
+              },
+            ),
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Finishing',
+                    style: TextStyle(fontSize: 22.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                SizedBox(height: 50,),
-                RaisedButton(
-                  child: Text("Packing"),
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/PackagingPage');
-                  },
-                )
-              ],
-            )
-
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/FinishingPage');
+              },
+            ),
+            GestureDetector(
+              child: Card(
+                elevation: 8.0,
+                child: Container(
+                  color: Colors.grey[300],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Packing',
+                    style: TextStyle(fontSize: 22.0),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/PackagingPage');
+              },
+            ),
           ],
         ),
-      ),
+      ),  
     );
   }
 }

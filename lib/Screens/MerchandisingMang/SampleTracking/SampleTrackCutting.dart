@@ -29,7 +29,7 @@ class _SampleTrackCuttingState extends State<SampleTrackCutting> {
   final manPowerRequiredController = TextEditingController();
   final sampleTypeController = TextEditingController();
   final etcController = TextEditingController();
-  final _sampleType = TextEditingController();
+  // final _sampleType = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
