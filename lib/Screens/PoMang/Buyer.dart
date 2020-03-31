@@ -17,6 +17,7 @@ class Buyer{
   String packingDetails;
   String address;
   String other;
+  String garment;
   Buyer({this.name,this.style,this.desc,this.quantity,this.sizeBreakup,this.fabricDetails,this.printDetails,
   this.washingDetails,this.labelDetails,this.price,this.packingDetails,this.address,this.other});
 
@@ -34,6 +35,7 @@ class Buyer{
     this.packingDetails = snapshot['packingDetails'] ?? '';
     this.address = snapshot['address'] ?? '';
     this.other = snapshot['other'] ?? '';
+    this.garment = snapshot['garment'] ?? '';
   }
   Future setData() async {
     await Firestore.instance.collection("aarvi").document(style).setData({

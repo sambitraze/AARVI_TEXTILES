@@ -19,6 +19,7 @@ class _OrderTrackState extends State<OrderTrack> {
   final _snackBarKey = GlobalKey<ScaffoldState>();
   bool _update = true;
   final totalPieces = TextEditingController();
+  final garment = TextEditingController();
   Styles s;
 
   @override
@@ -86,6 +87,13 @@ class _OrderTrackState extends State<OrderTrack> {
                     controller: buyer,
                     keyboardType: TextInputType.multiline,
                     decoration: TextFieldDec.inputDec("Buyer"),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: garment,
+                    decoration: TextFieldDec.inputDec("Garment"),
                   ),
                   SizedBox(
                     height: 20,

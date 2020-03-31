@@ -32,9 +32,10 @@ Widget buyersList(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       children: <Widget>[
                         Text('Name: ' + b.name),
                         Text('Address: ' + b.address),
+                        Text('Garment: '+b.garment),
                         Text('Desc: ' + b.desc),
                         Text('Facbric: ' + b.fabricDetails),
-                        Text('Lable: ' + b.labelDetails),
+                        Text('Label: ' + b.labelDetails),
                         Text('Packing: ' + b.packingDetails),
                         Text('Price: ' + b.price.toString()),
                         Text('Print: ' + b.printDetails),

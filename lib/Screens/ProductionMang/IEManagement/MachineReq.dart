@@ -24,6 +24,7 @@ class _MachineReqState extends State<MachineReq> {
   final machineType3 = TextEditingController();
   final totalMachineReq3 = TextEditingController();
   final scaffoldState = GlobalKey<ScaffoldState>();
+  final garment = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +51,8 @@ class _MachineReqState extends State<MachineReq> {
                         machineType2.text = data['machine_type_2'] ?? '';
                         totalMachineReq2.text = data['total_machine_required_2'] ?? '';
                         machineType3.text = data['machine_type_3'] ?? '';
-                        totalMachineReq3.text = data['total_machine_required_3'] ?? '';                      
+                        totalMachineReq3.text = data['total_machine_required_3'] ?? '';
+                        garment.text = data['garment'] ?? '';
                       }
                     });
                   },
@@ -60,6 +62,13 @@ class _MachineReqState extends State<MachineReq> {
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                   enabled: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
                 ),
                 SizedBox(
                   height: 10,

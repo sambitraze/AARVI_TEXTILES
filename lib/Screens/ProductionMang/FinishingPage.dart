@@ -29,6 +29,7 @@ class _FinishingPageState extends State<FinishingPage> {
   final totalSendToPress = TextEditingController();
   final totalSendToButtonAttach = TextEditingController();
   final totalSendToPacking = TextEditingController();
+  final garment = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +80,8 @@ class _FinishingPageState extends State<FinishingPage> {
                             data['total_send_button'] ?? '';
                         totalSendToPacking.text =
                             data['total_send_packing'] ?? '';
+                        garment.text =
+                            data['garment'] ?? '';
                       }
                     });
                   },
@@ -92,6 +95,13 @@ class _FinishingPageState extends State<FinishingPage> {
                   enabled: false,
                 ),
                 leaveSpace(),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,

@@ -26,7 +26,7 @@ class _PackagingPageState extends State<PackagingPage> {
   final totalPack = TextEditingController();
   final todayDispatch = TextEditingController();
   final scaffoldState = GlobalKey<ScaffoldState>();
-
+  final garment = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,8 @@ class _PackagingPageState extends State<PackagingPage> {
                         qty.text = data['order_quantity'] ?? '';
                         totalrf.text = data['total_send_packing'] ?? '';
                         balance.text = data['packing_balance'] ?? '';
-                        totalPack.text = data['total_pack'];
+                        totalPack.text = data['total_pack'] ?? '';
+                        garment.text = data['garment'] ?? '';
                       }
                     });
                   },
@@ -95,6 +96,13 @@ class _PackagingPageState extends State<PackagingPage> {
                   enabled: false,
                 ),
                 leaveSpace(),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Order Quantity"),
                   keyboardType: TextInputType.number,

@@ -57,6 +57,7 @@ class _QualityMangState extends State<QualityMang> {
   final tpp = TextEditingController();
   final td = TextEditingController();
   final dhu = TextEditingController();
+  final garment = TextEditingController();
   String dhuperc = '';
   List<DataRow> getRows() {
     for (int i = 0; i < rows; ++i) rowList.add(getRow(i));
@@ -95,6 +96,7 @@ class _QualityMangState extends State<QualityMang> {
                          if(value.exists){
                            buyer.text = value.data['buyer'];
                            orderQty.text = value.data['order_quantity'];
+                           garment.text=value.data['garment'];
                          }
                        });
                       setState(() {});
@@ -107,6 +109,13 @@ class _QualityMangState extends State<QualityMang> {
                   controller: buyer,
                 ),
                 leaveSpace(),
+                TextFormField(
+                  controller: garment,
+                  decoration: TextFieldDec.inputDec("Garment"),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 DateTimeField(
                     controller: date,
                     format: DateFormat('dd-MM-yyyy'),

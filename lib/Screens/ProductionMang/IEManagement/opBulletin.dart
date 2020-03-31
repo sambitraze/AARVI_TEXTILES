@@ -67,7 +67,7 @@ class _OpBulletinState extends State<OpBulletin> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      appBar: AppBar(title: Text('operation bulletin')),
+      appBar: AppBar(title: Text('Operation bulletin')),
       body: Container(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(10.0),
@@ -82,6 +82,7 @@ class _OpBulletinState extends State<OpBulletin> {
                         buyer.text = value.data['buyer'];
                         orderQty.text = value.data['order_quantity'];
                         efficency.text = value.data['effeciency'];
+                        garment.text = value.data['garment'];
                       }
                     });
                   }),
