@@ -69,7 +69,7 @@ class _LoginscreenState extends State<Loginscreen> {
                               ]),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 100,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
@@ -159,48 +159,48 @@ class _LoginscreenState extends State<Loginscreen> {
                           ),
                         ),
                         SizedBox(height: 10.0),
-                        GestureDetector(
-                          onTap: () async {
-                            _loggingIn = true;
-                            AuthResult result =
-                                await FirebaseAuth.instance.signInAnonymously();
-                            print(result.user.uid);
-                            _loggingIn = false;
-                            Navigator.pushNamed(context, '/AdminHomePage');
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.blueAccent,
-                                  Colors.greenAccent,
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  offset: Offset(5, 5),
-                                  blurRadius: 10,
-                                )
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sign in (ONLY FOR DEBUG)',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () async {
+                        //     _loggingIn = true;
+                        //     AuthResult result =
+                        //         await FirebaseAuth.instance.signInAnonymously();
+                        //     print(result.user.uid);
+                        //     _loggingIn = false;
+                        //     Navigator.pushNamed(context, '/AdminHomePage');
+                        //   },
+                        //   child: Container(
+                        //     width: double.infinity,
+                        //     height: 50,
+                        //     decoration: BoxDecoration(
+                        //       gradient: LinearGradient(
+                        //         colors: [
+                        //           Colors.blueAccent,
+                        //           Colors.greenAccent,
+                        //         ],
+                        //         begin: Alignment.topLeft,
+                        //         end: Alignment.bottomRight,
+                        //       ),
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //           color: Colors.black12,
+                        //           offset: Offset(5, 5),
+                        //           blurRadius: 10,
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     child: Center(
+                        //       child: Text(
+                        //         'Sign in (ONLY FOR DEBUG)',
+                        //         style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontSize: 20,
+                        //           fontWeight: FontWeight.w500,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         Container(
                           child: !_loggingIn
                               ? Text(
