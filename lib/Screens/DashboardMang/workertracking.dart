@@ -11,8 +11,8 @@ class _WorkerTrackingState extends State<WorkerTracking> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Worker Tracking'),
-        backgroundColor: Colors.blueAccent,
+        title: Text('Operator Tracking'),
+        backgroundColor: Colors.cyan,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.track_changes),
@@ -51,7 +51,7 @@ class _WorkerTrackingState extends State<WorkerTracking> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Sample: ',
+                  'Operation: ',
                   style: TextStyle(fontSize: 28.0),
                 ),
                 SizedBox(width: 20.0),

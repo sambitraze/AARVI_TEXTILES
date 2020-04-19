@@ -70,7 +70,7 @@ class _WorkerLoginState extends State<WorkerLogin> {
                         ),
                         Center(
                           child: Text(
-                            'Worker Login',
+                            'Operator Login',
                             style: TextStyle(
                               color: Colors.brown,
                               fontSize: 28.0,

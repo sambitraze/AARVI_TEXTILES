@@ -1,4 +1,5 @@
-// import 'package:aarvi_textiles/services/auth.dart';
+import 'package:aarvi_textiles/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/widget/bezierContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +10,7 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
-  // final AuthService _auth = AuthService();
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool _loggingIn = false;
   String email = '';
@@ -101,29 +102,29 @@ class _LoginscreenState extends State<Loginscreen> {
                         ),
                         GestureDetector(
                           onTap: () async{
-                            Navigator.pushNamed(context, '/AdminHomePage');
-                            // setState(() {
-                            //   _loggingIn = true;
-                            // });
-                            // FirebaseUser user =
-                            //     await _auth.signIn(email, password);
-                            // setState(() {
-                            //   _loggingIn = false;
-                            //   error = 'Invalid Username and Password!';
-                            // });
-                            // if (user.uid == null) {
-                            //   user = null;
-                            //   setState(() {
-                            //     error = "Could not log in";
-                            //   });
-                            // } else {
-                            //   print(user.uid);
-                            //   print(user.email);
-                            //   setState(() {
-                            //     error = "";
-                            //     Navigator.pushNamed(context, '/AdminHomePage');
-                            //   });
-                            // }
+                            // Navigator.pushNamed(context, '/AdminHomePage');
+                            setState(() {
+                              _loggingIn = true;
+                            });
+                            FirebaseUser user =
+                                await _auth.signIn(email, password);
+                            setState(() {
+                              _loggingIn = false;
+                              error = 'Invalid Username and Password!';
+                            });
+                            if (user.uid == null) {
+                              user = null;
+                              setState(() {
+                                error = "Could not log in";
+                              });
+                            } else {
+                              print(user.uid);
+                              print(user.email);
+                              setState(() {
+                                error = "";
+                                Navigator.pushNamed(context, '/AdminHomePage');
+                              });
+                            }
                           },
                           child: Container(
                             width: double.infinity,

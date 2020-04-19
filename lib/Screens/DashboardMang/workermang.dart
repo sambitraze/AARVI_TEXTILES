@@ -12,8 +12,8 @@ class _WorkerMangState extends State<WorkerMang> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Worker Mangement'),
-        backgroundColor: Colors.blueAccent,
+        title: Text('Operator Mangement'),
+        backgroundColor: Colors.cyan,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.track_changes),
@@ -24,7 +24,7 @@ class _WorkerMangState extends State<WorkerMang> {
       // body: WorkerList(),
       body: Container(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.cyan,
         child: Icon(Icons.person_add),
         onPressed: () {
            Navigator.pushNamed(context, '/addworker');

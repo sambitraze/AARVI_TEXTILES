@@ -14,8 +14,8 @@ class _AddWorkerState extends State<AddWorker> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Add Worker'),
-        backgroundColor: Colors.blueAccent,
+        title: Text('Add Operator'),
+        backgroundColor: Colors.cyan,
       ),
       body: Container(
         child: Form(
@@ -26,7 +26,7 @@ class _AddWorkerState extends State<AddWorker> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextFormField(
-                  decoration: TextFieldDec.inputDec("Name of worker"),
+                  decoration: TextFieldDec.inputDec("Name of Operator"),
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
@@ -38,7 +38,7 @@ class _AddWorkerState extends State<AddWorker> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: TextFieldDec.inputDec("Sam"),
+                  decoration: TextFieldDec.inputDec("Operatoion"),
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
@@ -48,7 +48,7 @@ class _AddWorkerState extends State<AddWorker> {
                 MaterialButton(
                   onPressed: (){},
                   child: Text('Add'),
-                  color: Colors.orangeAccent,
+                  color: Colors.cyan,
                 )
               ],
             ),

@@ -4,11 +4,11 @@ class Worker {
   final uid;//or email or username
   final password;
   final name;
-  final sam;
+  final operation;
   final lineno;
   final timein;
   final timeout;
 
-  Worker({this.date,this.lineno,this.name,this.sam,this.timein,this.timeout,this.uid,this.password});
+  Worker({this.date,this.lineno,this.name,this.operation,this.timein,this.timeout,this.uid,this.password});
 
 }
