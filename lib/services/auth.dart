@@ -13,4 +13,10 @@ class AuthService{
       print(e.toString());
     }
   }
+  //registr new worker
+  Future regsiter(String email,String pass) async {
+
+  }
+
+  // worker stream to list all worker
 }

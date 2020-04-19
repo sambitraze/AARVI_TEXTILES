@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Aarvi Textiles"),
         actions: <Widget>[
+          IconButton(icon: Icon(Icons.track_changes),onPressed: (){},),
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () => FirebaseAuth.instance.signOut().then((value) {
@@ -108,6 +109,27 @@ class _HomePageState extends State<HomePage> {
                         width: 100.0,
                       ),
                       Text('Quality Mangement'),
+                      SizedBox(height: 15)
+                    ],
+                  )),
+                  SizedBox(height: 20,),
+              MaterialButton(
+                  minWidth: 200,
+                  color: Colors.grey[300],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/WorkerMang');
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'images/worker.png',
+                        height: 100.0,
+                        width: 100.0,
+                      ),
+                      Text('Worker Mangement'),
                       SizedBox(height: 15)
                     ],
                   )),

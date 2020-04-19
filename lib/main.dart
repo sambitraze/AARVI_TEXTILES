@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/Screens/DashboardMang/workermang.dart';
 import 'package:aarvi_textiles/Screens/HomePage.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/BoM.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/BuyersMang.dart';
@@ -30,6 +31,7 @@ import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProduction
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/HourlyProduction.dart';
 import 'package:aarvi_textiles/Screens/login.dart';
 import 'package:flutter/material.dart';
+import 'Screens/DashboardMang/workerlogin.dart';
 import 'Screens/PoMang/PoMang.dart';
 import 'Screens/ProductionMang/ProductionMang.dart';
 import 'Screens/QualityMang/QualityMang.dart';
@@ -37,6 +39,7 @@ import 'Screens/MerchandisingMang/MerchandisingMang.dart';
 import 'package:aarvi_textiles/Screens/PoMang/AddBuyersPage.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/SampleTracking/SampleTrackQuality.dart';
 import 'package:custom_splash/custom_splash.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -95,7 +98,9 @@ class MyApp extends StatelessWidget {
             '/machinceReq': (BuildContext context) => MachineReq(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
         '/FinishingPage': (BuildContext context) => FinishingPage(),
-      '/QualityMang': (BuildContext context) => QualityMang(),             
+      '/QualityMang': (BuildContext context) => QualityMang(), 
+      '/WorkerMang': (BuildContext context) => WorkerMang(), 
+      '/WorkerLogin': (BuildContext context) => WorkerLogin(),         
       },
     );
   }

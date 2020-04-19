@@ -1,5 +1,4 @@
-import 'package:aarvi_textiles/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:aarvi_textiles/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/widget/bezierContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,7 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
-  final AuthService _auth = AuthService();
+  // final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool _loggingIn = false;
   String email = '';
@@ -102,28 +101,29 @@ class _LoginscreenState extends State<Loginscreen> {
                         ),
                         GestureDetector(
                           onTap: () async{
-                            setState(() {
-                              _loggingIn = true;
-                            });
-                            FirebaseUser user =
-                                await _auth.signIn(email, password);
-                            setState(() {
-                              _loggingIn = false;
-                              error = 'Invalid Username and Password!';
-                            });
-                            if (user.uid == null) {
-                              user = null;
-                              setState(() {
-                                error = "Could not log in";
-                              });
-                            } else {
-                              print(user.uid);
-                              print(user.email);
-                              setState(() {
-                                error = "";
-                                Navigator.pushNamed(context, '/AdminHomePage');
-                              });
-                            }
+                            Navigator.pushNamed(context, '/AdminHomePage');
+                            // setState(() {
+                            //   _loggingIn = true;
+                            // });
+                            // FirebaseUser user =
+                            //     await _auth.signIn(email, password);
+                            // setState(() {
+                            //   _loggingIn = false;
+                            //   error = 'Invalid Username and Password!';
+                            // });
+                            // if (user.uid == null) {
+                            //   user = null;
+                            //   setState(() {
+                            //     error = "Could not log in";
+                            //   });
+                            // } else {
+                            //   print(user.uid);
+                            //   print(user.email);
+                            //   setState(() {
+                            //     error = "";
+                            //     Navigator.pushNamed(context, '/AdminHomePage');
+                            //   });
+                            // }
                           },
                           child: Container(
                             width: double.infinity,
@@ -159,48 +159,44 @@ class _LoginscreenState extends State<Loginscreen> {
                           ),
                         ),
                         SizedBox(height: 10.0),
-                        // GestureDetector(
-                        //   onTap: () async {
-                        //     _loggingIn = true;
-                        //     AuthResult result =
-                        //         await FirebaseAuth.instance.signInAnonymously();
-                        //     print(result.user.uid);
-                        //     _loggingIn = false;
-                        //     Navigator.pushNamed(context, '/AdminHomePage');
-                        //   },
-                        //   child: Container(
-                        //     width: double.infinity,
-                        //     height: 50,
-                        //     decoration: BoxDecoration(
-                        //       gradient: LinearGradient(
-                        //         colors: [
-                        //           Colors.blueAccent,
-                        //           Colors.greenAccent,
-                        //         ],
-                        //         begin: Alignment.topLeft,
-                        //         end: Alignment.bottomRight,
-                        //       ),
-                        //       borderRadius: BorderRadius.circular(20),
-                        //       boxShadow: [
-                        //         BoxShadow(
-                        //           color: Colors.black12,
-                        //           offset: Offset(5, 5),
-                        //           blurRadius: 10,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     child: Center(
-                        //       child: Text(
-                        //         'Sign in (ONLY FOR DEBUG)',
-                        //         style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 20,
-                        //           fontWeight: FontWeight.w500,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/WorkerLogin');
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blueAccent,
+                                  Colors.greenAccent,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(5, 5),
+                                  blurRadius: 10,
+                                )
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Worker Login',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.0),
                         Container(
                           child: !_loggingIn
                               ? Text(
