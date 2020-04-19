@@ -1,7 +1,7 @@
 class Worker {
 
   final date;
-  final uid;
+  final uid;//or email or username
   final password;
   final name;
   final sam;

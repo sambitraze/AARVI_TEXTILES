@@ -1,4 +1,6 @@
+import 'package:aarvi_textiles/Screens/DashboardMang/addworker.dart';
 import 'package:aarvi_textiles/Screens/DashboardMang/workermang.dart';
+import 'package:aarvi_textiles/Screens/DashboardMang/workertracking.dart';
 import 'package:aarvi_textiles/Screens/HomePage.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/BoM.dart';
 import 'package:aarvi_textiles/Screens/MerchandisingMang/BuyersMang.dart';
@@ -100,7 +102,9 @@ class MyApp extends StatelessWidget {
         '/FinishingPage': (BuildContext context) => FinishingPage(),
       '/QualityMang': (BuildContext context) => QualityMang(), 
       '/WorkerMang': (BuildContext context) => WorkerMang(), 
-      '/WorkerLogin': (BuildContext context) => WorkerLogin(),         
+      '/WorkerLogin': (BuildContext context) => WorkerLogin(),
+        '/workertracking': (BuildContext context) => WorkerTracking(),         
+        '/addworker': (BuildContext context) => AddWorker(),
       },
     );
   }
