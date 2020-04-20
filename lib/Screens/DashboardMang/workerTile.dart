@@ -1,4 +1,4 @@
-import 'package:aarvi_textiles/models/workermodel.dart';
+import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:flutter/material.dart';
 
 class WorkerTile extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:aarvi_textiles/models/workermodel.dart';
+import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:aarvi_textiles/Screens/DashboardMang/workerTile.dart';
 
 class WorkerList extends StatefulWidget {

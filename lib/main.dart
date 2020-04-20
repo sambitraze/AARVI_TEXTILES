@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
           '/SewingHourlyProduction':(BuildContext context) => SewingHourlyProduction(),
           '/ieManage': (BuildContext context) => IEmanage(),
             '/opBulletin': (BuildContext context) => OpBulletin(),
-            '/timeStudy': (BuildContext context) => TimeStudy(),
+          '/timeStudy': (BuildContext context) => TimeStudy(),
             '/machinceReq': (BuildContext context) => MachineReq(),
         '/PackagingPage': (BuildContext context) => PackagingPage(),
         '/FinishingPage': (BuildContext context) => FinishingPage(),
