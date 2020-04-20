@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class WorkerTile extends StatelessWidget {
   final Worker worker;
-
+ 
   WorkerTile({this.worker});
 
   @override
@@ -17,7 +17,8 @@ class WorkerTile extends StatelessWidget {
             radius: 25.0,//for showing active ststus greenif working red if not
           ),
           title: Text(worker.name),
-          subtitle: Text('line no and operation'),
+          subtitle: Text(worker.operation),
+          // trailing: Text(worker.lineno.toString()),
         ),
       ),
     );
