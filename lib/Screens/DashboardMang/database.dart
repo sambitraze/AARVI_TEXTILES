@@ -7,9 +7,7 @@ class DatabaseService {
   
   List<Worker> _workerListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return Worker(
-        name: doc.data['worker'] ?? '',
-      );
+      return Worker.fromSnapshot(doc);
     }).toList();
   }
 

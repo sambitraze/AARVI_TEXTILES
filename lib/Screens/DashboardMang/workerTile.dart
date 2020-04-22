@@ -8,6 +8,7 @@ class WorkerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Card(
@@ -17,7 +18,7 @@ class WorkerTile extends StatelessWidget {
             radius: 25.0,//for showing active ststus greenif working red if not
           ),
           title: Text(worker.name),
-          subtitle: Text(worker.operation),
+          subtitle: Text(worker.operation ?? ''),
           // trailing: Text(worker.lineno.toString()),
         ),
       ),
