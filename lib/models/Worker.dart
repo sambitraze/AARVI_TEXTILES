@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-
 class Worker {
 
   static bool auth = false;
@@ -55,6 +52,7 @@ class Worker {
     print(snapshot.data);
     name = snapshot.data['name'] ?? '';
     operation = snapshot.data['operation'] ?? '';
+    password = snapshot.data['password'] ?? '';
     lineno = snapshot.data['line_no'];
     uid = snapshot.data['uid'];
     //TODO later do timein and timeout

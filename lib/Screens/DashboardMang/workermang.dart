@@ -1,4 +1,3 @@
-// import 'package:aarvi_textiles/Screens/DashboardMang/settingsform.dart';
 import 'package:aarvi_textiles/Screens/DashboardMang/workerlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,29 +12,13 @@ class WorkerMang extends StatefulWidget {
 class _WorkerMangState extends State<WorkerMang> {
   @override
 
-  //  Widget build(BuildContext context) {
-  //   void _showSettingsPanel() {
-  //     showModalBottomSheet(
-  //       elevation: 1.0,
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.vertical(
-  //           top: Radius.circular(60.0),
-  //         ),
-  //       ),
-  //       context: context,
-  //       builder: (context) {
-  //         return Container(
-  //           padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
-  //           child: SettingsForm(),
-  //         );
-  //       },
-  //     );
-  //   }
+   
     
   Widget build(BuildContext context) {
     return StreamProvider<List<Worker>>.value(
       value: DatabaseService().worker,
       child: Scaffold(
+        backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         title: Text('Operator Mangement'),
@@ -47,7 +30,6 @@ class _WorkerMangState extends State<WorkerMang> {
           ),
         ],
       ),
-      // body: WorkerList(),
       body: WorkerList(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,

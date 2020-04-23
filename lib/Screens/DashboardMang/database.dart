@@ -2,6 +2,11 @@ import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
+
+  final String uid;
+
+  DatabaseService({this.uid});
+
   final CollectionReference workerCollection =
       Firestore.instance.collection('Worker');
   
@@ -14,5 +19,6 @@ class DatabaseService {
   Stream<List<Worker>> get worker { 
     return workerCollection.snapshots().map(_workerListFromSnapshot);
   }
+  
 
 }
