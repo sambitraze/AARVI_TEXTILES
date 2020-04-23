@@ -83,10 +83,10 @@ class _WorkerLoginState extends State<WorkerLogin> {
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            hintText: "Enter Email",
+                            hintText: "Enter Worker Uid",
                           ),
                           validator: (val) =>
-                              val.isEmpty ? 'Enter an email' : null,
+                              val.isEmpty ? 'Enter Uid' : null,
                           onChanged: (val) {
                             setState(() => email = val);
                           },
