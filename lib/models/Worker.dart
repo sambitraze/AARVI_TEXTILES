@@ -46,6 +46,22 @@ class Worker {
 
     return success;
   }
+  Future<bool> updateWorkerData() async {
+    bool success = false;
+    await Firestore.instance.collection('Worker').document(uid.toString())
+        .updateData({
+          'name':name,
+          'uid':uid,
+          'password':password,
+          'operation': operation,
+          'line_no':lineno
+        })
+        .then((value) => success = true)
+        .catchError((e,stack) => print("not updated"));
+
+    return success;
+  }
+
 
 
   Worker.fromSnapshot(DocumentSnapshot snapshot){

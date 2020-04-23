@@ -20,6 +20,7 @@ class WorkerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
       showModalBottomSheet(
+        isScrollControlled: true,
         elevation: 1.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -28,56 +29,73 @@ class WorkerTile extends StatelessWidget {
         ),
         context: context,
         builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(children: <Widget>[
-                SizedBox(height: 20.0),
-                Text(
-                  'Update Operator Preferences',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(                  
-                  initialValue: worker.name,
-                  decoration: TextFieldDec.inputDec('Name'),
-                  validator: (value) => value.isEmpty ? 'Enter a name' : null,
-                  onChanged: (value) => worker.name = value,
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(                  
-                  initialValue: worker.operation,
-                  decoration: TextFieldDec.inputDec('Operation'),
-                  validator: (value) => value.isEmpty ? 'Enter a Operation' : null,
-                  onChanged: (value) => worker.operation = value,
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(    
-                  keyboardType: TextInputType.number,              
-                  initialValue: worker.lineno.toString(),
-                  decoration: TextFieldDec.inputDec('Line No'),
-                  validator: (value) => value.isEmpty ? 'Enter a Line No' : null,
-                  onChanged: (value) => worker.lineno = int.parse(value),
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(           
-                  keyboardType: TextInputType.number,       
-                  initialValue: worker.uid.toString(),
-                  decoration: TextFieldDec.inputDec('Uid'),
-                  validator: (value) => value.isEmpty ? 'Enter a Uid' : null,
-                  onChanged: (value) => worker.uid = int.parse(value),
-                ),
-                 SizedBox(height: 20.0),
-                TextFormField(  
-                  keyboardType: TextInputType.visiblePassword,                
-                  initialValue: worker.password,
-                  decoration: TextFieldDec.inputDec('password'),
-                  validator: (value) => value.isEmpty ? 'Enter a password' : null,
-                  onChanged: (value) => worker.password = value,
-                ),
-                
-              ]),
+          return SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
+              child: Form(
+                key: _formKey,
+                child: Column(children: <Widget>[
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Update Operator Preferences',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Uid: ' + worker.uid.toString(),
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    initialValue: worker.name,
+                    decoration: TextFieldDec.inputDec('Name'),
+                    validator: (value) => value.isEmpty ? 'Enter a name' : null,
+                    onChanged: (value) => worker.name = value,
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    initialValue: worker.operation,
+                    decoration: TextFieldDec.inputDec('Operation'),
+                    validator: (value) =>
+                        value.isEmpty ? 'Enter a Operation' : null,
+                    onChanged: (value) => worker.operation = value,
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    initialValue: worker.lineno.toString(),
+                    decoration: TextFieldDec.inputDec('Line No'),
+                    validator: (value) =>
+                        value.isEmpty ? 'Enter a Line No' : null,
+                    onChanged: (value) => worker.lineno = int.parse(value),
+                  ),
+                  // SizedBox(height: 20.0),
+                  // TextFormField(
+                  //   keyboardType: TextInputType.number,
+                  //   initialValue: worker.uid.toString(),
+                  //   decoration: TextFieldDec.inputDec('Uid'),
+                  //   validator: (value) => value.isEmpty ? 'Enter a Uid' : null,
+                  //   onChanged: (value) => worker.uid = int.parse(value),
+                  // ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
+                    initialValue: worker.password,
+                    decoration: TextFieldDec.inputDec('password'),
+                    validator: (value) =>
+                        value.isEmpty ? 'Enter a password' : null,
+                    onChanged: (value) => worker.password = value,
+                  ),
+
+                  SizedBox(height: 20.0),
+                  MaterialButton(
+                      color: Colors.red,
+                      child: Text('Update'),
+                      onPressed: () {
+                        worker.updateWorkerData();
+                      })
+                ]),
+              ),
             ),
           );
         },
