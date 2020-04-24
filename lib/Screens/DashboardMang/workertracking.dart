@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:flutter/material.dart';
 
 class WorkerTracking extends StatefulWidget {
@@ -6,6 +7,8 @@ class WorkerTracking extends StatefulWidget {
 }
 
 class _WorkerTrackingState extends State<WorkerTracking> {
+  Worker w = Worker.user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +42,7 @@ class _WorkerTrackingState extends State<WorkerTracking> {
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.name',
+                  w.name,
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
@@ -56,7 +59,7 @@ class _WorkerTrackingState extends State<WorkerTracking> {
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.sam',
+                  w.operation,
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
@@ -73,7 +76,7 @@ class _WorkerTrackingState extends State<WorkerTracking> {
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.lineno',
+                  w.lineno.toString(),
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
@@ -118,23 +121,23 @@ class _WorkerTrackingState extends State<WorkerTracking> {
               height: 30.0,
             ),
             Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Total Time: ',
-                style: TextStyle(
-                  fontSize: 28.0
-                ),              
-              ),
-              SizedBox(width: 20.0),
-              Text(
-                'worker.tot',
-                style: TextStyle(
-                  fontSize: 18.0
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Total Time: ',
+                  style: TextStyle(
+                      fontSize: 28.0
+                  ),
                 ),
-              ),
-            ],
-          ),
+                SizedBox(width: 20.0),
+                Text(
+                  'worker.tot',
+                  style: TextStyle(
+                      fontSize: 18.0
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

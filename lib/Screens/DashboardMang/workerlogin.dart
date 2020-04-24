@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/widget/bezierContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,7 +87,7 @@ class _WorkerLoginState extends State<WorkerLogin> {
                             hintText: "Enter Worker Uid",
                           ),
                           validator: (val) =>
-                              val.isEmpty ? 'Enter Uid' : null,
+                          val.isEmpty ? 'Enter Uid' : null,
                           onChanged: (val) {
                             setState(() => email = val);
                           },
@@ -101,15 +102,18 @@ class _WorkerLoginState extends State<WorkerLogin> {
                             hintText: "Enter Password",
                           ),
                           validator: (val) =>
-                              val.isEmpty ? 'Enter password' : null,
+                          val.isEmpty ? 'Enter password' : null,
                           onChanged: (val) {
                             setState(() => password = val);
                           },
                         ),
                         SizedBox(height: 50.0),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/workertracking');
+                          onTap: () async {
+                            if (await Worker.signIn(
+                                int.tryParse(email), password)) {
+                              Navigator.pushNamed(context, '/workertracking');
+                            }
                           },
                           child: Container(
                             width: double.infinity,
@@ -148,9 +152,9 @@ class _WorkerLoginState extends State<WorkerLogin> {
                         Container(
                           child: !_loggingIn
                               ? Text(
-                                  error,
-                                  style: TextStyle(color: Colors.red),
-                                )
+                            error,
+                            style: TextStyle(color: Colors.red),
+                          )
                               : CircularProgressIndicator(),
                         ),
                         Expanded(

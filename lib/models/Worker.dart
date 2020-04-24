@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 class Worker {
 
-  static bool auth = false;
+  static Worker user;
 
   DateTime date;
   int uid;//or email or username
@@ -15,13 +17,25 @@ class Worker {
 
   Worker({this.date,this.lineno,this.name,this.operation,this.timein,this.timeout,this.uid,this.password});
 
-  static void signIn(int uid, int password){
-    //Get worker with the uid from firebase, compare the password
-    auth = true;
-    //Also return worker
-  }
-  static void signOut(){
-    auth = false;
+  static Future<bool> signIn(int uid, String password) async {
+    try {
+      var x = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: "$uid@aarvi.com", password: password);
+      print(x.toString());
+      await Firestore
+          .instance
+          .collection('Worker')
+          .document(uid.toString())
+          .get()
+          .then((value) {
+        user = Worker.fromSnapshot(value);
+      });
+      return true;
+    }
+    catch (e) {
+      print(e);
+      return false;
+    }
   }
 
   void setTimeIn(){
@@ -41,8 +55,17 @@ class Worker {
           'operation': operation,
           'line_no':lineno
         })
-        .then((value) => success = true)
-        .catchError((e,stack) => print("ERROR"));
+        .then((value) async {
+      print("Creating user");
+      print("$uid@aarvi.com");
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: "$uid@aarvi.com", password: password);
+      success = true;
+    })
+        .catchError((e, stack) =>
+    {
+      print("ERROR")
+    });
 
     return success;
   }

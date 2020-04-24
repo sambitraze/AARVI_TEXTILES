@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:flutter/material.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
@@ -66,16 +68,18 @@ class _AddWorkerState extends State<AddWorker> {
                 MaterialButton(
                   onPressed: () async {
                     Worker w = Worker(
-                      name: controllers[0].value.text,
-                      uid: int.tryParse(controllers[1].value.text),
-                      password: controllers[2].value.text,
-                      operation: controllers[3].value.text,
-                      lineno: int.tryParse(controllers[4].value.text)
+                        name: controllers[0].value.text,
+                        uid: int.tryParse(controllers[1].value.text),
+                        password: controllers[2].value.text,
+                        operation: controllers[3].value.text,
+                        lineno: int.tryParse(controllers[4].value.text)
                     );
                     bool success = false;
                     success = await w.createWorker();
                     if (success){
                       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Worker added"),));
+                      await Future.delayed(
+                          Duration(seconds: 2), () => Navigator.pop(context));
                     }
                     else{
                       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Failed to add worker"),));
