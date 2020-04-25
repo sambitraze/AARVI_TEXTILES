@@ -1,5 +1,6 @@
 import 'package:aarvi_textiles/models/Worker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WorkerTracking extends StatefulWidget {
   @override
@@ -8,6 +9,11 @@ class WorkerTracking extends StatefulWidget {
 
 class _WorkerTrackingState extends State<WorkerTracking> {
   Worker w = Worker.user;
+  String timeIn = '';
+  String timeOut = '';
+  DateTime tin;
+  DateTime tout;
+  bool buttonSwitch = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +95,20 @@ class _WorkerTrackingState extends State<WorkerTracking> {
               children: <Widget>[
                 MaterialButton(
                   color: Colors.redAccent,
-                  onPressed: () {},
+                  onPressed: buttonSwitch ? () async {
+                    w.timein = DateTime.now();
+                    setState(() {
+                      buttonSwitch = false;
+                      timeIn = DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(
+                          w.timein);
+                      w.setActive();
+                    });
+                  } : null,
                   child: Text('Start/In'),
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.timein',
+                  timeIn,
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
@@ -107,12 +121,20 @@ class _WorkerTrackingState extends State<WorkerTracking> {
               children: <Widget>[
                 MaterialButton(
                   color: Colors.greenAccent,
-                  onPressed: () {},
+                  onPressed: buttonSwitch ? null : () {
+                    w.timeout = DateTime.now();
+                    setState(() {
+                      buttonSwitch = true;
+                      timeOut = DateFormat(DateFormat.HOUR_MINUTE_SECOND)
+                          .format(w.timeout);
+                      w.setComplete();
+                    });
+                  },
                   child: Text('Stop/Out'),
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.timeout',
+                  timeOut,
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
@@ -131,7 +153,8 @@ class _WorkerTrackingState extends State<WorkerTracking> {
                 ),
                 SizedBox(width: 20.0),
                 Text(
-                  'worker.tot',
+                  "${w.timein != null && w.timeout != null ? w.timeout
+                      .difference(w.timein).toString() : ''}",
                   style: TextStyle(
                       fontSize: 18.0
                   ),
