@@ -15,6 +15,7 @@ class Worker {
   int lineno;
   DateTime timein;
   DateTime timeout;
+  bool active;
 
   Worker({this.date,
     this.lineno,
@@ -23,7 +24,8 @@ class Worker {
     this.timein,
     this.timeout,
     this.uid,
-    this.password});
+    this.password,
+    this.active});
 
   static Future<bool> signIn(int uid, String password) async {
     try {
@@ -95,13 +97,15 @@ class Worker {
   Future<bool> setActive() async {
     bool status = false;
     try {
-      await Firestore.instance.collection('lines').document(lineno.toString())
-          .collection('active').document(uid.toString()).setData({
+      await Firestore.instance.collection('operation').document(DateFormat('yyyyMMdd').format(DateTime.now()))
+          .collection(lineno.toString()).document(uid.toString()).setData({
         'name': name,
         'uid': uid,
         'operation': operation,
         'line_no': lineno,
-        'time_in': timein
+        'time_in': timein,
+        'active':true,
+        'time_out':timeout
       })
           .then((_) => status = true);
     } catch (e) {
@@ -113,17 +117,18 @@ class Worker {
   Future<bool> setComplete() async {
     bool status = false;
     try {
-      await Firestore.instance.collection('lines').document(lineno.toString())
-          .collection('complete')
+      await Firestore.instance.collection('operation').document(DateFormat('yyyyMMdd').format(DateTime.now()))
+          .collection('$lineno')
           .document(
-          "${uid.toString()}${DateFormat('yyyyMMdd').format(DateTime.now())}")
-          .setData({
+          uid.toString())
+          .updateData({
         'name': name,
         'uid': uid,
         'operation': operation,
         'line_no': lineno,
         'time_in': timein,
-        'time_out': timeout
+        'time_out': timeout,
+        'active':false
       })
           .then((_) => status = true);
 
