@@ -25,7 +25,9 @@ class _WorkerTrackingState extends State<WorkerTracking> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.track_changes),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/aarviweb');
+            },
           ),
           IconButton(
             icon: Icon(Icons.exit_to_app),

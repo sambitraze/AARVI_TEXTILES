@@ -24,6 +24,7 @@ dependencies:
   custom_splash: ^0.0.2
   google_fonts: ^0.3.10
   provider:
+  webview_flutter: ^0.3.21
 
 dev_dependencies:
   flutter_test:

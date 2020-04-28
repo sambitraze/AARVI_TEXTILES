@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/Screens/DashboardMang/webview.dart';
 import 'package:aarvi_textiles/Screens/DashboardMang/workerlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,9 @@ class _WorkerMangState extends State<WorkerMang> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.track_changes),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/aarviweb');
+            },
           ),
         ],
       ),

@@ -13,19 +13,21 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Aarvi Textiles"),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.track_changes),onPressed: (){},),
+          IconButton(
+            icon: Icon(Icons.track_changes),
+            onPressed: () {Navigator.pushNamed(context, '/aarviweb');},
+          ),
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () => FirebaseAuth.instance.signOut().then((value) {
               Navigator.pop(context);
             }),
-
           )
         ],
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -49,7 +51,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               MaterialButton(
                   minWidth: 200,
                   color: Colors.grey[300],
@@ -70,7 +74,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               MaterialButton(
                   minWidth: 200,
                   color: Colors.grey[300],
@@ -91,7 +97,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               MaterialButton(
                   minWidth: 200,
                   color: Colors.grey[300],
@@ -112,7 +120,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 15)
                     ],
                   )),
-                  SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               MaterialButton(
                   minWidth: 200,
                   color: Colors.grey[300],
