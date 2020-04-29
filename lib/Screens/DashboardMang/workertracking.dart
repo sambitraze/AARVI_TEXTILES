@@ -103,7 +103,7 @@ class _WorkerTrackingState extends State<WorkerTracking> {
                       buttonSwitch = false;
                       timeIn = DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(
                           w.timein);
-                      w.setActive();
+                      w.activate();
                     });
                   } : null,
                   child: Text('Start/In'),

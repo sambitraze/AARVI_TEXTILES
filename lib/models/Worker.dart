@@ -114,6 +114,31 @@ class Worker {
     return status;
   }
 
+  Future<bool> activate() async {
+    bool status = false;
+    try {
+      await Firestore.instance.collection('operation').document(DateFormat('yyyyMMdd').format(DateTime.now()))
+          .collection(lineno.toString()).document(uid.toString()).setData({
+        'name': name,
+        'uid': uid,
+        'operation': operation,
+        'line_no': lineno,
+        'time_in': timein,
+        'active':true,
+        'time_out':timeout
+      })
+          .then((_) => status = true);
+      print("Update ops");
+      await Firestore.instance.collection('operation').document(DateFormat('yyyyMMdd').format(DateTime.now())).setData({
+        "lines": FieldValue.arrayUnion([lineno])
+      },merge: true);
+    } catch (e) {
+      print("Error adding worker to active");
+      print(e);
+    }
+    return status;
+  }
+
   Future<bool> setComplete() async {
     bool status = false;
     try {
