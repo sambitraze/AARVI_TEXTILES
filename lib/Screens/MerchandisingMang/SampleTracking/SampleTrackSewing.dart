@@ -139,7 +139,6 @@ class _SampleTrackSewingState extends State<SampleTrackSewing> {
                           .collection('aarvi')
                           .document(styleNo.value.text)
                           .updateData({
-                        'sample_type': sampleType.value.text,
                         'sewing_total_pieces': totalPieces.value.text,
                         'sewing_machine_requirement':
                             machineRequired.value.text,

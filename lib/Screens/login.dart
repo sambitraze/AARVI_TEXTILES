@@ -45,7 +45,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           text: TextSpan(
                               text: 'A',
                               style: GoogleFonts.portLligatSans(
-                                textStyle: Theme.of(context).textTheme.display1,
+                                textStyle: Theme.of(context).textTheme.headline1,
                                 fontSize: 50,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.cyan,

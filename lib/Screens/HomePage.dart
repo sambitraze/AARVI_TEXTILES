@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/Screens/search/searchhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +15,8 @@ class _HomePageState extends State<HomePage> {
         title: Text("Aarvi Textiles"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.track_changes),
-            onPressed: () {Navigator.pushNamed(context, '/aarviweb');},
+            icon: Icon(Icons.search, size: 30,),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SearchHome())),
           ),
           IconButton(
             icon: Icon(Icons.exit_to_app),

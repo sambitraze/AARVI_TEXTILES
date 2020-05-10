@@ -72,7 +72,7 @@ class Styles{
   }
 
   static Future<Styles> getSamplePatternTrack(String styleNo) async {
-   var document = await Firestore.instance.collection('aarvi').document(styleNo);
+   var document = Firestore.instance.collection('aarvi').document(styleNo);
    Styles s;
    await document.get().then((value) async {
      if(value.exists){
