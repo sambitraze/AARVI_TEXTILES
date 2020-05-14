@@ -26,6 +26,8 @@ dependencies:
   provider:
   webview_flutter: ^0.3.21
   flappy_search_bar: ^1.7.2
+  adobe_xd:
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/XD_iPhoneXXS11Pro1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +52,7 @@ class _SearchHomeState extends State<SearchHome> {
                 elevation: 8,
                 padding: EdgeInsets.all(10.0),
                 onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => XD_iPhoneXXS11Pro1(),));
                   setState(() {
 
                   });
