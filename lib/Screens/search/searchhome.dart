@@ -1,4 +1,4 @@
-import 'package:aarvi_textiles/XD_iPhoneXXS11Pro1.dart';
+import 'package:aarvi_textiles/Screens/search/dateofoperation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -9,13 +9,13 @@ class SearchHome extends StatefulWidget {
 
 class _SearchHomeState extends State<SearchHome> {
   String styleno = '';
-  List items = [
-    'Cutting Quality',
-    'Daily Cutting Report',
-    'Operation Bulletin',
-    'Daily Sewing Report',
-    'Packing',
-    'Time Study'
+  List<Map> items = [
+    {"heading": "Cutting Quality", "collection": "CuttingQuality"},
+    {"heading": 'Daily Cutting Report', "collection": "DailyCuttingReport"},
+    {"heading": 'Operation Bulletin', "collection": "OperationBulletin"},
+    {"heading": 'Daily Sewing Report', "collection": "DailySewingReport"},
+    {"heading": 'Packing', "collection": "Packing"},
+    {"heading": 'Time Study', "collection": "TimeStudy"},
   ];
 
   @override
@@ -52,7 +52,6 @@ class _SearchHomeState extends State<SearchHome> {
                 elevation: 8,
                 padding: EdgeInsets.all(10.0),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => XD_iPhoneXXS11Pro1(),));
                   setState(() {
 
                   });
@@ -97,9 +96,14 @@ class _SearchHomeState extends State<SearchHome> {
                                     ]
                                 )
                             ),
-                            children: items.map<Widget>((e) =>
+                            children: items.map<Widget>((i) =>
                                 ListTile(
-                                  title: Text(e),
+                                  title: Text(i['heading']),
+                                  onTap: () =>
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) =>
+                                            DateList(styleNo: e['style'],
+                                              heading: i,),)),
                                 )).toList()
                         )).toList();
                     print("List created");
