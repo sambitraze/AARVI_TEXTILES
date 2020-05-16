@@ -1,3 +1,4 @@
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingReport.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,14 @@ class DateList extends StatelessWidget {
     print("StyleNo $styleNo");
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Transform.translate(
-            offset: Offset(50.0, 93.0),
+          Expanded(
+            child: SizedBox(),
+            flex: 1,
+          ),
+          Expanded(
             child: SizedBox(
-              width: 284.0,
               child: Text(
                 heading['heading'],
                 style: TextStyle(
@@ -28,22 +32,13 @@ class DateList extends StatelessWidget {
               ),
             ),
           ),
-          Transform.translate(
-            offset: Offset(39.0, 226.0),
-            child: Container(
-              child: UnconstrainedBox(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  width: 318,
-                  height: 599,
-                  child: ListOfDates(
-                    styleNo: styleNo,
-                    collection: heading['collection'],
-                  ),
-                ),
-              ),
+          Expanded(
+            flex: 6,
+            child: ListOfDates(
+              styleNo: styleNo,
+              collection: heading['collection'],
             ),
-          ),
+          )
         ],
       ),
     );
@@ -85,40 +80,47 @@ class _ListOfDatesState extends State<ListOfDates> {
   Widget build(BuildContext context) {
     return listOfDates == []
         ? Container
-        : GridView.count(
+        : ListView(
             primary: false,
             padding: EdgeInsets.all(0),
-            mainAxisSpacing: 3,
-            crossAxisSpacing: 20,
-            crossAxisCount: 1,
-            childAspectRatio: 3.8313253012048194,
             children: listOfDates.map((map) {
-              return Transform.translate(
-                offset: Offset(-29.0, -226.0),
-                child: Stack(
-                  children: <Widget>[
-                    Transform.translate(
-                      offset: Offset(39.0, 233.0),
-                      child: Container(
-                        child: Center(child: Text(map)),
-                        width: 298.0,
-                        height: 63.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: const Color(0xffffffff),
-                          border: Border.all(
-                              width: 1.0, color: const Color(0xff707070)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: const Color(0x7a000000),
-                                offset: Offset(0, 3),
-                                blurRadius: 6)
-                          ],
-                        ),
+              return Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return DailyCuttingReport(
+                          date: map,
+                          style: widget.styleNo,
+                        );
+                      }));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      child: Center(
+                        child: Text(map),
+                      ),
+                      width: 298.0,
+                      height: 63.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: const Color(0xffffffff),
+                        border: Border.all(
+                            width: 1.0, color: const Color(0xff707070)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: const Color(0x7a000000),
+                              offset: Offset(0, 3),
+                              blurRadius: 6)
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }).toList(),
           );

@@ -5,6 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class DailyCuttingReport extends StatefulWidget {
+  final String date;
+  final String style;
+
+  DailyCuttingReport({this.date,this.style});
+
   @override
   _DailyCuttingReportState createState() => _DailyCuttingReportState();
 }
@@ -35,6 +40,86 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
   final date = TextEditingController();
 
   @override
+  void initState() {
+    if(widget.date!=null && widget.style!=null){
+      styleNo.text = widget.style;
+      fetchDateStr(widget.date);
+      fetchStyle(widget.style);
+
+    }
+    super.initState();
+  }
+
+  void fetchStyle(String value) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(value)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        print("Got");
+        var data = value.data;
+        buyer.text = data['buyer'] ?? '';
+        orderQty.text = data['order_quantity'] ?? '0';
+        fabricReq.text = data['fabric_required'] ?? '0';
+        fabricRec.text = data['fabric_received'] ?? '0';
+        fabricBalance.text = data['fabric_balance'] ?? '0';
+        totalCut.text = data['cutting_total_cut'] ?? '0';
+        total = int.parse(totalCut.text);
+        cutBalance.text = data['cut_balance'] ?? '0';
+        totalIssuedSewing.text =
+            data['total_issued_sewing'] ?? '0';
+        sewingBalance.text = data['sewing_balance'] ?? '0';
+        garment.text = data['garment'];
+      }
+    });
+    setState(() {
+      print("HI");
+    });
+  }
+  Future<void> fetchDate(DateTime date) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(styleNo.value.text)
+        .collection('DailyCuttingReport')
+        .document(DateFormat('dd-MM-yyyy').format(date))
+        .get()
+        .then((value) {
+      if (value.exists) {
+        var data = value.data;
+        todayCut.text = data['today_cut'] ?? '';
+        todayIssuedSewing.text =
+            data['today_issued_sewing'] ?? '';
+      }
+    });
+  }
+  Future<void> fetchDateStr(String date) async {
+    try{
+      await Firestore.instance
+          .collection('aarvi')
+          .document(styleNo.value.text)
+          .collection('DailyCuttingReport')
+          .document(date)
+          .get()
+          .then((value) {
+        if (value.exists) {
+          this.date.text = date;
+          var data = value.data;
+          todayCut.text = data['today_cut'] ?? '';
+          todayIssuedSewing.text =
+              data['today_issued_sewing'] ?? '';
+        }
+      });
+      setState(() {
+
+      });
+    }
+    catch(e){
+
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Daily Cutting Report")),
@@ -47,33 +132,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
-                  onChanged: (value) async {
-                    await Firestore.instance
-                        .collection('aarvi')
-                        .document(value)
-                        .get()
-                        .then((value) {
-                      if (value.exists) {
-                        print("Got");
-                        var data = value.data;
-                        buyer.text = data['buyer'] ?? '';
-                        orderQty.text = data['order_quantity'] ?? '0';
-                        fabricReq.text = data['fabric_required'] ?? '0';
-                        fabricRec.text = data['fabric_received'] ?? '0';
-                        fabricBalance.text = data['fabric_balance'] ?? '0';
-                        totalCut.text = data['cutting_total_cut'] ?? '0';
-                        total = int.parse(totalCut.text);
-                        cutBalance.text = data['cut_balance'] ?? '0';
-                        totalIssuedSewing.text =
-                            data['total_issued_sewing'] ?? '0';
-                        sewingBalance.text = data['sewing_balance'] ?? '0';
-                        garment.text = data['garment'];
-                      }
-                    });
-                    setState(() {
-                      print("HI");
-                    });
-                  },
+                  onChanged: fetchStyle,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -102,20 +161,7 @@ class _DailyCuttingReportState extends State<DailyCuttingReport> {
                         firstDate: DateTime(1970),
                         lastDate: DateTime(2100));
                     try{
-                      await Firestore.instance
-                          .collection('aarvi')
-                          .document(styleNo.value.text)
-                          .collection('DailyCuttingReport')
-                          .document(DateFormat('dd-MM-yyyy').format(dat))
-                          .get()
-                          .then((value) {
-                        if (value.exists) {
-                          var data = value.data;
-                          todayCut.text = data['today_cut'] ?? '';
-                          todayIssuedSewing.text =
-                              data['today_issued_sewing'] ?? '';
-                        }
-                      });
+                      await fetchDate(dat);
                     }catch(e){
 
                     }
