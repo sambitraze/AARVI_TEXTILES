@@ -87,15 +87,21 @@ class _ListOfDatesState extends State<ListOfDates> {
               return Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  GestureDetector(
+                  GestureDetector(                    
                     onTap: () {
-                      Navigator.push(context,
+                      print("collection: "+widget.collection.toString());
+                      if(widget.collection == "DailyCuttingReport"){
+                        Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return DailyCuttingReport(
                           date: map,
                           style: widget.styleNo,
                         );
                       }));
+                      }
+                      else{             
+                        print("collection: "+widget.collection.toString());    
+                      }                
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(
