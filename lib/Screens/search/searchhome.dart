@@ -13,7 +13,7 @@ class _SearchHomeState extends State<SearchHome> {
     {"heading": "Cutting Quality", "collection": "CuttingQuality"},
     {"heading": 'Daily Cutting Report', "collection": "DailyCuttingReport"},
     {"heading": 'Operation Bulletin', "collection": "OperationBulletin"},
-    {"heading": 'Daily Sewing Report', "collection": "DailySewingReport"},
+    {"heading": 'Daily Sewing Report', "collection": "DailyProductionReport"},
     {"heading": 'Packing', "collection": "Packing"},
     {"heading": 'Time Study', "collection": "TimeStudy"},
   ];

@@ -3,6 +3,7 @@ import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingRe
 import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/opBulletin.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/timeStudy.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -103,6 +104,15 @@ class _ListOfDatesState extends State<ListOfDates> {
                         );
                       }));
                       }
+                      else if(widget.collection == "DailyProductionReport"){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return DailyProductionReport(
+                          // date: map,
+                          // style: widget.styleNo,
+                        );
+                      }));
+                      }
                       else if(widget.collection == "CuttingQuality"){
                         Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
@@ -125,8 +135,8 @@ class _ListOfDatesState extends State<ListOfDates> {
                         Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return PackagingPage(
-                          // date: map,
-                          // style: widget.styleNo,
+                          date: map,
+                          style: widget.styleNo,
                         );
                       }));
                       }

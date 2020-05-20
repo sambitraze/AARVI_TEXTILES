@@ -5,6 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class PackagingPage extends StatefulWidget {
+  final String date;
+  final String style;
+
+  PackagingPage({this.date, this.style});
+
   @override
   _PackagingPageState createState() => _PackagingPageState();
 }
@@ -27,6 +32,74 @@ class _PackagingPageState extends State<PackagingPage> {
   final todayDispatch = TextEditingController();
   final scaffoldState = GlobalKey<ScaffoldState>();
   final garment = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.date != null && widget.style != null) {
+      styleNo.text = widget.style;
+      fetchDateStr(widget.date);
+      fetchStyle(widget.style);
+    }
+    super.initState();
+  }
+
+  void fetchStyle(String value) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(value)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        var data = value.data;
+        buyer.text = data['buyer'] ?? '';
+        qty.text = data['order_quantity'] ?? '';
+        totalrf.text = data['total_send_packing'] ?? '';
+        balance.text = data['packing_balance'] ?? '';
+        totalPack.text = data['total_pack'] ?? '';
+        garment.text = data['garment'] ?? '';
+      }
+    });
+    setState(() {
+      print("HI");
+    });
+  }
+
+  Future<void> fetchDate(DateTime date) async {
+    Firestore.instance
+        .collection('aarvi')
+        .document(styleNo.value.text)
+        .collection('Packing')
+        .document(DateFormat('dd-MM-yyyy').format(date))
+        .get()
+        .then((value) {
+      if (value.exists) {
+        var data = value.data;
+        todayrf.text = data['today_received_finishing'];
+        todayDispatch.text = data['today_dispatch'];
+      }
+    });
+  }
+  Future<void> fetchDateStr(String date) async {
+    try{
+      await Firestore.instance
+        .collection('aarvi')
+        .document(styleNo.value.text)
+        .collection('Packing')
+        .document(date)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        this.dateController.text = date;
+        var data = value.data;
+        todayrf.text = data['today_received_finishing'];
+        todayDispatch.text = data['today_dispatch'];
+      }
+    });
+    }catch(e){
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,23 +114,7 @@ class _PackagingPageState extends State<PackagingPage> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Product/Style Number"),
                   controller: styleNo,
-                  onChanged: (value) async {
-                    await Firestore.instance
-                        .collection('aarvi')
-                        .document(value)
-                        .get()
-                        .then((value) {
-                      if (value.exists) {
-                        var data = value.data;
-                        buyer.text = data['buyer'] ?? '';
-                        qty.text = data['order_quantity'] ?? '';
-                        totalrf.text = data['total_send_packing'] ?? '';
-                        balance.text = data['packing_balance'] ?? '';
-                        totalPack.text = data['total_pack'] ?? '';
-                        garment.text = data['garment'] ?? '';
-                      }
-                    });
-                  },
+                  onChanged: fetchStyle,
                 ),
                 SizedBox(
                   height: 10,
@@ -71,20 +128,13 @@ class _PackagingPageState extends State<PackagingPage> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1970),
                         lastDate: DateTime(2100));
-                    Firestore.instance
-                        .collection('aarvi')
-                        .document(styleNo.value.text)
-                        .collection('Packing')
-                        .document(DateFormat('dd-MM-yyyy').format(dat))
-                        .get()
-                        .then((value) {
-                      if (value.exists) {
-                        var data = value.data;
-                        todayrf.text = data['today_received_finishing'];
-                        todayDispatch.text = data['today_dispatch'];
-                      }
+                    try {
+                      await fetchDate(dat);
+                    } catch (e) {}
+                    setState(() {
+                      print("Dat" + dat.toString());
+                      print("control" + dateController.value.text);
                     });
-                    setState(() {});
                     return dat;
                   },
                   controller: dateController,
@@ -111,13 +161,15 @@ class _PackagingPageState extends State<PackagingPage> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: TextFieldDec.inputDec("Today Received from Finishing"),
+                  decoration:
+                      TextFieldDec.inputDec("Today Received from Finishing"),
                   controller: todayrf,
                   keyboardType: TextInputType.number,
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: TextFieldDec.inputDec("Total Received from Finishing"),
+                  decoration:
+                      TextFieldDec.inputDec("Total Received from Finishing"),
                   controller: totalrf,
                   keyboardType: TextInputType.number,
                   enabled: false,
@@ -134,28 +186,41 @@ class _PackagingPageState extends State<PackagingPage> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: TextFieldDec. inputDec("Today Dispatch"),
+                  decoration: TextFieldDec.inputDec("Today Dispatch"),
                   controller: todayDispatch,
                 ),
                 leaveSpace(),
                 RaisedButton(
                   child: Text("Submit"),
                   onPressed: () async {
-                    scaffoldState.currentState.showSnackBar((SnackBar(content: Text("Uploading"),)));
-                    try{
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).updateData({
-                        'packing_balance':balance.value.text,
-                        'total_pack':totalPack.value.text
+                    scaffoldState.currentState.showSnackBar((SnackBar(
+                      content: Text("Uploading"),
+                    )));
+                    try {
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(styleNo.value.text)
+                          .updateData({
+                        'packing_balance': balance.value.text,
+                        'total_pack': totalPack.value.text
                       });
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).
-                        collection('Packing').document(dateController.value.text).setData({
-                        'today_dispatch':todayDispatch.value.text,
-                        'today_received_finishing':todayrf.value.text
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(styleNo.value.text)
+                          .collection('Packing')
+                          .document(dateController.value.text)
+                          .setData({
+                        'today_dispatch': todayDispatch.value.text,
+                        'today_received_finishing': todayrf.value.text
                       });
-                    }catch(e){
-                      scaffoldState.currentState.showSnackBar((SnackBar(content: Text(e.toString()),)));
+                    } catch (e) {
+                      scaffoldState.currentState.showSnackBar((SnackBar(
+                        content: Text(e.toString()),
+                      )));
                     }
-                    scaffoldState.currentState.showSnackBar((SnackBar(content: Text("Done!"),)));
+                    scaffoldState.currentState.showSnackBar((SnackBar(
+                      content: Text("Done!"),
+                    )));
                   },
                 )
               ],
