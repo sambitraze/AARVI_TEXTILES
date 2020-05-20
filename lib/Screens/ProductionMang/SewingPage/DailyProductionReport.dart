@@ -5,11 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class DailyProductionReport extends StatefulWidget {
+  final String date;
+  final String style;
+  DailyProductionReport({this.date, this.style});
+
   @override
   _DailyProductionReportState createState() => _DailyProductionReportState();
 }
-
-
 
 SizedBox leaveSpace() {
   return SizedBox(
@@ -33,6 +35,71 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
   final garment = TextEditingController();
 
   @override
+  void initState() {
+    if (widget.date != null && widget.style != null) {
+      styleNo.text = widget.style;
+      fetchDateStr(widget.date);
+      fetchStyle(widget.style);
+    }
+    super.initState();
+  }
+
+  void fetchStyle(String value) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(value)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        var data = value.data;
+        buyer.text = data['buyer'] ?? '';
+        orderQty.text = data['order_quantity'] ?? '0';
+        totalCut.text = data['total_issued_sewing'] ?? '0';
+        totalStitch.text = data['sewing_total_stitch'] ?? '0';
+        sewingBalance.text = data['sewing_balance'] ?? '0';
+        totalFinish.text = data['sewing_total_send_to_finish'];
+        finishBalance.text = data['finish_balance'];
+      }
+    });
+    setState(() {
+      print("HI");
+    });
+  }
+
+  Future<void> fetchDate(DateTime date) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(styleNo.value.text)
+        .collection('DailyProductionReport')
+        .document(DateFormat('dd-MM-yyyy').format(date))
+        .get()
+        .then((value) {
+      if (value.exists) {
+        var data = value.data;
+        todayStitch.text = data['today_stitch'] ?? '';
+        todayFinish.text = data['today_send_finishing'] ?? '';
+      }
+    });
+  }
+
+  Future<void> fetchDateStr(String date) async {
+    await Firestore.instance
+        .collection('aarvi')
+        .document(styleNo.value.text)
+        .collection('DailyProductionReport')
+        .document(date)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        this.date.text = date;
+        var data = value.data;
+        todayStitch.text = data['today_stitch'] ?? '';
+        todayFinish.text = data['today_send_finishing'] ?? '';
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
@@ -46,24 +113,7 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
-                  onChanged: (value) async {
-                    await Firestore.instance
-                        .collection('aarvi')
-                        .document(value)
-                        .get()
-                        .then((value) {
-                      if (value.exists) {
-                        var data = value.data;
-                        buyer.text = data['buyer'] ?? '';
-                        orderQty.text = data['order_quantity'] ?? '0';
-                        totalCut.text = data['total_issued_sewing'] ?? '0';
-                        totalStitch.text = data['sewing_total_stitch'] ?? '0';
-                        sewingBalance.text = data['sewing_balance'] ?? '0';
-                        totalFinish.text = data['sewing_total_send_to_finish'];
-                        finishBalance.text = data['finish_balance'];
-                      }
-                    });
-                  },
+                  onChanged: fetchStyle,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -91,23 +141,9 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1970),
                         lastDate: DateTime(2100));
-                    try{
-                      await Firestore.instance
-                          .collection('aarvi')
-                          .document(styleNo.value.text)
-                          .collection('DailyProductionReport')
-                          .document(DateFormat('dd-MM-yyyy').format(dat))
-                          .get()
-                          .then((value) {
-                        if (value.exists) {
-                          var data = value.data;
-                          todayStitch.text = data['today_stitch'] ?? '';
-                          todayFinish.text = data['today_send_finishing'] ?? '';
-                        }
-                      });
-                    }catch(e){
-
-                    }
+                    try {
+                      await fetchDate(dat);
+                    } catch (e) {}
                     setState(() {
                       print("Dat" + dat.toString());
                       print("control" + date.value.text);
@@ -123,7 +159,8 @@ class _DailyProductionReportState extends State<DailyProductionReport> {
                 ),
                 leaveSpace(),
                 TextFormField(
-                  decoration: TextFieldDec.inputDec("Total Cut Pieces Received"),
+                  decoration:
+                      TextFieldDec.inputDec("Total Cut Pieces Received"),
                   controller: totalCut,
                   keyboardType: TextInputType.number,
                 ),

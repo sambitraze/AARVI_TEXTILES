@@ -86,6 +86,7 @@ class _ListOfDatesState extends State<ListOfDates> {
     return listOfDates == []
         ? Container
         : ListView(
+          reverse: true,
             primary: false,
             padding: EdgeInsets.all(0),
             children: listOfDates.map((map) {
@@ -108,8 +109,8 @@ class _ListOfDatesState extends State<ListOfDates> {
                         Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return DailyProductionReport(
-                          // date: map,
-                          // style: widget.styleNo,
+                          date: map,
+                          style: widget.styleNo,
                         );
                       }));
                       }
