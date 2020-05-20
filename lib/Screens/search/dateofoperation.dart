@@ -1,4 +1,8 @@
+import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/CuttingQuality.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/CuttingPage/DailyCuttingReport.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/opBulletin.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/IEManagement/timeStudy.dart';
+import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +93,7 @@ class _ListOfDatesState extends State<ListOfDates> {
                 children: <Widget>[
                   GestureDetector(                    
                     onTap: () {
-                      print("collection: "+widget.collection.toString());
+                      print("input collection: "+widget.collection.toString());
                       if(widget.collection == "DailyCuttingReport"){
                         Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
@@ -99,8 +103,44 @@ class _ListOfDatesState extends State<ListOfDates> {
                         );
                       }));
                       }
+                      else if(widget.collection == "CuttingQuality"){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return CuttingQuality(
+                          date: map,
+                          style: widget.styleNo,
+                        );
+                      }));
+                      }
+                      else if(widget.collection == "OperationBulletin"){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return OpBulletin(
+                          // date: map,
+                          // style: widget.styleNo,
+                        );
+                      }));
+                      }
+                      else if(widget.collection == "Packing"){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return PackagingPage(
+                          // date: map,
+                          // style: widget.styleNo,
+                        );
+                      }));
+                      }
+                      else if(widget.collection == "TimeStudy"){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return TimeStudy(
+                          // date: map,
+                          // style: widget.styleNo,
+                        );
+                      }));
+                      }
                       else{             
-                        print("collection: "+widget.collection.toString());    
+                        print("UnKnown collection: "+widget.collection.toString());    
                       }                
                     },
                     child: Container(
