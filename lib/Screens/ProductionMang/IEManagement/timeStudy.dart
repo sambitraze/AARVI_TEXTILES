@@ -5,6 +5,10 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
 
 class TimeStudy extends StatefulWidget {
+  final String style;
+  final String date;
+  TimeStudy({this.style, this.date});
+
   @override
   _TimeStudyState createState() => _TimeStudyState();
 }
@@ -48,8 +52,73 @@ class _TimeStudyState extends State<TimeStudy> {
     return rowList;
   }
 
+  fetchStyle(value) async {
+    try {
+      await Firestore.instance
+          .collection('aarvi')
+          .document(value)
+          .get()
+          .then((value) {
+        if (value.exists) {
+          var data = value.data;
+          buyer.text = data['buyer'] ?? '';
+          garment.text = data['garment'] ?? '';
+          orderQty.text = data['order_quantity'] ?? '';
+        }
+      });
+    } catch (e) {}
+    finally{
+      setState(() {
+        
+      });
+    }
+  }
+
+  void fetchDateStr(String dat) async {
+    try {
+      await Firestore.instance
+          .collection('aarvi')
+          .document(styleNo.value.text)
+          .collection('TimeStudy')
+          .document(dat)
+          .get()
+          .then((value) {
+        if (value.exists) {
+          var data = value;
+          garment.text = data['garment'] ?? '';
+          efficiency.text = data['efficiency'] ?? '';
+          target.text = data['target'] ?? '';
+          int len = 0;
+          data['table'].forEach((element) {
+            len++;
+          });
+          for (int i = 0; i < len; i = i + 8) {
+            for (int j = i; j < i + 8; ++j) {
+              controllers.add(TextEditingController());
+              controllers[j].text = data['table'][j];
+              print(controllers[j].text);
+            }
+            rowList.add(getRow(rows++, newController: false));
+          }
+        }
+      });
+    } catch (e) {
+      _scaffoldState.currentState.showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    } finally {
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
+    if (widget.date != null && widget.style != null) {
+      styleNo.text = widget.style;
+      date.text = widget.date;
+      fetchDateStr(widget.date);
+      fetchStyle(widget.style);
+    }
     rows = 0;
     controllers = [];
     super.initState();
@@ -68,22 +137,7 @@ class _TimeStudyState extends State<TimeStudy> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
-                  onChanged: (value) async {
-                    try {
-                      await Firestore.instance
-                          .collection('aarvi')
-                          .document(value)
-                          .get()
-                          .then((value) {
-                        if (value.exists) {
-                          var data = value.data;
-                          buyer.text = data['buyer'] ?? '';
-                          garment.text = data['garment'] ?? '';
-                          orderQty.text = data['order_quantity'] ?? '';
-                        }
-                      });
-                    } catch (e) {}
-                  },
+                  onChanged: fetchStyle,
                 ),
                 leaveSpace(),
                 TextFormField(
@@ -230,7 +284,10 @@ class _TimeStudyState extends State<TimeStudy> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.remove,color: Colors.redAccent,),
+                          icon: Icon(
+                            Icons.remove,
+                            color: Colors.redAccent,
+                          ),
                           onPressed: () {
                             setState(() {
                               print(controllers.length);
@@ -247,7 +304,10 @@ class _TimeStudyState extends State<TimeStudy> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.refresh,color: Colors.green,),
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.green,
+                          ),
                           onPressed: () {
                             setState(() {
                               controllers = [];

@@ -145,8 +145,8 @@ class _ListOfDatesState extends State<ListOfDates> {
                         Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return TimeStudy(
-                          // date: map,
-                          // style: widget.styleNo,
+                          date: map,
+                          style: widget.styleNo,
                         );
                       }));
                       }
