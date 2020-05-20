@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:aarvi_textiles/services/textfieldBox.dart';
+
 class TimeStudy extends StatefulWidget {
   @override
   _TimeStudyState createState() => _TimeStudyState();
@@ -16,11 +17,14 @@ SizedBox leaveSpace() {
     height: 10,
   );
 }
-DataRow getRow(int index,{bool newController = true}) {
+
+DataRow getRow(int index, {bool newController = true}) {
   var list = List<DataCell>();
   index = index * 8;
   for (int i = index; i < index + 8; ++i) {
-    newController ? controllers.add(TextEditingController()) : print("Not New Controller");
+    newController
+        ? controllers.add(TextEditingController())
+        : print("Not New Controller");
     list.add(DataCell(TextField(
       controller: controllers[i],
     )));
@@ -29,22 +33,20 @@ DataRow getRow(int index,{bool newController = true}) {
 }
 
 class _TimeStudyState extends State<TimeStudy> {
-
   final _scaffoldState = GlobalKey<ScaffoldState>();
   int rows = 0;
   TextEditingController styleNo = TextEditingController(),
-   buyer = TextEditingController(),
-   garment = TextEditingController(),
+      buyer = TextEditingController(),
+      garment = TextEditingController(),
       orderQty = TextEditingController(),
-   efficiency = TextEditingController(),
-   target = TextEditingController(),
-  date = TextEditingController();
-
+      efficiency = TextEditingController(),
+      target = TextEditingController(),
+      date = TextEditingController();
 
   List<DataRow> getRows() {
     for (int i = 0; i < rows; ++i) rowList.add(getRow(i));
     return rowList;
-    }
+  }
 
   @override
   void initState() {
@@ -60,35 +62,37 @@ class _TimeStudyState extends State<TimeStudy> {
       appBar: AppBar(title: Text('Time Study')),
       body: Container(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              TextFormField(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Style Number"),
                   controller: styleNo,
                   onChanged: (value) async {
-                    try{
-                      await Firestore.instance.collection('aarvi').document(value).get().then((value) {
-                        if(value.exists){
+                    try {
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(value)
+                          .get()
+                          .then((value) {
+                        if (value.exists) {
                           var data = value.data;
                           buyer.text = data['buyer'] ?? '';
                           garment.text = data['garment'] ?? '';
                           orderQty.text = data['order_quantity'] ?? '';
                         }
                       });
-                    }catch(e){
-
-                    }
+                    } catch (e) {}
                   },
                 ),
-              leaveSpace(),
-              TextFormField(
+                leaveSpace(),
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
                 ),
-              leaveSpace(),              
-              DateTimeField(
-                  controller: date,
+                leaveSpace(),
+                DateTimeField(
+                    controller: date,
                     format: DateFormat('dd-MM-yyyy'),
                     decoration: TextFieldDec.inputDec("Date"),
                     onShowPicker: (context, currentValue) async {
@@ -97,9 +101,15 @@ class _TimeStudyState extends State<TimeStudy> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1970),
                           lastDate: DateTime(2100));
-                      try{
-                        await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('TimeStudy').document(DateFormat('dd-MM-yyyy').format(dat)).get().then((value) {
-                          if(value.exists){
+                      try {
+                        await Firestore.instance
+                            .collection('aarvi')
+                            .document(styleNo.value.text)
+                            .collection('TimeStudy')
+                            .document(DateFormat('dd-MM-yyyy').format(dat))
+                            .get()
+                            .then((value) {
+                          if (value.exists) {
                             var data = value;
                             garment.text = data['garment'] ?? '';
                             efficiency.text = data['efficiency'] ?? '';
@@ -108,48 +118,47 @@ class _TimeStudyState extends State<TimeStudy> {
                             data['table'].forEach((element) {
                               len++;
                             });
-                            for(int i=0; i<len;i = i + 8){
-                              for(int j=i;j<i+8;++j){
+                            for (int i = 0; i < len; i = i + 8) {
+                              for (int j = i; j < i + 8; ++j) {
                                 controllers.add(TextEditingController());
                                 controllers[j].text = data['table'][j];
                                 print(controllers[j].text);
                               }
-                              rowList.add(getRow(rows++,newController: false));
+                              rowList.add(getRow(rows++, newController: false));
                             }
                           }
                         });
+                      } catch (e) {
+                        _scaffoldState.currentState.showSnackBar(SnackBar(
+                          content: Text(e.toString()),
+                        ));
                       }
-                      catch(e){
-                        _scaffoldState.currentState.showSnackBar(SnackBar(content: Text(e.toString()),));
-                      }
-                      setState(() {
-
-                      });
+                      setState(() {});
                       return dat;
                     }),
-              leaveSpace(),
-              TextFormField(
+                leaveSpace(),
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Garment"),
                   controller: garment,
                   enabled: false,
                 ),
-              leaveSpace(),
-              TextFormField(
+                leaveSpace(),
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Order Quantity"),
                   controller: orderQty,
                 ),
-              leaveSpace(),
-              TextFormField(
+                leaveSpace(),
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Efficiency"),
                   controller: efficiency,
                 ),
-              leaveSpace(),
-              TextFormField(
+                leaveSpace(),
+                TextFormField(
                   decoration: TextFieldDec.inputDec("Target"),
                   controller: target,
                 ),
-              leaveSpace(),
-              Column(
+                leaveSpace(),
+                Column(
                   children: <Widget>[
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -159,7 +168,8 @@ class _TimeStudyState extends State<TimeStudy> {
                         child: DataTable(
                           columns: [
                             DataColumn(
-                              label: Text("SRL NO",
+                                label: Text(
+                              "SRL NO",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             )),
@@ -207,7 +217,10 @@ class _TimeStudyState extends State<TimeStudy> {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.add),
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.blueAccent,
+                          ),
                           onPressed: () {
                             setState(() {
                               print("Rows = " + rows.toString());
@@ -217,26 +230,25 @@ class _TimeStudyState extends State<TimeStudy> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.remove),
+                          icon: Icon(Icons.remove,color: Colors.redAccent,),
                           onPressed: () {
                             setState(() {
                               print(controllers.length);
                               rows--;
-                              if(rows>=0){
+                              if (rows >= 0) {
                                 rowList.removeLast();
-                                [1,2,3,4,5,6,7,8].forEach((element) {
+                                [1, 2, 3, 4, 5, 6, 7, 8].forEach((element) {
                                   controllers.removeLast();
                                 });
-                              }
-                              else{
+                              } else {
                                 rows = 0;
                               }
                             });
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.refresh),
-                          onPressed: (){
+                          icon: Icon(Icons.refresh,color: Colors.green,),
+                          onPressed: () {
                             setState(() {
                               controllers = [];
                               rows = 0;
@@ -251,32 +263,40 @@ class _TimeStudyState extends State<TimeStudy> {
                 RaisedButton(
                   child: Text("Submit"),
                   onPressed: () async {
-                    _scaffoldState.currentState.showSnackBar(SnackBar(content: Text("Uploading"),));
-                    try{
+                    _scaffoldState.currentState.showSnackBar(SnackBar(
+                      content: Text("Uploading"),
+                    ));
+                    try {
                       var tableList = [];
                       controllers.forEach((element) {
                         tableList.add(element.value.text);
                       });
-                      await Firestore.instance.collection('aarvi').document(styleNo.value.text).collection('TimeStudy').document(date.value.text).
-                      setData({
-                        'efficiency':efficiency.value.text,
-                        'target':target.value.text,
-                        'table':tableList
+                      await Firestore.instance
+                          .collection('aarvi')
+                          .document(styleNo.value.text)
+                          .collection('TimeStudy')
+                          .document(date.value.text)
+                          .setData({
+                        'efficiency': efficiency.value.text,
+                        'target': target.value.text,
+                        'table': tableList
                       });
+                    } catch (e) {
+                      _scaffoldState.currentState.showSnackBar(SnackBar(
+                        content: Text(e.toString()),
+                      ));
                     }
-                    catch(e){
-                      _scaffoldState.currentState.showSnackBar(SnackBar(content: Text(e.toString()),));
-                    }
-                    controllers.forEach((element) {print(element.value.text);});
-                    _scaffoldState.currentState.showSnackBar(SnackBar(content: Text("Done"),));
-
+                    controllers.forEach((element) {
+                      print(element.value.text);
+                    });
+                    _scaffoldState.currentState.showSnackBar(SnackBar(
+                      content: Text("Done"),
+                    ));
                   },
                 )
-            ],
-          )
-        ),
+              ],
+            )),
       ),
     );
-  }   
+  }
 }
-
