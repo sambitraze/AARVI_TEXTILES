@@ -19,6 +19,7 @@ class DateList extends StatelessWidget {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: SizedBox(),
@@ -84,12 +85,11 @@ class _ListOfDatesState extends State<ListOfDates> {
   @override
   Widget build(BuildContext context) {
     return listOfDates == []
-        ? Container
+        ? Container()
         : ListView(
-          reverse: true,
             primary: false,
             padding: EdgeInsets.all(0),
-            children: listOfDates.map((map) {
+            children: listOfDates.reversed.map((map) {
               return Stack(
                 alignment: Alignment.center,
                 children: <Widget>[

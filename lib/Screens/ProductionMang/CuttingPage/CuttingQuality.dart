@@ -63,8 +63,9 @@ class _CuttingQualityState extends State<CuttingQuality> {
     controllers = [];
     if (widget.date != null && widget.style != null) {
       styleNo.text = widget.style;
+      date.text = widget.date;
+      fetchStyle(widget.style);
       fetchDateStr(widget.date);
-      // fetchStyle(widget.style);
     }
     super.initState();
   }
@@ -75,8 +76,11 @@ class _CuttingQualityState extends State<CuttingQuality> {
         .document(value)
         .get()
         .then((value) {
-      if (value.exists) {
-        buyer.text = value.data['buyer'];
+      if (value.exists) {       
+        setState(() {
+          buyer.text = value.data['buyer'] ?? '';
+          garment.text = value.data['garment'] ?? '';
+        });
       }
     });
   }
@@ -90,10 +94,31 @@ class _CuttingQualityState extends State<CuttingQuality> {
           .document(date)
           .get()
           .then((value) {
-            if(value.exists){
-              this.date.text=date;
-              var data = value.data;
-            }
+            if (value.exists) {
+                            var data = value;
+                            layNo.text = data['lay_number'] ?? '';
+                            size.text = data['size'] ?? '';
+                            totalPartChecked.text =
+                                data['total_part_checked'] ?? '';
+                            pass.text = data['pass'] ?? '';
+                            fail.text = data['fail'] ?? '';
+                            int len = 0;
+                            data['table'].forEach((element) {
+                              len++;
+                            });
+                            for (int i = 0; i < len; i = i + 6) {
+                              for (int j = i; j < i + 6; ++j) {
+                                controllers.add(TextEditingController());
+                                controllers[j].text = data['table'][j];
+                                print(controllers[j].text);
+                              }
+                              rowList.add(getRow(rows++, newController: false));
+                            }
+
+                            setState(() {
+                              
+                            });
+                          }
           });
     } catch (e) {}
   }
