@@ -93,66 +93,62 @@ class _ListOfDatesState extends State<ListOfDates> {
               return Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  GestureDetector(                    
+                  GestureDetector(
                     onTap: () {
-                      print("input collection: "+widget.collection.toString());
-                      if(widget.collection == "DailyCuttingReport"){
+                      print(
+                          "input collection: " + widget.collection.toString());
+                      if (widget.collection == "DailyCuttingReport") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return DailyCuttingReport(
-                          date: map,
-                          style: widget.styleNo,
-                        );
-                      }));
-                      }
-                      else if(widget.collection == "DailyProductionReport"){
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return DailyCuttingReport(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else if (widget.collection == "DailyProductionReport") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return DailyProductionReport(
-                          date: map,
-                          style: widget.styleNo,
-                        );
-                      }));
-                      }
-                      else if(widget.collection == "CuttingQuality"){
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return DailyProductionReport(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else if (widget.collection == "CuttingQuality") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return CuttingQuality(
-                          date: map,
-                          style: widget.styleNo,
-                        );
-                      }));
-                      }
-                      else if(widget.collection == "OperationBulletin"){
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return CuttingQuality(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else if (widget.collection == "OperationBulletin") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return OpBulletin(
-                          // date: map,
-                          // style: widget.styleNo,
-                        );
-                      }));
-                      }
-                      else if(widget.collection == "Packing"){
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return OpBulletin(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else if (widget.collection == "Packing") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return PackagingPage(
-                          date: map,
-                          style: widget.styleNo,
-                        );
-                      }));
-                      }
-                      else if(widget.collection == "TimeStudy"){
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return PackagingPage(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else if (widget.collection == "TimeStudy") {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return TimeStudy(
-                          date: map,
-                          style: widget.styleNo,
-                        );
-                      }));
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return TimeStudy(
+                            date: map,
+                            style: widget.styleNo,
+                          );
+                        }));
+                      } else {
+                        print("UnKnown collection: " +
+                            widget.collection.toString());
                       }
-                      else{             
-                        print("UnKnown collection: "+widget.collection.toString());    
-                      }                
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(
