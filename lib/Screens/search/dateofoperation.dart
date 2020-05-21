@@ -84,8 +84,13 @@ class _ListOfDatesState extends State<ListOfDates> {
 
   @override
   Widget build(BuildContext context) {
-    return listOfDates == []
-        ? Container()
+    print(listOfDates.length>0);
+    return listOfDates.length <= 0
+        ? Text(
+          "No Entries in this set",
+          style: TextStyle(fontSize: 30),
+          textAlign: TextAlign.center,
+        )
         : ListView(
             primary: false,
             padding: EdgeInsets.all(0),
