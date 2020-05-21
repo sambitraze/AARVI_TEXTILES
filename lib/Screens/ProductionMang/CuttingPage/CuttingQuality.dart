@@ -60,6 +60,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
   @override
   void initState() {
     rows = 0;
+    // rowList = [];
     controllers = [];
     if (widget.date != null && widget.style != null) {
       styleNo.text = widget.style;
@@ -143,7 +144,12 @@ class _CuttingQualityState extends State<CuttingQuality> {
                           .collection('aarvi')
                           .document(styleNo.value.text)
                           .get()
-                          .then((value) => buyer.text = value.data['buyer']);
+                          .then((value) {
+                             buyer.text = value.data['buyer'];
+                             garment.text = value.data['garment'];
+                             rows=0;
+                             rowList = [];                            
+                          });
                       setState(() {});
                     } catch (e) {}
                   },
@@ -152,6 +158,7 @@ class _CuttingQualityState extends State<CuttingQuality> {
                 TextFormField(
                   decoration: TextFieldDec.inputDec("Buyer"),
                   controller: buyer,
+                  enabled: false,
                 ),
                 SizedBox(
                   height: 10,

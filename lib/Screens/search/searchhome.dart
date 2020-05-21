@@ -28,7 +28,11 @@ class _SearchHomeState extends State<SearchHome> {
             Container(
               padding: EdgeInsets.all(10.0),
               child: TextFormField(
-                onChanged: (v) => styleno = v,
+                onChanged: (v) {
+                  setState(() {
+                    styleno=v;
+                  });
+                },
                 decoration: InputDecoration(
                   prefixIcon:
                   Icon(Icons.search, color: Colors.black, size: 30.0),
@@ -47,27 +51,27 @@ class _SearchHomeState extends State<SearchHome> {
                 onEditingComplete: null,
               ),
             ),
-            Container(
-              child: MaterialButton(
-                elevation: 8,
-                padding: EdgeInsets.all(10.0),
-                onPressed: () {
-                  setState(() {
+            // Container(
+            //   child: MaterialButton(
+            //     elevation: 8,
+            //     padding: EdgeInsets.all(10.0),
+            //     onPressed: () {
+            //       setState(() {
 
-                  });
-                },
-                child: Text(
-                  'Fetch',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-                color: Colors.cyan,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-            ),
+            //       });
+            //     },
+            //     child: Text(
+            //       'Fetch',
+            //       style: TextStyle(
+            //         fontSize: 20.0,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     color: Colors.cyan,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(20)),
+            //   ),
+            // ),
             Expanded(
               child: StreamBuilder(
                 stream: styleno != ''
