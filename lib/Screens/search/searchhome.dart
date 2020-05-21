@@ -16,6 +16,8 @@ class _SearchHomeState extends State<SearchHome> {
     {"heading": 'Daily Sewing Report', "collection": "DailyProductionReport"},
     {"heading": 'Packing', "collection": "Packing"},
     {"heading": 'Time Study', "collection": "TimeStudy"},
+    {"heading": 'Bill of Material', "collection": "bill_of_material"},
+    {"heading": "TNA", "collection": "TnA"}
   ];
 
   @override

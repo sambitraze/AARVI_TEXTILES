@@ -167,8 +167,15 @@ class Styles{
     await uploadTask.onComplete;
     if(uploadTask.isSuccessful){
       billOfMaterial = await storageRef.getDownloadURL();
+      List bills = [];
+      await Firestore.instance
+          .collection('aarvi')
+          .document(styleNo)
+          .get()
+          .then((value) => bills = value.data['bill_of_material'] ?? []);
+      bills.add(billOfMaterial);
       Firestore.instance.collection('aarvi').document(styleNo).updateData({
-        'bill_of_material':billOfMaterial
+        'bill_of_material': bills
       });
       return true;
     }
@@ -189,8 +196,14 @@ class Styles{
     await uploadTask.onComplete;
     if(uploadTask.isSuccessful){
       tnaFile = await storageRef.getDownloadURL();
-      Firestore.instance.collection('aarvi').document(styleNo).updateData({
-        'TnA':tnaFile
+      List tnas = [];
+      await Firestore.instance.collection('aarvi').document(styleNo)
+          .get()
+          .then((value) => tnas = value.data['TnA'] ?? []);
+      tnas.add(tnaFile);
+      await Firestore.instance.collection('aarvi').document(styleNo).updateData(
+          {
+            'TnA': tnas
       });
       return true;
     }

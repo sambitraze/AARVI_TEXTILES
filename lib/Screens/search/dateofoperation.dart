@@ -28,7 +28,7 @@ class DateList extends StatelessWidget {
           Expanded(
             child: SizedBox(
               child: Text(
-                heading['heading'],
+                heading['heading'] ?? '',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 27,
@@ -42,7 +42,7 @@ class DateList extends StatelessWidget {
             flex: 6,
             child: ListOfDates(
               styleNo: styleNo,
-              collection: heading['collection'],
+              collection: heading['collection'] ?? '',
             ),
           )
         ],
@@ -71,14 +71,25 @@ class _ListOfDatesState extends State<ListOfDates> {
   }
 
   void getDates() async {
-    await Firestore.instance
-        .collection('aarvi')
-        .document(widget.styleNo)
-        .collection(widget.collection)
-        .getDocuments()
-        .then((value) {
-      listOfDates = value.documents.map((e) => e.documentID).toList();
-    });
+    print(widget.collection);
+    if (widget.collection == "bill_of_material" || widget.collection == "TnA") {
+      print("YO");
+      await Firestore.instance
+          .collection('aarvi')
+          .document(widget.styleNo)
+          .get()
+          .then((value) => listOfDates = value.data[widget.collection] ?? []);
+      print(listOfDates);
+    } else {
+      await Firestore.instance
+          .collection('aarvi')
+          .document(widget.styleNo)
+          .collection(widget.collection)
+          .getDocuments()
+          .then((value) {
+        listOfDates = value.documents.map((e) => e.documentID).toList();
+      });
+    }
     setState(() {});
   }
 
@@ -99,7 +110,7 @@ class _ListOfDatesState extends State<ListOfDates> {
                 alignment: Alignment.center,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       print(
                           "input collection: " + widget.collection.toString());
                       if (widget.collection == "DailyCuttingReport") {
@@ -150,7 +161,13 @@ class _ListOfDatesState extends State<ListOfDates> {
                             style: widget.styleNo,
                           );
                         }));
-                      } else {
+                      }
+                      else if (widget.collection == 'bill_of_material' ||
+                          widget.collection == 'TnA') {
+                        print("very cool");
+                        //TODO implement opening file and rename the file name
+                      }
+                      else {
                         print("UnKnown collection: " +
                             widget.collection.toString());
                       }
@@ -160,7 +177,7 @@ class _ListOfDatesState extends State<ListOfDates> {
                         vertical: 10,
                       ),
                       child: Center(
-                        child: Text(map),
+                        child: Text(map ?? ''),
                       ),
                       width: 298.0,
                       height: 63.0,
