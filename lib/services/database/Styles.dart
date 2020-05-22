@@ -156,7 +156,7 @@ class Styles{
   }
 
   Future uploadBill(File bill) async {
-    final filename = "bill_" +styleNo+"_"+ DateFormat('yyyy_MM_dd_HH:mm:ss').format(DateTime.now());
+    final filename = "bill_" +styleNo+"_"+ DateFormat('yyyy_MM_dd_HH_mm_ss').format(DateTime.now());
     print(filename);
     final StorageReference storageRef = FirebaseStorage.instance.ref().child(filename);
     final StorageUploadTask uploadTask = storageRef.putFile(bill,StorageMetadata(
@@ -185,7 +185,7 @@ class Styles{
   }
 
   Future uploadTna(File tna) async {
-    final filename = "tna_" +styleNo+"_"+ DateFormat('yyyy_MM_dd_HH:mm:ss').format(DateTime.now());
+    final filename = "tna_" +styleNo+"_"+ DateFormat('yyyy_MM_dd_HH_mm_ss').format(DateTime.now());
     print(filename);
     final StorageReference storageRef = FirebaseStorage.instance.ref().child(filename);
     final StorageUploadTask uploadTask = storageRef.putFile(tna,StorageMetadata(

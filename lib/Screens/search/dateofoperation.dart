@@ -6,6 +6,7 @@ import 'package:aarvi_textiles/Screens/ProductionMang/PackagingPage.dart';
 import 'package:aarvi_textiles/Screens/ProductionMang/SewingPage/DailyProductionReport.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DateList extends StatelessWidget {
   final Map heading;
@@ -63,7 +64,7 @@ class ListOfDates extends StatefulWidget {
 
 class _ListOfDatesState extends State<ListOfDates> {
   List listOfDates = [];
-
+  String mod;
   @override
   void initState() {
     getDates();
@@ -92,16 +93,24 @@ class _ListOfDatesState extends State<ListOfDates> {
     }
     setState(() {});
   }
+  launchURL(url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
-    print(listOfDates.length>0);
+    print(listOfDates.length > 0);
     return listOfDates.length <= 0
         ? Text(
-          "No Entries in this set",
-          style: TextStyle(fontSize: 30),
-          textAlign: TextAlign.center,
-        )
+            "No Entries in this set",
+            style: TextStyle(fontSize: 30),
+            textAlign: TextAlign.center,
+          )
         : ListView(
             primary: false,
             padding: EdgeInsets.all(0),
@@ -161,13 +170,11 @@ class _ListOfDatesState extends State<ListOfDates> {
                             style: widget.styleNo,
                           );
                         }));
-                      }
-                      else if (widget.collection == 'bill_of_material' ||
+                      } else if (widget.collection == 'bill_of_material' ||
                           widget.collection == 'TnA') {
-                        print("very cool");
-                        //TODO implement opening file and rename the file name
-                      }
-                      else {
+                            launchURL(map);
+                        print(map);
+                      } else {
                         print("UnKnown collection: " +
                             widget.collection.toString());
                       }
@@ -177,7 +184,16 @@ class _ListOfDatesState extends State<ListOfDates> {
                         vertical: 10,
                       ),
                       child: Center(
-                        child: Text(map ?? ''),
+                        child: (widget.collection == 'bill_of_material' ||
+                                widget.collection == 'TnA')
+                            ? Text(
+                                map.toString().substring(78,106) ?? '',
+                                style: TextStyle(fontSize: 10),
+                              )
+                            : Text(
+                                map ?? '',
+                                style: TextStyle(fontSize: 10),
+                              ),
                       ),
                       width: 298.0,
                       height: 63.0,
